@@ -47,4 +47,10 @@ class DynamicModel extends Model
         'started_at',
         'ended_at'
     ];
+
+    public function scopeTenant($query, $tenant, $table)
+    {
+        $tableNew = $this->setTableName($tenant, $table);
+        return \DB::table($tableNew)->setModel($this);
+    }
 }

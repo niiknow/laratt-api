@@ -2,6 +2,8 @@
 
 namespace Api\Models;
 
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 
@@ -20,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'email_verified_at', 'password', 'password_updated_at' 'photo_url',
+        'email', 'email_verified_at', 'password', 'password_updated_at', 'photo_url',
         'phone_country_code', 'phone', 'group', 'tfa_type', 'authy_id', 'authy_status',
         'google_tfa_secret', 'tfa_code', 'tfa_exp_at',
 
@@ -53,7 +55,7 @@ class User extends Authenticatable
 
     public function createTableIfNotExists($tenant)
     {
-        $tableNew = $this->setTable($tenant, 'user');
+        $tableNew = $this->setTableName($tenant, 'user');
 
         // TODO: use cache to prevent extra db call
         if (!Schema::hasTable($tableNew)) {
@@ -87,8 +89,8 @@ class User extends Authenticatable
                 $table->string('city')->nullable();
                 $table->string('state')->nullable();
                 $table->string('country')->nullable();
-                $table->double('lat', 11, 8);
-                $table->double('lng', 11, 8);
+                $table->double('lat', 11, 8)->nullable();
+                $table->double('lng', 11, 8)->nullable();
 
                 // subscription info
                 $table->timestamp('email_list_optin_at')->nullable();
@@ -104,7 +106,7 @@ class User extends Authenticatable
 
                 $table->timestamps();
             });
-        });
+        }
     }
     public function setEmailAttribute($value)
     {

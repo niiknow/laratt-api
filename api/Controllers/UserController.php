@@ -14,19 +14,22 @@ class UserController extends Controller
      * @var array
      */
     protected $vrules = [
-        'id'    => 'required|integer'
+        'email' => 'required'
     ];
 
     public function create(Request $request)
     {
-        $this->update($request, null)
+        return $this->update($request, null);
     }
 
     public function retrieve($id)
     {
         $item = new User();
+
         $item->createTableIfNotExists(tenantId());
-        $item = \DB::table($item->getTable())->where('id', $id)->first();
+        $table = $item->getTable();
+        $item  = User::query()->from($table)->where('id', $id)->first();
+        $item->setTableName(tenantId(), 'user');
         return $item;
     }
 
@@ -51,18 +54,16 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $rules = array();
-        $rules = $this->rules;
-        if (!isset($id)) {
-            $rules['id'] = null;
-        }
-
-        $this->validate($request, $this->rules);
+        $rules = $this->vrules;
+        $this->validate($request, $rules);
 
         $inputs = $request->all();
         $item   = new User($inputs);
         $item->createTableIfNotExists(tenantId());
         if (isset($id)) {
-            $item = \DB::table($item->getTable())->where('id', $id)->first();
+            $table = $item->getTable();
+            $item  = User::query()->from($table)->where('id', $id)->first();
+            $item->setTableName(tenantId(), 'user');
             $item->fill($inputs);
         }
 
@@ -70,6 +71,6 @@ class UserController extends Controller
             throw new GeneralException(__('exceptions.user.update'));
         }
 
-        return $item
+        return $item;
     }
 }

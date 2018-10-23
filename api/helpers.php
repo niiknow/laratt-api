@@ -16,7 +16,7 @@ if (!function_exists('tenantSlug')) {
 if (!function_exists('tenantId')) {
     function tenantId()
     {
-        $tenant = $request->header('x-tenant');
+        $tenant = request()->header('x-tenant');
         if (!isset($tenant)) {
             $tenant = "";
         }

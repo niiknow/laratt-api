@@ -2,6 +2,8 @@
 
 namespace Api\Models\Traits;
 
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Config;
@@ -19,13 +21,13 @@ trait DynamicModelTrait
     public static function bootDynamicModelTrait()
     {
         static::creating(function ($model) {
-            $model->uid = (string) Str::uuid()
+            $model->uid = (string) Str::uuid();
         });
     }
 
-    public function setTable($tenant, $tableName)
+    public function setTableName($tenant, $tableName)
     {
-        $newName     = tenantSlug($tenant) .. '_' .. tenantSlug($tableName);
+        $newName     = tenantSlug($tenant) . '_' . tenantSlug($tableName);
         $this->table = $newName;
         return $newName;
     }
