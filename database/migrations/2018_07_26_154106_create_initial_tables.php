@@ -31,9 +31,6 @@ class CreateInitialTables extends Migration
             $table->longText('exception');
             $table->timestamp('failed_at')->useCurrent();
         });
-
-        Schema::dropIfExists('jobs');
-        Schema::dropIfExists('failed_jobs');
     }
 
     /**
@@ -43,5 +40,7 @@ class CreateInitialTables extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('jobs');
+        Schema::dropIfExists('failed_jobs');
     }
 }
