@@ -59,12 +59,11 @@ class UserController extends Controller
 
         $inputs = $request->all();
         $item   = new User($inputs);
-        $item->createTableIfNotExists(tenantId());
         if (isset($id)) {
-            $table = $item->getTable();
-            $item  = User::query()->from($table)->where('id', $id)->first();
-            $item->setTableName(tenantId(), 'user');
+            $item = $this->retrieve($id);
             $item->fill($inputs);
+        } else {
+            $item->createTableIfNotExists(tenantId());
         }
 
         if (!$item->save()) {

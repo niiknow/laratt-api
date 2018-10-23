@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Artisan as Artisan;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Mockery;
 
-class UserControllerTest extends TestCase
+class TableControllerTest extends TestCase
 {
     use DatabaseTransactions;
 
     private $yellow = "\e[1;33m";
     private $green  = "\e[0;32m";
     private $white  = "\e[0;37m";
-    private $url    = "/api/v1/users";
+    private $url    = "/api/v1/tables";
 
     /**
      * Disclaimer:
@@ -58,47 +58,46 @@ class UserControllerTest extends TestCase
         return new \Api\Controllers\UserController();
     }
 
-    public function testCreateUpdateDeleteUser()
+    public function testCreateUpdateDeleteBoomTable()
     {
-        echo "\n\r{$this->yellow}    should create, update, and delete user...";
+        echo "\n\r{$this->yellow}    should create, update, and delete boom table...";
 
         $postData = [
-            'email'         => 'tom@noogen.com',
-            'first_name'    => 'Tom',
-            'last_name'     => 'Noogen'
+            'name' => 'Tom'
         ];
         $headers  = array(
             'Accept'        => 'application/json',
             'x-tenant'      => 'utest'
         );
-        $url      = $this->url . '/create';
+        $url      = $this->url . '/boom/create';
 
         // create
         $response = $this->post($url, $postData, $headers);
+        \Log::error(json_encode($response));
         $response->assertStatus(201);
         $body = $response->json();
 
-        $user = \Api\Models\User::query()->from('utest_user')->where('email', $postData['email'])->first();
-        $this->assertTrue(isset($user));
+        $item = \Api\Models\DynamicModel::query()->from('utest_boom')->where('name', $postData['name'])->first();
+        $this->assertTrue(isset($item), 'Item exists.');
 
-        $url = $this->url . '/' . $user->id . '/update';
+        $url = $this->url . '/boom/' . $item->id . '/update';
 
         // update
-        $postData['last_name'] = 'Niiknow';
-        $postData['id']        = $user->id;
-        $response              = $this->post($url, $postData, $headers);
+        $postData['name'] = 'Noogen';
+        $postData['id']   = $item->id;
+        $response         = $this->post($url, $postData, $headers);
 
-        $user = \Api\Models\User::query()->from('utest_user')->where('email', $postData['email'])->first();
-        $this->assertTrue(isset($user));
-        $this->assertSame('Niiknow', $user->last_name);
+        $item = \Api\Models\DynamicModel::query()->from('utest_boom')->where('name', $postData['name'])->first();
+        $this->assertTrue(isset($item), 'Item exists.');
+        $this->assertSame('Noogen', $item->name);
 
-        $url = $this->url . '/' . $user->id . '/delete';
+        $url = $this->url . '/boom/' . $item->id . '/delete';
 
         //delete
         $response = $this->post($url, [], $headers);
 
-        $user = \Api\Models\User::query()->from('utest_user')->where('email', $postData['email'])->first();
-        $this->assertTrue(!isset($user));
+        $item = \Api\Models\DynamicModel::query()->from('utest_boom')->where('name', $postData['name'])->first();
+        $this->assertTrue(!isset($item), 'Item does not exists.');
 
         echo " {$this->green}[OK]{$this->white}\r\n";
     }

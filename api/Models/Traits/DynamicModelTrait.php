@@ -32,9 +32,9 @@ trait DynamicModelTrait
         return $newName;
     }
 
-    public function createTableIfNotExists()
+    public function createTableIfNotExists($tenant, $tableName)
     {
-        $tableNew = $this->getTable();
+        $tableNew = $this->setTableName($tenant, $tableName);
 
         if (!Schema::hasTable($tableNew)) {
             Schema::create($tableNew, function (Blueprint $table) {
@@ -98,5 +98,7 @@ trait DynamicModelTrait
                 $table->timestamps();
             });
         }
+
+        return $tableNew;
     }
 }

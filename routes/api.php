@@ -36,30 +36,30 @@ Route::group(['prefix' => 'v1'], function () {
     Route::match(
         ['get'],
         'tables',
-        'ServiceController@list'
+        'TableController@list'
     )->name('api.table.list');
 
     Route::match(
         ['post', 'put', 'patch'],
         'tables/{table}/create',
-        'ServiceController@create'
+        'TableController@create'
     )->name('api.table.create');
 
     Route::match(
         ['get'],
         'tables/{table}/{id}/retrieve',
-        'ServiceController@retrieve'
+        'TableController@retrieve'
     )->name('api.table.retrieve');
 
     Route::match(
         ['post', 'put', 'patch'],
         'tables/{table}/{id}/update',
-        'ServiceController@update'
+        'TableController@update'
     )->name('api.table.update');
 
     Route::match(
         ['post', 'delete'],
         'tables/{table}/{id}/delete',
-        'ServiceController@delete'
+        'TableController@delete'
     )->name('api.table.delete');
 });

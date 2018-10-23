@@ -107,7 +107,10 @@ class User extends Authenticatable
                 $table->timestamps();
             });
         }
+
+        return $tableNew;
     }
+
     public function setEmailAttribute($value)
     {
         $existing = $this->email;
