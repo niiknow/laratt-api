@@ -96,10 +96,10 @@ trait CloudAuditable
         }
 
         $info = $this->getCloudAuditInfo() ?: [];
-        $tn   = $this->getTableName();
+        $tn   = $this->getTable();
         $body = array_merge($info, [
             // unique id allow for event idempotency/nonce key
-            'unique_id'    => \Illuminate\Support\Str::orderedUuid(),
+            'uid'          => $this->uid,
             'app_name'     => config('app.name'),
             'class_name'   => get_class($this),
             'table_name'   => $tn,
@@ -141,8 +141,8 @@ trait CloudAuditable
 
     public function getCloudAuditFile($body)
     {
-        $path = $body['table_name'];
-        $id   = $body['model_id'];
-        return "$path/$id.json";
+        $table = $body['table_name'];
+        $uid   = $body['uid'];
+        return "$uid/$table/index.json";
     }
 }

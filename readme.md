@@ -1,6 +1,9 @@
 # tapi
 > Table API
 
+Create a private API validate with x-api-key to allow for dynamic table insert.
+
+
 # Table of Contents
 1. [Requirements](#requirements)
 2. [Installation](#installation)

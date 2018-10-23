@@ -17,7 +17,20 @@ class ValidApiKey
      */
     public function handle($request, Closure $next)
     {
-        // validate api key
+        $tenant = tenantId();
+        $len    = strlen($tenant);
+        if ($len < 3 || $len > 30) {
+            return response()->json(['error' => 'You must provide a valid tenant id.'], 422);
+        }
+
+        $apiKey = config('admin.apikey');
+        if ($apiKey) {
+            $key = $request->header('x-api-key');
+            if ($key != $apiKey) {
+                return response()->json(['error' => 'Not authorized.'], 403);
+            }
+        }
+
         return $next($request);
     }
 }
