@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Api\Models\Traits\CloudAuditable;
 use Api\Models\Traits\DynamicModelTrait;
 
+use Carbon\Carbon;
+
 class DynamicModel extends Model
 {
     use CloudAuditable,
@@ -42,9 +44,19 @@ class DynamicModel extends Model
      * @var array
      */
     protected $dates = [
+        'started_at' => 'datetime:Y-m-d',
+        'ended_at' => 'datetime',
         'created_at',
         'updated_at',
-        'started_at',
-        'ended_at'
     ];
+
+    public function setStartedAtAttribute($value)
+    {
+        $this->attributes['started_at'] = Carbon::parse($value)->startOfDay();
+    }
+
+    public function setEndedAtAttribute($value)
+    {
+        $this->attributes['ended_at'] = Carbon::parse($value)->endOfDay();
+    }
 }
