@@ -49,13 +49,11 @@ class TableController extends Controller
 
     public function list(Request $request, $table)
     {
-        $this->validateTable($table);
-
         $item = new DynamicModel();
         $item->createTableIfNotExists(tenantId(), $table);
-        $qb = new RequestQueryBuilder(DB::table($item->getTable()));
 
-        return $qb->select(["*"]);
+        $qb = new RequestQueryBuilder(\DB::table($item->getTable()));
+        return $qb->applyRequest($request);
     }
 
     public function update(Request $request, $table, $id)

@@ -46,16 +46,36 @@ class RequestQueryBuilder
      */
     public function applyRequest(Request $request)
     {
+        $this->applyRequestColumns($request);
         $this->applyRequestFilters($request);
         $this->applyRequestSorts($request);
-        $this->applyRequestColumns($request);
 
-        return $this->builder;
+        $limit = $request->query('limit');
+        if ($limit && is_numeric($limit)) {
+            $limit = intVal($limit);
+        } else {
+            $limit = 15;
+        }
+
+        $page = $request->query('page');
+        if ($page && is_numeric($page)) {
+            $page = intVal($page);
+        } else {
+            $page = 1;
+        }
+
+        // \Log::info($qb->columns);
+        return $this->builder->paginate(
+            $limit,
+            $this->columns,
+            'page',
+            $page
+        );
     }
 
     public function applyRequestColumns(Request $request)
     {
-        $sel = $this->query('select');
+        $sel = $request->query('select');
         if (isset($sel)) {
             // do not allow caps
             $sel     = mb_strtolower(sel);

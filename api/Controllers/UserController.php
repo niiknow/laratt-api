@@ -41,15 +41,8 @@ class UserController extends Controller
         $item = new User();
         $item->createTableIfNotExists(tenantId());
 
-        $qb      = new RequestQueryBuilder(DB::table($item->getTable()));
-        $builder = $qb->applyRequest($request);
-
-        return $builder->paginate(
-            $request->query('limit'),
-            $qb->columns,
-            'page',
-            $request->query('page')
-        );
+        $qb = new RequestQueryBuilder(\DB::table($item->getTable()));
+        return $qb->applyRequest($request);
     }
 
     public function update(Request $request, $id)

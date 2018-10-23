@@ -103,15 +103,42 @@ class UserControllerTest extends TestCase
         echo " {$this->green}[OK]{$this->white}\r\n";
     }
 
-/*
     public function testQueryUser()
     {
         echo "\n\r{$this->yellow}    query user...";
 
-        for ($x = 0; $x < 10; $x++) {
-            User::create([]);
-        }
+        $headers = array(
+            'Accept'        => 'application/json',
+            'x-tenant'      => 'utest'
+        );
+        $url     = $this->url . '/create';
+
+
+        // call create 20 times
+        factory(\Api\Models\User::class, 20)->make()->each(function ($u) use ($url, $headers) {
+            // create
+            $response = $this->post($url, $u->toArray(), $headers);
+            // \Log::error(json_encode($response));
+        });
+
+        // count 20
+        $users = \Api\Models\User::query()->from('utest_user')->get();
+        $this->assertSame(20, count($users));
+
+        // perform query
+        $headers  = array(
+            'Accept'        => 'application/json',
+            'x-tenant'      => 'utest'
+        );
+        $url      = $this->url . '?limit=5&page=2';
+        $response = $this->withHeaders($headers)->get($url);
+        $response->assertStatus(200);
+        $body = $response->json();
+
+        $this->assertTrue(isset($body), "Query response with data.");
+        $this->assertSame(2, $body['current_page'], "Correctly parse page parameter.");
+        $this->assertSame(5, count($body['data']), "Has right count.");
 
         echo " {$this->green}[OK]{$this->white}\r\n";
-    }*/
+    }
 }

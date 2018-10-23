@@ -73,7 +73,7 @@ class TableControllerTest extends TestCase
 
         // create
         $response = $this->post($url, $postData, $headers);
-        \Log::error(json_encode($response));
+        // \Log::error(json_encode($response));
         $response->assertStatus(201);
         $body = $response->json();
 
