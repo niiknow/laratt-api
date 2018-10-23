@@ -14,15 +14,15 @@ class CreateInitialTables extends Migration
     public function up()
     {
         Schema::create('user', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('organization_id')->nullable();
+            $table->increments('id');
+            $table->uuid('uid')->unique();
             $table->string('email')->unique();
+            $table->string('password')->nullable();
 
             $table->string('first_name', 100)->nullable();
             $table->string('last_name', 100)->nullable();
-            $table->string('password')->nullable();
             $table->string('photo_url')->nullable();
-
+            $table->string('phone_country_code', 10)->default('1');
             $table->string('phone', 50)->nullable();
             $table->enum('tfa_type', ['off', 'email', 'sms', 'call', 'google_soft_token', 'authy_soft_token', 'authy_onetouch'])->default('off');
             $table->string('authy_id')->unique()->nullable();
@@ -34,15 +34,33 @@ class CreateInitialTables extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('password_updated_at')->nullable();
 
-            // admin, partner, member, revoked
-            $table->string('access', 20)->default('member');
+            // member, admin, etc...
+            $table->string('group', 20)->default('member');
 
-            $table->string('created_by')->nullable();
-            $table->string('updated_by')->nullable();
-            $table->string('deleted_by')->nullable();
+            $table->string('email_alt')->nullable();
+            $table->string('address1')->nullable();
+            $table->string('address2')->nullable();
+            $table->string('postal', 50)->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('country')->nullable();
+            $table->double('lat', 11, 8);
+            $table->double('lng', 11, 8);
+
+            // subscription info
+            $table->timestamp('email_list_optin_at')->nullable();
+            $table->boolean('is_retired_or_unemployed')->default(0);
+            $table->string('occupation')->nullable();
+            $table->string('employer')->nullable();
+
+            $table->string('stripe_customer_id')->nullable();
+            $table->string('card_brand', 50)->nullable();
+            $table->string('card_last4', 4)->nullable();
+
+            $table->text('meta1')->nullable();
+            $table->text('meta2')->nullable();
 
             $table->timestamps();
-            $table->softDeletes();
         });
 
     }
@@ -55,6 +73,5 @@ class CreateInitialTables extends Migration
     public function down()
     {
         Schema::dropIfExists('user');
-        Schema::dropIfExists('password_reset');
     }
 }

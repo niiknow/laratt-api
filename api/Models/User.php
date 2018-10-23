@@ -2,125 +2,29 @@
 
 namespace Api\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
 use Carbon\Carbon;
-use Wildside\Userstamps\Userstamps;
 
-use Api\Extra\FileManager;
-use App\Notifications\PasswordResetNotification;
-use Api\Models\Traits\HasUuid;
-use Api\Models\Traits\HasTeams;
-use Api\Models\Traits\PermissionsTrait;
-use Api\Models\Traits\Auditable;
-
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
-    use Auditable,
-        Notifiable,
-        Userstamps,
-        HasUuid,
-        SoftDeletes,
-        HasTeams,
-        PermissionsTrait;
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
-     * eager load
-     * @var array
-     */
-    protected $with = [];
-
-    /**
-     * @var array
-     */
-    protected $appends = [
-        'is_admin', 'name'
-    ];
-
-    /**
-     * The attributes that should be casted by Carbon
-     *
-     * @var array
-     */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-        'email_verified_at',
-        'tfa_exp_at'
-    ];
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'photo_url', 'locale', 'timezone',
-        'tfa_type', 'email_verified_at'
+        'uuid', 'email', 'email_verified_at', 'password','photo_url',
+        'phone_country_code', 'phone', 'group', 'tfa_type', 'authy_id',
+        'authy_status', 'google_tfa_secret', 'tfa_code', 'tfa_exp_at',
+
+        'email_alt', 'first_name', 'last_name', 'address1', 'address2',
+        'postal', 'city', 'state', 'country', 'email_list_optin_at',
+        'is_retired_or_unemployed', 'occupation', 'employer',
+
+        'stripe_customer_id', 'card_brand', 'card_last4', 'meta1', 'meta2'
     ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'google_tfa_secret', 'tfa_code', 'tfa_exp',
-        'authy_id', 'authy_status', 'password_updated_at'
-    ];
-
-    /**
-     * @var string
-     */
-    protected $table = 'user';
-
-    /**
-     * Override Password Reset Default Built in Laravel
-     *
-     */
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new PasswordResetNotification($token));
-    }
-
-    public function getPhotoUrlAttribute($value)
-    {
-        $defaultPhotoUrl = 'https://www.gravatar.com/avatar/'.md5(strtolower($this->email)).'.jpg?s=200&d=mm';
-        return empty($value) ? $defaultPhotoUrl : url($value);
-    }
-
-    public function getIsAdminAttribute()
-    {
-        return $this->access === 'admin';
-    }
-
-    public function setFirstNameAttribute($value)
-    {
-        $this->attributes['first_name'] = ucfirst($value);
-    }
-
-    public function setLastNameAttribute($value)
-    {
-        $this->attributes['last_name'] = ucfirst($value);
-    }
-
-    public function getNameAttribute($value)
-    {
-        return $this->first_name . ' ' . $this->last_name;
-    }
 
     public function setEmailAttribute($value)
     {
@@ -147,10 +51,6 @@ class User extends Authenticatable implements JWTSubject
 
     public function setPasswordAttribute($value)
     {
-        if (\Hash::needsRehash($value)) {
-            $value = bcrypt($value);
-        }
-
         $this->attributes['password']            = $value;
         $this->attributes['password_updated_at'] = Carbon::now();
     }
@@ -173,7 +73,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function hasTfaExpired()
     {
-        return $this->custom_tfa_exp < Carbon::now();
+        return $this->tfa_exp_at < Carbon::now();
     }
 
     public function getTfaCode()
@@ -193,7 +93,7 @@ class User extends Authenticatable implements JWTSubject
         $this->attributes['tfa_code'] = $value;
 
         // set expire in 10 minutes
-        $this->attributes['tfa_exp'] = Carbon::now()->addMinutes(10);
+        $this->attributes['tfa_exp_at'] = Carbon::now()->addMinutes(10);
     }
 
     public function getGoogleTfaSecret()
@@ -213,93 +113,25 @@ class User extends Authenticatable implements JWTSubject
 
         $this->attributes['google_tfa_secret'] = $value;
     }
-// </tfa
 
-// <jwt
-    /**
-    * Get the identifier that will be stored in the subject claim of the JWT.
-    *
-    * @return mixed
-    */
-    public function getJWTIdentifier()
+    public function getPhotoUrlAttribute($value)
     {
-        return $this->getKey();
+        $defaultPhotoUrl = 'https://www.gravatar.com/avatar/'.md5(strtolower($this->email)).'.jpg?s=200&d=mm';
+        return empty($value) ? $defaultPhotoUrl : url($value);
     }
 
-    /**
-    * Return a key value array, containing any custom claims to be added to the JWT.
-    *
-    * @return array
-    */
-    public function getJWTCustomClaims()
+    public function setFirstNameAttribute($value)
     {
-        return $this->getPermsAttribute();
+        $this->attributes['first_name'] = ucfirst($value);
     }
 
-    /**
-     * The user has been authenticated.
-     *
-     * @param  Request $request
-     * @param  mixed $user
-     * @return mixed
-     */
-    protected function authenticated(Request $request, $user)
+    public function setLastNameAttribute($value)
     {
-        $user = $user->append('perms');
-        $data = [
-          'access_token' => $this->getJWTToken($request, $user),
-          'expires_in'   => $this->getTTl(),
-          'type'         => 'bearer'
-        ];
-
-        return response()->json($data);
+        $this->attributes['last_name'] = ucfirst($value);
     }
 
-    protected function getJWTToken(Request $request, $user)
+    public function getNameAttribute($value)
     {
-        /** @var JWTGuard $guard */
-        $guard = \Auth::guard();
-        $user  = $user->append('perms');
-        return $guard->login($user);
-    }
-
-    public function getTTl()
-    {
-        $guard = \Auth::guard();
-
-        return $guard->factory()->getTTL() * 60;
-    }
-
-    public function logout(Request $request)
-    {
-        try {
-            $this->guard()->logout();
-            $request->session()->invalidate();
-        } catch (\Exception $exception) {
-            // swallow
-        }
-
-        return response()->json(['succeeded' => true]);
-    }
-// </jwt
-
-    public function contact()
-    {
-        return $this->hasOne(UserContact::class);
-    }
-
-    public function organization()
-    {
-        return $this->belongsTo(Organization::class);
-    }
-
-    public function uploadUserFile(Request $request, $requestName = 'file')
-    {
-        $uploader = new FileManager(
-            's3-public2',
-            config('admin.upload.path.user', 'user') . '/' . $this->id
-        );
-
-        return $uploader->uploadFromRequest($request, $requestName);
+        return $this->first_name . ' ' . $this->last_name;
     }
 }
