@@ -66,6 +66,9 @@ trait DynamicModelTrait
                 // allow to uniquely identify this model
                 $table->uuid('uid')->unique();
 
+                // client/consumer/external id
+                $table->string('cid')->unique()->nullable();
+
                 // model has a unique name
                 $table->string('name')->unique();
                 // this should be hidden from user, viewable by admin
@@ -74,7 +77,7 @@ trait DynamicModelTrait
                 $table->string('group')->nullable();
                 $table->timestamp('started_at')->nullable();
                 $table->timestamp('ended_at')->nullable();
-                $table->unsignedInteger('priority')->default(100);
+                $table->unsignedSmallInteger('priority')->default(100);
 
                 $table->string('title')->nullable();
                 $table->text('desc')->nullable();
@@ -89,11 +92,10 @@ trait DynamicModelTrait
 
                 // tracking/impression
                 $table->string('analytic_code')->nullable(); // for google ua
-                $table->text('imp_pixel')->nullable();
+                $table->string('imp_pixel')->nullable();
 
                 // conversion/click
-                $table->string('clk_url')->nullable();
-                $table->text('clk_pixel')->nullable();
+                $table->string('clk_url', 500)->nullable();
 
                 // extra decoration
                 $table->text('styles')->nullable();
@@ -103,7 +105,7 @@ trait DynamicModelTrait
                 $table->unsignedInteger('msrp')->default(0);
                 $table->unsignedInteger('price')->default(0);
                 $table->unsignedInteger('sale_price')->default(0);
-                $table->unsignedInteger('sale_quantity')->default(1);
+                $table->unsignedSmallInteger('sale_qty')->default(1);
                 $table->string('skus')->nullable();
                 $table->string('gtins')->nullable();
                 $table->string('brands')->nullable();

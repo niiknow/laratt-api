@@ -16,7 +16,7 @@ class DynamicModel extends Model
      * @var array
      */
     protected $fillable = [
-        'uid', 'name', 'label', 'teaser', 'group', 'started_at', 'ended_at', 'priority',
+        'cid', 'name', 'label', 'teaser', 'group', 'started_at', 'ended_at', 'priority',
         'title', 'desc', 'img_url', 'keywords', 'extra_data', 'tags', 'hostnames',
         'week_schedules', 'analytic_code', 'imp_pixel', 'clk_url', 'clk_pixel',
         'styles', 'scripts', 'msrp', 'price', 'sale_price', 'sale_qty', 'skus',

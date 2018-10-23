@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'email_verified_at', 'password', 'password_updated_at', 'photo_url',
+        'cid', 'email', 'email_verified_at', 'password', 'password_updated_at', 'photo_url',
         'phone_country_code', 'phone', 'group', 'tfa_type', 'authy_id', 'authy_status',
         'google_tfa_secret', 'tfa_code', 'tfa_exp_at',
 
@@ -64,6 +64,7 @@ class User extends Authenticatable
             Schema::create($tableNew, function (Blueprint $table) {
                 $table->increments('id');
                 $table->uuid('uid')->unique();
+                $table->string('cid')->unique()->nullable();
                 $table->string('email')->unique();
                 $table->timestamp('email_verified_at')->nullable();
 
@@ -207,6 +208,7 @@ class User extends Authenticatable
 
         $this->attributes['google_tfa_secret'] = $value;
     }
+// </tfa
 
     public function getPhotoUrlAttribute($value)
     {
