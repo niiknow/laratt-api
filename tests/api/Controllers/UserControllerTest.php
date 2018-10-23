@@ -30,7 +30,7 @@ class UserControllerTest extends TestCase
 
     protected static function initDB()
     {
-        echo "\n\r\e[0;31mRefreshing the database...\n\r";
+        echo "\n\r\e[0;31mRefreshing the database for UserControllerTest...\n\r";
         Artisan::call('migrate:fresh');
     }
 
@@ -102,4 +102,16 @@ class UserControllerTest extends TestCase
 
         echo " {$this->green}[OK]{$this->white}\r\n";
     }
+
+/*
+    public function testQueryUser()
+    {
+        echo "\n\r{$this->yellow}    query user...";
+
+        for ($x = 0; $x < 10; $x++) {
+            User::create([]);
+        }
+
+        echo " {$this->green}[OK]{$this->white}\r\n";
+    }*/
 }

@@ -1,8 +1,7 @@
 # tapi
 > Table API
 
-Create a private API validate with x-api-key to allow for dynamic table insert.
-
+Create a private API validate with x-api-key to allow for dynamic table manipulations.
 
 # Table of Contents
 1. [Requirements](#requirements)
@@ -14,10 +13,6 @@ Create a private API validate with x-api-key to allow for dynamic table insert.
 - Composer
 - Node JS
 - NPM
-- Redis
-- VS Code
 - Laravel Valet (NGINX) or use Laradock or Homestead
-Note:
-* Since we're using orderedUuid(), the space will require bcmatch in production.  https://github.com/laravel/framework/issues/23291
 
 # MIT

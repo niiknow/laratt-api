@@ -23,6 +23,12 @@ class RequestQueryBuilder
     protected $maps;
 
     /**
+     * select columns
+     * @var array
+     */
+    public $columns = ["*"];
+
+    /**
      * QueryBuilder constructor.
      * @param Builder $builder
      * @param array $maps
@@ -38,30 +44,35 @@ class RequestQueryBuilder
      * @param Request $request
      * @return Builder
      */
-    public function applyRequest(Request $request, $columns)
+    public function applyRequest(Request $request)
     {
-        $this->applyRequestLimit($request);
-        $this->applyRequestSorts($request);
         $this->applyRequestFilters($request);
+        $this->applyRequestSorts($request);
+        $this->applyRequestColumns($request);
 
         return $this->builder;
     }
 
-    /**
-     * Applies the request's limit query to the builder.
-     * Limit queries are of the following format: ?limit=value
-     * @param Request $request
-     * @return Builder
-     */
-    public function applyRequestLimit(Request $request)
+    public function applyRequestColumns(Request $request)
     {
-        $limit = $request->query('limit');
-        if (!is_numeric($limit)) {
-            $limit = "1000";
+        $sel = $this->query('select');
+        if (isset($sel)) {
+            // do not allow caps
+            $sel     = mb_strtolower(sel);
+            $pattern = '/[^a-z0-9_]+/i';
+            $cols    = collect(explode(",", $sel))->map(function ($col) {
+                return trim(preg_replace($pattern, '', $col));
+            })->filter(function ($col) {
+                return strlen($col) > 1;
+            });
+
+            // finally map columns
+            $this->columns = $cols->toArray();
         }
 
-        $this->builder->limit(intval($limit));
-        return $this->builder;
+        if (count($this->columns) > 0) {
+            $this->columns = ["*"];
+        }
     }
 
     /**

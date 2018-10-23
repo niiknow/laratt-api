@@ -30,7 +30,7 @@ class TableControllerTest extends TestCase
 
     protected static function initDB()
     {
-        echo "\n\r\e[0;31mRefreshing the database...\n\r";
+        echo "\n\r\e[0;31mRefreshing the database for TableControllerTest...\n\r";
         Artisan::call('migrate:fresh');
     }
 

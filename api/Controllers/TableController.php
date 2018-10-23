@@ -35,12 +35,7 @@ class TableController extends Controller
         $this->validateTable($table);
 
         $item = new DynamicModel();
-
-        $item->createTableIfNotExists(tenantId(), $table);
-        $tn   = $item->getTable();
-        $item = DynamicModel::query()->from($tn)->where('id', $id)->first();
-        $item->setTableName(tenantId(), $table);
-        return $item;
+        return $item->tableFind($id, $table);
     }
 
     public function delete(Request $request, $table, $id)
@@ -74,10 +69,9 @@ class TableController extends Controller
         $inputs = $request->all();
         $item   = new DynamicModel($inputs);
         if (isset($id)) {
-            $item = $this->retrieve($table, $id);
-            $item->fill($inputs);
+            $item = $item->tableFill($id, $inputs, $table);
         } else {
-            $item->createTableIfNotExists(tenantId(), $table);
+            $item = $item->tableCreate($table);
         }
 
         if (!$item->save()) {

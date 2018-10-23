@@ -25,6 +25,29 @@ trait DynamicModelTrait
         });
     }
 
+    public function tableCreate($table)
+    {
+        // \Log::info($table);
+        $this->createTableIfNotExists(tenantId(), $table);
+        return $this;
+    }
+
+    public function tableFill($id, $data, $table)
+    {
+        $item = $this->tableFind($id, $table);
+        $item->fill($data);
+        return $item;
+    }
+
+    public function tableFind($id, $table)
+    {
+        $this->createTableIfNotExists(tenantId(), $table);
+        $tn   = $this->getTable();
+        $item = $this->query()->from($tn)->where('id', $id)->first();
+        $item->setTableName(tenantId(), $table);
+        return $item;
+    }
+
     public function setTableName($tenant, $tableName)
     {
         $newName     = tenantSlug($tenant) . '_' . tenantSlug($tableName);

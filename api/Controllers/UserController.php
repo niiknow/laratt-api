@@ -24,13 +24,7 @@ class UserController extends Controller
 
     public function retrieve($id)
     {
-        $item = new User();
-
-        $item->createTableIfNotExists(tenantId());
-        $table = $item->getTable();
-        $item  = User::query()->from($table)->where('id', $id)->first();
-        $item->setTableName(tenantId(), 'user');
-        return $item;
+        return (new User())->tableFind($id, 'user');
     }
 
     public function delete(Request $request, $id)
@@ -46,9 +40,16 @@ class UserController extends Controller
     {
         $item = new User();
         $item->createTableIfNotExists(tenantId());
-        $qb = new RequestQueryBuilder(DB::table($item->getTable()));
 
-        return $qb->select(["*"]);
+        $qb      = new RequestQueryBuilder(DB::table($item->getTable()));
+        $builder = $qb->applyRequest($request);
+
+        return $builder->paginate(
+            $request->query('limit'),
+            $qb->columns,
+            'page',
+            $request->query('page')
+        );
     }
 
     public function update(Request $request, $id)
@@ -60,10 +61,9 @@ class UserController extends Controller
         $inputs = $request->all();
         $item   = new User($inputs);
         if (isset($id)) {
-            $item = $this->retrieve($id);
-            $item->fill($inputs);
+            $item = $item->tableFill($id, $inputs, 'user');
         } else {
-            $item->createTableIfNotExists(tenantId());
+            $item = $item->tableCreate('user');
         }
 
         if (!$item->save()) {
