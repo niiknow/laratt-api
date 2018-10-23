@@ -38,7 +38,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'extra_data' => 'object'
+        'extra_data' => 'object',
+        'is_retired_or_unemployed' => 'boolean'
     ];
 
     /**
@@ -50,7 +51,8 @@ class User extends Authenticatable
         'created_at',
         'updated_at',
         'password_updated_at',
-        'email_verified_at'
+        'email_verified_at',
+        'tfa_exp_at'
     ];
 
     public function createTableIfNotExists($tenant)
@@ -64,14 +66,16 @@ class User extends Authenticatable
                 $table->uuid('uid')->unique();
                 $table->string('email')->unique();
                 $table->timestamp('email_verified_at')->nullable();
+
                 $table->string('password')->nullable();
                 $table->timestamp('password_updated_at')->nullable();
-                $table->string('photo_url')->nullable();
-                $table->string('phone_country_code', 10)->default('1');
-                $table->string('phone', 50)->nullable();
 
-                $table->string('first_name', 100)->nullable();
-                $table->string('last_name', 100)->nullable();
+                $table->string('photo_url')->nullable();
+                $table->string('phone_country_code', 5)->default('1');
+                $table->string('phone', 20)->nullable();
+
+                $table->string('first_name')->nullable();
+                $table->string('last_name')->nullable();
                 $table->enum('tfa_type', ['off', 'email', 'sms', 'call', 'google_soft_token', 'authy_soft_token', 'authy_onetouch'])->default('off');
                 $table->string('authy_id')->unique()->nullable();
                 $table->string('authy_status')->nullable();
@@ -102,7 +106,7 @@ class User extends Authenticatable
                 $table->string('card_brand', 50)->nullable();
                 $table->string('card_last4', 4)->nullable();
 
-                $table->text('extra_data')->nullable();
+                $table->mediumText('extra_data')->nullable();
 
                 $table->timestamps();
             });
@@ -126,12 +130,17 @@ class User extends Authenticatable
     public function setPhoneAttribute($value)
     {
         $existing = $this->phone;
-        $new      = preg_replace('/[^0-9\+]/', '', $value);
+        $new      = preg_replace('/\D+/', '', $value);
 
         if ($existing != $new) {
             $this->authy_id            = null;
             $this->attributes['phone'] = $new;
         }
+    }
+
+    public function setPhoneCountryCodeAttribute($value)
+    {
+        $this->attributes['phone_country_code'] = preg_replace('/[^0-9\+]/', '', $value);
     }
 
     public function setPasswordAttribute($value)
