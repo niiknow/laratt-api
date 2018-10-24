@@ -54,7 +54,11 @@ class TableController extends Controller
 
     protected function validateTable($table)
     {
-        $rules = ['table' => 'required|regex:/[a-z0-9]+/|min:3|max:30'];
+        // length must be greater than 3 and less than 30
+        // reserved tables: profile, user, recipe
+        $rules = [
+            'table' => 'required|regex:/[a-z0-9]+/|min:3|max:30|not_in:profile,user,recipe'
+        ];
         $this->getValidationFactory()
              ->make(['table' => $table], $rules)->validate();
     }
@@ -64,17 +68,17 @@ class TableController extends Controller
         return $this->update($request, $table, null);
     }
 
-    public function retrieve($table, $id)
+    public function retrieve($table, $uid)
     {
         $this->validateTable($table);
 
         $item = new DynamicModel();
-        return $item->tableFind($id, $table);
+        return $item->tableFind($uid, $table);
     }
 
-    public function delete(Request $request, $table, $id)
+    public function delete(Request $request, $table, $uid)
     {
-        $item = $this->retrieve($table, $id);
+        $item = $this->retrieve($table, $uid);
 
         if ($item && !$item->delete()) {
             throw new GeneralException(__('exceptions.table.delete'));
@@ -90,7 +94,7 @@ class TableController extends Controller
         return $qb->applyRequest($request);
     }
 
-    public function update(Request $request, $table, $id)
+    public function update(Request $request, $table, $uid)
     {
         $this->validateTable($table);
 
@@ -100,8 +104,8 @@ class TableController extends Controller
 
         $inputs = $request->all();
         $item   = new DynamicModel($inputs);
-        if (isset($id)) {
-            $item = $item->tableFill($id, $inputs, $table);
+        if (isset($uid)) {
+            $item = $item->tableFill($uid, $inputs, $table);
         } else {
             $item = $item->tableCreate($table);
         }

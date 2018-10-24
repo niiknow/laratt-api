@@ -80,18 +80,18 @@ class TableControllerTest extends TestCase
         $item = \Api\Models\DynamicModel::query()->from('utest_boom')->where('name', $postData['name'])->first();
         $this->assertTrue(isset($item), 'Item exists.');
 
-        $url = $this->url . '/boom/' . $item->id . '/update';
+        $url = $this->url . '/boom/' . $item->uid . '/update';
 
         // update
         $postData['name'] = 'Noogen';
-        $postData['id']   = $item->id;
+        $postData['uid']  = $item->uid;
         $response         = $this->post($url, $postData, $headers);
 
         $item = \Api\Models\DynamicModel::query()->from('utest_boom')->where('name', $postData['name'])->first();
         $this->assertTrue(isset($item), 'Item exists.');
         $this->assertSame('Noogen', $item->name);
 
-        $url = $this->url . '/boom/' . $item->id . '/delete';
+        $url = $this->url . '/boom/' . $item->uid . '/delete';
 
         //delete
         $response = $this->post($url, [], $headers);

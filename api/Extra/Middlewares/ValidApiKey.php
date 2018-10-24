@@ -19,13 +19,13 @@ class ValidApiKey
     {
         $tenant = tenantId();
         $len    = strlen($tenant);
-        if ($len < 3 || $len > 30) {
+        if ($len < 3 || $len > 20) {
             return response()->json(['error' => 'You must provide a valid tenant id.'], 422);
         }
 
-        $apiKey = config('admin.apikey');
+        $apiKey = config('admin.token');
         if ($apiKey) {
-            $key = $request->header('x-api-key');
+            $key = $request->header('x-token');
             if ($key != $apiKey) {
                 return response()->json(['error' => 'Not authorized.'], 403);
             }

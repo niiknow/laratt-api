@@ -66,6 +66,11 @@ class DynamicModel extends Model
     {
         $tableNew = $this->setTableName($tenant, $tableName);
 
+        // only need to improve performance in prod
+        if (config('env') === 'production' && \Cache::has($tableNew)) {
+            return $tableNew;
+        }
+
         if (!Schema::hasTable($tableNew)) {
             Schema::create($tableNew, function (Blueprint $table) {
                 $table->bigIncrements('id');
@@ -119,6 +124,9 @@ class DynamicModel extends Model
                 $table->mediumText('extra_meta')->nullable();
                 $table->mediumText('extra_data')->nullable();
             });
+
+            // cache database check for 12 hours or half a day
+            \Cache::add($tableNew, 'true', 60*12);
         }
 
         return $tableNew;

@@ -55,14 +55,14 @@ class ProfileController extends Controller
         return $this->update($request, null);
     }
 
-    public function retrieve($id)
+    public function retrieve($uid)
     {
-        return (new Profile())->tableFind($id, 'profile');
+        return (new Profile())->tableFind($uid, 'profile');
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Request $request, $uid)
     {
-        $item = $this->retrieve($id);
+        $item = $this->retrieve($uid);
 
         if ($item && !$item->delete()) {
             throw new GeneralException(__('exceptions.profile.delete'));
@@ -78,7 +78,7 @@ class ProfileController extends Controller
         return $qb->applyRequest($request);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $uid)
     {
         $rules = array();
         $rules = $this->vrules;
@@ -86,8 +86,8 @@ class ProfileController extends Controller
 
         $inputs = $request->all();
         $item   = new Profile($inputs);
-        if (isset($id)) {
-            $item = $item->tableFill($id, $inputs, 'profile');
+        if (isset($uid)) {
+            $item = $item->tableFill($uid, $inputs, 'profile');
         } else {
             $item = $item->tableCreate('profile');
         }

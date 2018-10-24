@@ -81,18 +81,18 @@ class ProfileControllerTest extends TestCase
         $item = \Api\Models\Profile::query()->from('utest_profile')->where('email', $postData['email'])->first();
         $this->assertTrue(isset($item));
 
-        $url = $this->url . '/' . $item->id . '/update';
+        $url = $this->url . '/' . $item->uid . '/update';
 
         // update
         $postData['last_name'] = 'Niiknow';
-        $postData['id']        = $item->id;
+        $postData['uid']       = $item->uid;
         $response              = $this->post($url, $postData, $headers);
 
         $item = \Api\Models\Profile::query()->from('utest_profile')->where('email', $postData['email'])->first();
         $this->assertTrue(isset($item));
         $this->assertSame('Niiknow', $item->last_name);
 
-        $url = $this->url . '/' . $item->id . '/delete';
+        $url = $this->url . '/' . $item->uid . '/delete';
 
         //delete
         $response = $this->post($url, [], $headers);

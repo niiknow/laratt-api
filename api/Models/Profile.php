@@ -61,7 +61,11 @@ class Profile extends Authenticatable
     {
         $tableNew = $this->setTableName($tenant, 'profile');
 
-        // TODO: use cache to prevent extra db call
+        // only need to improve performance in prod
+        if (config('env') === 'production' && \Cache::has($tableNew)) {
+            return $tableNew;
+        }
+
         if (!Schema::hasTable($tableNew)) {
             Schema::create($tableNew, function (Blueprint $table) {
                 $table->bigIncrements('id');
@@ -119,6 +123,9 @@ class Profile extends Authenticatable
                 $table->mediumText('extra_meta')->nullable();
                 $table->mediumText('extra_data')->nullable();
             });
+
+            // cache database check for 12 hours or half a day
+            \Cache::add($tableNew, 'true', 60*12);
         }
 
         return $tableNew;

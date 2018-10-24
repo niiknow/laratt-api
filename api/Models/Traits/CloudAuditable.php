@@ -114,18 +114,21 @@ trait CloudAuditable
         $path = $this->getCloudAuditFile($body);
 
         // store to s3
-        \Storage::disk('s3')->getDriver()->getAdapter()->getClient()->upload(
-            $bucket,
-            $path,
-            gzencode(json_encode($body)),
-            'private',
-            ['params' => [
-                    'ContentType' => 'application/json',
-                    'ContentEncoding' => 'gzip',
-                    'StorageClass' => 'REDUCED_REDUNDANCY',
+        \Storage::disk('s3')
+            ->getDriver()
+            ->getAdapter()
+            ->getClient()
+            ->upload(
+                $bucket,
+                $path,
+                gzencode(json_encode($body)),
+                'private',
+                ['params' => [
+                        'ContentType' => 'application/json',
+                        'ContentEncoding' => 'gzip',
+                    ]
                 ]
-            ]
-        );
+            );
 
         return $this;
     }

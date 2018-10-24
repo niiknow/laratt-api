@@ -33,19 +33,23 @@ trait DynamicModelTrait
         return $this;
     }
 
-    public function tableFill($id, $data, $table)
+    public function tableFill($uid, $data, $table)
     {
-        $item = $this->tableFind($id, $table);
-        $item->fill($data);
+        $item = $this->tableFind($uid, $table);
+        if (isset($item)) {
+            $item->fill($data);
+        }
         return $item;
     }
 
-    public function tableFind($id, $table)
+    public function tableFind($uid, $table)
     {
         $this->createTableIfNotExists(tenantId(), $table);
         $tn   = $this->getTable();
-        $item = $this->query()->from($tn)->where('id', $id)->first();
-        $item->setTableName(tenantId(), $table);
+        $item = $this->query()->from($tn)->where('uid', $uid)->first();
+        if (isset($item)) {
+            $item->setTableName(tenantId(), $table);
+        }
         return $item;
     }
 
