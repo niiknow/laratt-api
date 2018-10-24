@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'v1'], function () {
+Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
     // specifically map user and dynamic api routes
     Route::match(
         ['get','delete'],
@@ -28,9 +28,9 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::match(
         ['post', 'put', 'patch'],
-        'profiles/{id}/update',
-        'ProfileController@update'
-    )->name('api.profiles.update');
+        'profiles/{id}/upsert',
+        'ProfileController@upsert'
+    )->name('api.profiles.upsert');
 
     Route::match(
         ['post', 'delete'],
@@ -65,9 +65,9 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::match(
         ['post', 'put', 'patch'],
-        'tables/{table}/{id}/update',
-        'TableController@update'
-    )->name('api.table.update');
+        'tables/{table}/{id}/upsert',
+        'TableController@upsert'
+    )->name('api.table.upsert');
 
     Route::match(
         ['post', 'delete'],

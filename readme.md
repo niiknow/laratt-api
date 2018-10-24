@@ -37,13 +37,13 @@ Use-case/useful with SaaS (similar to Azure Table Storage):
 8. after `valet link tapi`, visit [tapi.test/](tapi.test) or npm run watch
 
 **Configuration Note**
-- `ADMIN_TOKEN`=set this to secure your api with `x-token` header
+- `ADMIN_API_KEY`=set this to secure your api with `X-API-Key` header
 - `AWS_BUCKET_AUDITABLE`=set all of the AWS configuration to enable s3 storage
 
 ## API
 Expect two headers:
-- `x-token` the ADMIN_TOKEN above
-- `x-tenant` the tenant id - must start with alpha character with remaining character of alphanumeric.  Mininum of 3 characters and max of 20.
+- `X-API-Key` the ADMIN_API_KEY above
+- `X-Tenant` the tenant id - must start with alpha character with remaining character of alphanumeric.  Mininum of 3 characters and max of 20.
 
 **CRUD Format**
 
@@ -55,8 +55,9 @@ Expect two headers:
 | GET | api/v1/profiles/data | api.profiles.data |
 | POST,PUT,PATCH | api/v1/profiles/create | api.profiles.create |
 | GET | api/v1/profiles/{uid}/retrieve| api.profiles.retrieve |
-| POST,PUT,PATCH | api/v1/profiles/{uid}/update | api.profiles.update |
+| POST,PUT,PATCH | api/v1/profiles/{uid}/upsert | api.profiles.upsert |
 | POST,DELETE | api/v1/profiles/{uid}/delete | api.profiles.delete |
+| POST | api/v1/profiles/import | api.profiles.import |
 
 [Tables Schema](https://github.com/niiknow/tapi/blob/master/api/Models/DynamicModel.php#L79)
 
@@ -68,7 +69,7 @@ Special multi-tables endpoint @ `/api/v1/tables/{table}`; where `{table}` is the
 | GET | api/v1/profiles/data | api.profiles.data |
 | POST,PUT,PATCH | api/v1/tables/{table}/create | api.tables.create |
 | GET | api/v1/tables/{table}/{uid}/retrieve| api.tables.retrieve |
-| POST,PUT,PATCH | api/v1/tables/{table}/{uid}/update | api.tables.update |
+| POST,PUT,PATCH | api/v1/tables/{table}/{uid}/upsert | api.tables.upsert |
 | POST,DELETE | api/v1/tables/{table}/{uid}/delete | api.tables.delete |
 
 Also note that there are two ids: `id` and `uid`. `id` is internal to **tapi**.  You should be using `uid` for all operations.  `uid` is an auto-generated guid, if none is provide during `insert`.
@@ -77,6 +78,7 @@ Providing a `uid` allow the API `update` to effectively act as an `merge/upsert`
 
 - `/list` endpoint is use for query and bulk delete, see: [Query Syntax](#query-syntax)
 - `/data` endpoint is use for returning jQuery DataTables format using [latavel-datatables](https://github.com/yajra/laravel-datatables).
+- `/import` bulk import is csv to allow for bigger import.  Up to 1000 records instead of just 100.  This allow for efficiency of smaller file and quicker file transfer/upload.
 
 ## Query-Syntax
 This library provide simple query endpoint for search and bulk delete: `api/v1/profiles/list` or `api/v1/tables/{table}/list` - see **CRUD Format** above.
@@ -158,7 +160,7 @@ For `AND` clauses, use another `filter[]` query.
 - [x] jQuery DataTables as `/data` endpoint with [laravel-datatables](https://github.com/yajra/laravel-datatables)
 - [x] simplify installation with [rachidlaasri/laravel-installer](https://github.com/rashidlaasri/LaravelInstaller)
 - [x] simplify backup with [spatie/laravel-backup](https://github.com/spatie/laravel-backup)   
-- [x] simple authentication with `x-token` header
+- [x] simple authentication with `X-API-Key` header
 - [x] pre-defined structured schema for `Profile` model
 - [x] ecommerce and schedulable schema type for `DynamicModel` table
 - [x] cloud auditable/s3 backed of individual record transaction.  This allow you to trigger lambda on some event instead of having to create scheduled jobs.

@@ -22,11 +22,11 @@ class ValidApiKey
             return response()->json(['error' => 'You must provide a valid tenant id.'], 422);
         }
 
-        $apiKey = config('admin.token');
+        $apiKey = config('admin.api_key');
         if ($apiKey) {
-            $key = $request->header('x-token');
+            $key = $request->header('x-api-key');
             if ($key != $apiKey) {
-                return response()->json(['error' => 'Not authorized.'], 403);
+                return response()->json(['error' => 'Not authorized'], 403);
             }
         }
 

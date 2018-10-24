@@ -14,6 +14,8 @@ use Carbon\Carbon;
  */
 trait CloudAuditable
 {
+    protected $no_audit = false;
+
     public static function bootCloudAuditable()
     {
         static::created(function ($auditable) {
@@ -51,6 +53,10 @@ trait CloudAuditable
     {
         $bucket = config('admin.auditable.bucket');
         if (!isset($bucket) || strlen($bucket) <= 0) {
+            return;
+        }
+
+        if ($this->no_audit) {
             return;
         }
 
@@ -147,5 +153,15 @@ trait CloudAuditable
         $table = $body['table_name'];
         $uid   = $body['uid'];
         return "$uid/$table/index.json";
+    }
+
+    public function getNoAuditAttribute()
+    {
+        return $this->no_audit;
+    }
+
+    public function setNoAuditAttribute($value)
+    {
+        $this->no_audit = $value;
     }
 }

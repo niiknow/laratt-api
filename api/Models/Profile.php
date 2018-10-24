@@ -57,6 +57,8 @@ class Profile extends Authenticatable
         'seen_at'
     ];
 
+    protected $hidden = ['no_audit'];
+
     public function createTableIfNotExists($tenant)
     {
         $tableNew = $this->setTableName($tenant, 'profile');

@@ -4,13 +4,13 @@ return [
     'auditable' => [
         'bucket' => env('AWS_BUCKET_AUDITABLE'),
         'include' => [
-            'tables' => '.*',  // include all
-            'tenants' => '.*'  // include all
+            'tables' => '.*',
+            'tenants' => '.*'
         ],
         'exclude' => [
-            'tables' => '(log.*|cache)', // exclude log2015 or cache
-            'tenants' => '(demo|test)'   // exclude demo or test tenant
+            'tables' => '(log.*|cache)',
+            'tenants' => '(demo|test)'
         ],
     ],
-    'token' => env('ADMIN_TOKEN')
+    'api_key' => env('API_KEY')
 ];

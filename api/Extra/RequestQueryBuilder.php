@@ -69,7 +69,7 @@ class RequestQueryBuilder
         }
 
         // \Log::info($qb->columns);
-        return $this->builder->paginate(
+        return $this->builder->simplePaginate(
             $limit,
             $this->columns,
             'page',
@@ -99,7 +99,7 @@ class RequestQueryBuilder
         if (count($this->columns) <= 0) {
             // if none is passed in, default to these columns
             // prevent returning too much data unless explicity requested
-            $this->columns = ["id", "uid", "updated_at", "created_at"];
+            $this->columns = ["*"];
         }
     }
 

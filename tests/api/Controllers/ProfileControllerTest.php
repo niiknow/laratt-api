@@ -81,7 +81,7 @@ class ProfileControllerTest extends TestCase
         $item = \Api\Models\Profile::query()->from('utest_profile')->where('email', $postData['email'])->first();
         $this->assertTrue(isset($item));
 
-        $url = $this->url . '/' . $item->uid . '/update';
+        $url = $this->url . '/' . $item->uid . '/upsert';
 
         // update
         $postData['last_name'] = 'Niiknow';

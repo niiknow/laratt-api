@@ -80,7 +80,7 @@ class TableControllerTest extends TestCase
         $item = \Api\Models\DynamicModel::query()->from('utest_boom')->where('name', $postData['name'])->first();
         $this->assertTrue(isset($item), 'Item exists.');
 
-        $url = $this->url . '/boom/' . $item->uid . '/update';
+        $url = $this->url . '/boom/' . $item->uid . '/upsert';
 
         // update
         $postData['name'] = 'Noogen';

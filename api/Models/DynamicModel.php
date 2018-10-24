@@ -53,6 +53,8 @@ class DynamicModel extends Model
         'updated_at',
     ];
 
+    protected $hidden = ['no_audit'];
+
     public function setStartedAtAttribute($value)
     {
         $this->attributes['started_at'] = Carbon::parse($value)->startOfDay();
