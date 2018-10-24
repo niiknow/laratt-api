@@ -152,22 +152,23 @@ For `AND` clauses, use another `filter[]` query.
 
 ## Features
 - [x] multitenancy with `x-tenant` header
-- [x] dynamic table with `tenantid_tablename`
+- [x] dynamic table as `tenantid_tablename`
 - [x] simple and flexible CRUD (create, retrieve, update, delete) REST api
 - [x] simple query and bulk delete `/list` REST endpoint
-- [x] jQuery DataTables with `/data` endpoint with [latavel-datatables](https://github.com/yajra/laravel-datatables)
+- [x] jQuery DataTables as `/data` endpoint with [laravel-datatables](https://github.com/yajra/laravel-datatables)
 - [x] simplify installation with [rachidlaasri/laravel-installer](https://github.com/rashidlaasri/LaravelInstaller)
 - [x] simplify backup with [spatie/laravel-backup](https://github.com/spatie/laravel-backup)   
 - [x] simple authentication with `x-token` header
-- [x] pre-defined structured schema for `profile`
-- [x] ecommerce and schedulable schema type for dynamic table model
+- [x] pre-defined structured schema for `Profile` model
+- [x] ecommerce and schedulable schema type for `DynamicModel` table
+- [x] cloud auditable/s3 backed of individual record transaction.  This allow you to trigger lambda on some event instead of having to create scheduled jobs.
+- [ ] being able to include and exclude table from auditable - so you don't have to audit things like when you're using it for logging/caching or when client doesn't need it for some particular reason. 
 
 ## Future Feature/TODO
 - [ ] Some Benchmarking
-- [ ] Being able to exclude object from auditable to save cost?
 - [ ] Bulk import.
-- [ ] Automatically launder image_url to our own CDN - maybe only for certain table names?
-- [ ] API authorization with users object and jwt instead?
+- [ ] Automatically launder image_url to our own CDN - maybe only for certain table names? - maybe this can be done with auditable s3 event
+- [ ] API authorization with users object and jwt instead? maybe using a separate database?
 - [ ] Other ideas?
 
 ## Q and A
