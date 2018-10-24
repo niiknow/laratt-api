@@ -17,7 +17,7 @@ Use-case/useful with SaaS (similar to Azure Table Storage):
 4. [API](#api)
 5. [Query Syntax](#query-syntax)
 6. [Future TODO](#future-todo)
-7. [Q&A][#Q-and-A]
+7. [Q and A](#Q-and-A)
 
 ## Requirements
 - PHP 7.1+
@@ -39,21 +39,22 @@ Use-case/useful with SaaS (similar to Azure Table Storage):
     [tapi.test/](tapi.test)
 
 **Configuration Note**
-* ADMIN_TOKEN=set this to secure your api with "x-token" header
-* AWS_BUCKET_AUDITABLE=set all of the AWS configuration to enable s3 storage
+- `ADMIN_TOKEN`=set this to secure your api with `x-token` header
+- `AWS_BUCKET_AUDITABLE`=set all of the AWS configuration to enable s3 storage
 
 ## API
 Expect two headers:
-`x-token`  - the ADMIN_TOKEN above
-`x-tenant` - the tenant id - must be alphabetic, all lower case, less than 21 characters.
+- `x-token` the ADMIN_TOKEN above
+- `x-tenant` the tenant id - must be alphabetic, all lower case, less than 21 characters.
 
 **CRUD Format**
- method         | endpoint                      | name           
- GET            | api/v1/profiles/list          | api.profiles.list  
- POST|PUT|PATCH | api/v1/profiles/create        | api.profiles.create         
- GET            | api/v1/profiles/{uid}/retrieve| api.profiles.retrieve      
- POST|PUT|PATCH | api/v1/profiles/{uid}/update  | api.profiles.update        
- POST|DELETE    | api/v1/profiles/{uid}/delete  | api.profiles.delete  
+| method | endpoint | name |
+| --- | --- | --- |      
+| GET | api/v1/profiles/list | api.profiles.list |
+| POST,PUT,PATCH | api/v1/profiles/create | api.profiles.create |
+| GET | api/v1/profiles/{uid}/retrieve| api.profiles.retrieve |
+| POST,PUT,PATCH | api/v1/profiles/{uid}/update | api.profiles.update |       
+| POST,DELETE | api/v1/profiles/{uid}/delete | api.profiles.delete |
 
 Special multi-tables endpoint @ `/api/v1/tables/{table}`; where `{table}` is the table name you want to create.  
 
