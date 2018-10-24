@@ -26,7 +26,7 @@ class TableController extends Controller
         'priority' => 'nullable|integer|max:32000',
         'title' => 'nullable|string|max:190',
         'summary' => 'nullable|string|max:190',
-        'img_url' => 'nullable|url|max:190',
+        'image_url' => 'nullable|url|max:190',
         'keywords' => 'nullable|string|max:190',
         'tags' => 'nullable|string|max:190',
         'hostnames' => 'nullable|string|max:190',

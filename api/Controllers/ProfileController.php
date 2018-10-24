@@ -17,7 +17,7 @@ class ProfileController extends Controller
         'email' => 'required|email|max:190',
         'email_verified_at' => 'nullable|date',
         'seen_at' => 'nullable|date',
-        'photo_url' => 'nullable|url|max:190',
+        'image_url' => 'nullable|url|max:190',
         'phone_country_code' => 'nullable|regex:/^(\+?\d{1,3}|\d{1,4})$/',
         'phone' => 'nullable|regex:/\d{7,20}+/',
         'group' => 'nullable|string|max:190',

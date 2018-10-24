@@ -22,7 +22,7 @@ class Profile extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'uid', 'email', 'email_verified_at', 'password', 'password_updated_at', 'photo_url',
+        'uid', 'email', 'email_verified_at', 'password', 'password_updated_at', 'image_url',
         'phone_country_code', 'phone', 'group', 'tfa_type', 'authy_id', 'authy_status',
         'google_tfa_secret', 'tfa_code', 'tfa_exp_at',
 
@@ -82,7 +82,7 @@ class Profile extends Authenticatable
                 $table->string('password')->nullable();
                 $table->timestamp('password_updated_at')->nullable();
 
-                $table->string('photo_url')->nullable();
+                $table->string('image_url')->nullable();
                 $table->string('phone_country_code', 5)->default('1');
                 $table->string('phone', 20)->nullable();
 
@@ -225,10 +225,13 @@ class Profile extends Authenticatable
     }
 // </tfa
 
-    public function getPhotoUrlAttribute($value)
+    public function getImageUrlAttribute($value)
     {
-        $defaultPhotoUrl = 'https://www.gravatar.com/avatar/'.md5(strtolower($this->email)).'.jpg?s=200&d=mm';
-        return empty($value) ? $defaultPhotoUrl : url($value);
+        $defaultUrl = 'https://www.gravatar.com/avatar/'.md5(mb_strtolower($this->email)).'.jpg?s=200&d=mm';
+
+        return !isset($value)
+            || strlen($value) <= 0
+            || strpos($value, "http") === false ? $defaultUrl : url($value);
     }
 
     public function setFirstNameAttribute($value)

@@ -21,7 +21,7 @@ class DynamicModel extends Model
      */
     protected $fillable = [
         'uid', 'name', 'label', 'teaser', 'group', 'started_at', 'ended_at', 'priority',
-        'title', 'summary', 'img_url', 'keywords', 'tags', 'hostnames',
+        'title', 'summary', 'image_url', 'keywords', 'tags', 'hostnames',
         'week_schedules', 'analytic_code', 'imp_pixel', 'msrp', 'price',
         'sale_price', 'sale_qty', 'skus', 'gtins', 'brands', 'cat1',
         'cat2', 'cat3', 'cat4', 'map_coords', 'clk_url', 'content',
@@ -89,7 +89,7 @@ class DynamicModel extends Model
 
                 $table->string('title')->nullable();
                 $table->string('summary')->nullable();
-                $table->string('img_url')->nullable();
+                $table->string('image_url')->nullable();
                 $table->string('keywords')->nullable();
 
                 // targetting
