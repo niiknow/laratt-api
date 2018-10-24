@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'cid', 'email', 'email_verified_at', 'password', 'password_updated_at', 'photo_url',
+        'uid', 'email', 'email_verified_at', 'password', 'password_updated_at', 'photo_url',
         'phone_country_code', 'phone', 'group', 'tfa_type', 'authy_id', 'authy_status',
         'google_tfa_secret', 'tfa_code', 'tfa_exp_at',
 
@@ -31,14 +31,15 @@ class User extends Authenticatable
         'is_retired_or_unemployed', 'occupation', 'employer',
 
         'stripe_customer_id', 'card_brand', 'card_last4',
-        'extra_data'
+        'extra_data', 'extra_meta', 'seen_at'
     ];
 
     /**
      * @var array
      */
     protected $casts = [
-        'extra_data' => 'object',
+        'extra_meta' => 'array',
+        'extra_data' => 'array',
         'is_retired_or_unemployed' => 'boolean'
     ];
 
@@ -52,7 +53,8 @@ class User extends Authenticatable
         'updated_at',
         'password_updated_at',
         'email_verified_at',
-        'tfa_exp_at'
+        'tfa_exp_at',
+        'seen_at'
     ];
 
     public function createTableIfNotExists($tenant)
@@ -62,11 +64,16 @@ class User extends Authenticatable
         // TODO: use cache to prevent extra db call
         if (!Schema::hasTable($tableNew)) {
             Schema::create($tableNew, function (Blueprint $table) {
-                $table->increments('id');
-                $table->uuid('uid')->unique();
-                $table->string('cid')->unique()->nullable();
+                $table->bigIncrements('id');
+
+                // client/consumer/external primary key
+                // this allow client to prevent duplicate
+                // for example, duplicate during bulk import
+                $table->string('uid')->unique();
+
                 $table->string('email')->unique();
                 $table->timestamp('email_verified_at')->nullable();
+                $table->timestamp('seen_at')->nullable();
 
                 $table->string('password')->nullable();
                 $table->timestamp('password_updated_at')->nullable();
@@ -107,9 +114,10 @@ class User extends Authenticatable
                 $table->string('card_brand', 50)->nullable();
                 $table->string('card_last4', 4)->nullable();
 
-                $table->mediumText('extra_data')->nullable();
-
                 $table->timestamps();
+
+                $table->mediumText('extra_meta')->nullable();
+                $table->mediumText('extra_data')->nullable();
             });
         }
 
@@ -218,12 +226,12 @@ class User extends Authenticatable
 
     public function setFirstNameAttribute($value)
     {
-        $this->attributes['first_name'] = ucfirst($value);
+        $this->attributes['first_name'] = ucfirst(trim($value));
     }
 
     public function setLastNameAttribute($value)
     {
-        $this->attributes['last_name'] = ucfirst($value);
+        $this->attributes['last_name'] = ucfirst(trim($value));
     }
 
     public function getNameAttribute($value)

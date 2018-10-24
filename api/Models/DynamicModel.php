@@ -2,6 +2,8 @@
 
 namespace Api\Models;
 
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Eloquent\Model;
 
 use Api\Models\Traits\CloudAuditable;
@@ -18,13 +20,12 @@ class DynamicModel extends Model
      * @var array
      */
     protected $fillable = [
-        'cid', 'name', 'label', 'teaser', 'group', 'started_at', 'ended_at', 'priority',
-        'title', 'desc', 'img_url', 'keywords', 'extra_data', 'tags', 'hostnames',
-        'week_schedules', 'analytic_code', 'imp_pixel', 'clk_url', 'clk_pixel',
-        'styles', 'scripts', 'msrp', 'price', 'sale_price', 'sale_qty', 'skus',
-        'gtins', 'brands', 'cat1', 'cat2', 'cat3', 'cat4', 'ship_weight',
-        'ship_width', 'ship_height', 'ship_length', 'tax_groups',
-        'map_coords'
+        'uid', 'name', 'label', 'teaser', 'group', 'started_at', 'ended_at', 'priority',
+        'title', 'summary', 'img_url', 'keywords', 'tags', 'hostnames',
+        'week_schedules', 'analytic_code', 'imp_pixel', 'msrp', 'price',
+        'sale_price', 'sale_qty', 'skus', 'gtins', 'brands', 'cat1',
+        'cat2', 'cat3', 'cat4', 'map_coords', 'clk_url', 'content',
+        'extra_data', 'extra_meta'
     ];
 
     /**
@@ -35,7 +36,8 @@ class DynamicModel extends Model
         'msrp'       => 'integer',
         'price'      => 'integer',
         'sale_price' => 'integer',
-        'extra_data' => 'object'
+        'extra_meta' => 'array',
+        'extra_data' => 'array',
     ];
 
     /**
@@ -58,5 +60,67 @@ class DynamicModel extends Model
     public function setEndedAtAttribute($value)
     {
         $this->attributes['ended_at'] = Carbon::parse($value)->endOfDay();
+    }
+
+    public function createTableIfNotExists($tenant, $tableName)
+    {
+        $tableNew = $this->setTableName($tenant, $tableName);
+
+        if (!Schema::hasTable($tableNew)) {
+            Schema::create($tableNew, function (Blueprint $table) {
+                $table->bigIncrements('id');
+
+                // allow to uniquely identify this model
+                $table->string('uid')->unique();
+
+                $table->string('name')->nullable();
+                // label should be hidden from user, viewable by admin
+                $table->string('label')->nullable();
+                $table->string('teaser')->nullable();
+                $table->string('group')->nullable();
+                $table->timestamp('started_at')->nullable()->index();
+                $table->timestamp('ended_at')->nullable()->index();
+                $table->unsignedSmallInteger('priority')->default(100);
+
+                $table->string('title')->nullable();
+                $table->string('summary')->nullable();
+                $table->string('img_url')->nullable();
+                $table->string('keywords')->nullable();
+
+                // targetting
+                $table->string('tags')->nullable();
+                $table->string('hostnames')->nullable();
+                $table->string('week_schedules')->nullable();
+
+                // tracking/impression
+                $table->string('analytic_code')->nullable(); // for google ua
+                $table->string('imp_pixel')->nullable();
+
+                // in cents
+                $table->unsignedInteger('msrp')->default(0);
+                $table->unsignedInteger('price')->default(0);
+                $table->unsignedInteger('sale_price')->default(0);
+                $table->unsignedSmallInteger('sale_qty')->default(1);
+                $table->string('skus')->nullable();
+                $table->string('gtins')->nullable();
+                $table->string('brands')->nullable();
+                $table->string('cat1')->nullable();
+                $table->string('cat2')->nullable();
+                $table->string('cat3')->nullable();
+                $table->string('cat4')->nullable();
+                $table->string('map_coords')->nullable();
+
+                $table->timestamps();
+
+                // conversion/click
+                $table->string('clk_url', 500)->nullable();
+
+                $table->text('content')->nullable();
+                $table->mediumText('extra_meta')->nullable();
+                $table->mediumText('extra_data')->nullable();
+            });
+        }
+
+        return $tableNew;
     }
 }

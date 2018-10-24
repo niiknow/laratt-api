@@ -16,7 +16,7 @@ class TableController extends Controller
      * @var array
      */
     protected $vrules = [
-        'cid' => 'nullable|string|max:190',
+        'uid' => 'nullable|string|max:190',
         'name' => 'nullable|string|max:190',
         'label' => 'nullable|string|max:190',
         'teaser' => 'nullable|string|max:190',
@@ -25,18 +25,14 @@ class TableController extends Controller
         'ended_at' => 'nullable|date|date_format:Y-m-d',
         'priority' => 'nullable|integer|max:32000',
         'title' => 'nullable|string|max:190',
-        'desc' => 'nullable|string',
+        'summary' => 'nullable|string|max:190',
         'img_url' => 'nullable|url|max:190',
         'keywords' => 'nullable|string|max:190',
-        'extra_data' => 'nullable',
         'tags' => 'nullable|string|max:190',
         'hostnames' => 'nullable|string|max:190',
         'week_schedules' => 'nullable|url|max:190',
         'analytic_code' => 'nullable|url|max:190',
         'imp_pixel' => 'nullable|url|max:190',
-        'clk_url' => 'nullable|url|max:500',
-        'styles' => 'nullable|string',
-        'scripts' => 'nullable|string',
         'msrp' => 'nullable|integer',
         'price' => 'nullable|integer',
         'sale_price' => 'nullable|integer',
@@ -48,12 +44,12 @@ class TableController extends Controller
         'cat2' => 'nullable|string|max:190',
         'cat3' => 'nullable|string|max:190',
         'cat4' => 'nullable|string|max:190',
-        'ship_weight' => 'nullable|string|max:190',
-        'ship_width' => 'nullable|string|max:190',
-        'ship_height' => 'nullable|string|max:190',
-        'ship_length' => 'nullable|string|max:190',
-        'tax_groups' => 'nullable|string|max:190',
-        'map_coords' => 'nullable|string'
+        'map_coords' => 'nullable|string|max:190',
+
+        'clk_url' => 'nullable|url|max:500',
+        'content' => 'nullable|string',
+        'extra_data' => 'nullable',
+        'extra_meta' => 'nullable',
     ];
 
     protected function validateTable($table)

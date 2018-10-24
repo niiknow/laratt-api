@@ -2,8 +2,6 @@
 
 namespace Api\Models\Traits;
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Config;
@@ -21,7 +19,10 @@ trait DynamicModelTrait
     public static function bootDynamicModelTrait()
     {
         static::creating(function ($model) {
-            $model->uid = (string) Str::uuid();
+            if (!isset($model->uid)) {
+                // automatically add uid if not provided
+                $model->uid = (string) Str::uuid();
+            }
         });
     }
 
@@ -55,75 +56,10 @@ trait DynamicModelTrait
         return $newName;
     }
 
-    public function createTableIfNotExists($tenant, $tableName)
+    public function setUid($value)
     {
-        $tableNew = $this->setTableName($tenant, $tableName);
-
-        if (!Schema::hasTable($tableNew)) {
-            Schema::create($tableNew, function (Blueprint $table) {
-                $table->increments('id');
-
-                // allow to uniquely identify this model
-                $table->uuid('uid')->unique();
-
-                // client/consumer/external id
-                $table->string('cid')->unique()->nullable();
-
-                // model has a unique name
-                $table->string('name')->unique();
-                // this should be hidden from user, viewable by admin
-                $table->string('label')->nullable();
-                $table->string('teaser')->nullable();
-                $table->string('group')->nullable();
-                $table->timestamp('started_at')->nullable();
-                $table->timestamp('ended_at')->nullable();
-                $table->unsignedSmallInteger('priority')->default(100);
-
-                $table->string('title')->nullable();
-                $table->text('desc')->nullable();
-                $table->string('img_url')->nullable();
-                $table->string('keywords')->nullable();
-                $table->mediumText('extra_data')->nullable();
-
-                // targetting
-                $table->string('tags')->nullable();
-                $table->string('hostnames')->nullable();
-                $table->string('week_schedules')->nullable();
-
-                // tracking/impression
-                $table->string('analytic_code')->nullable(); // for google ua
-                $table->string('imp_pixel')->nullable();
-
-                // conversion/click
-                $table->string('clk_url', 500)->nullable();
-
-                // extra decoration
-                $table->text('styles')->nullable();
-                $table->text('scripts')->nullable();
-
-                // in cents
-                $table->unsignedInteger('msrp')->default(0);
-                $table->unsignedInteger('price')->default(0);
-                $table->unsignedInteger('sale_price')->default(0);
-                $table->unsignedSmallInteger('sale_qty')->default(1);
-                $table->string('skus')->nullable();
-                $table->string('gtins')->nullable();
-                $table->string('brands')->nullable();
-                $table->string('cat1')->nullable();
-                $table->string('cat2')->nullable();
-                $table->string('cat3')->nullable();
-                $table->string('cat4')->nullable();
-                $table->string('ship_weight')->nullable();
-                $table->string('ship_width')->nullable();
-                $table->string('ship_height')->nullable();
-                $table->string('ship_length')->nullable();
-                $table->string('tax_groups')->nullable();
-                $table->text('map_coords')->nullable();
-
-                $table->timestamps();
-            });
-        }
-
-        return $tableNew;
+        // we have to do this because we use uid for audit
+        // a slug is already an extremely flexible id
+        $this->attributes['uid'] = \Str::slug($value);
     }
 }

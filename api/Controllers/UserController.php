@@ -15,7 +15,8 @@ class UserController extends Controller
      */
     protected $vrules = [
         'email' => 'required|email|max:190',
-        'email_verified_at' => 'nullable',
+        'email_verified_at' => 'nullable|date',
+        'seen_at' => 'nullable|date',
         'photo_url' => 'nullable|url|max:190',
         'phone_country_code' => 'nullable|regex:/^(\+?\d{1,3}|\d{1,4})$/',
         'phone' => 'nullable|regex:/\d{7,20}+/',
@@ -45,7 +46,8 @@ class UserController extends Controller
         'stripe_customer_id' => 'nullable|string|max:190',
         'card_brand' => 'nullable|string|max:50',
         'card_last4' => 'nullable|string|max:4',
-        'extra_data' => 'nullable'
+        'extra_data' => 'nullable',
+        'extra_meta' => 'nullable'
     ];
 
     public function create(Request $request)
