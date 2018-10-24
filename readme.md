@@ -1,7 +1,5 @@
-# tapi
-> Table API
-
-To create a private API supporting multi-tenant dynamic table manipulations.
+# Table API (tapi)
+> A rest-ful API supporting multi-tenant dynamic table manipulations 
 
 Use-case/useful with SaaS (similar to Azure Table Storage):
 * A need of profile endpoint.
