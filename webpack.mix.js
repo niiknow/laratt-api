@@ -79,7 +79,7 @@ mix.browserSync({
 });
 
 mix.extract([
-  'autotrack'
+  'vue'
 ]);
 
 // mix.copyDirectory('node_modules/bootswatch', `${ public }/css/vendor/bootswatch`);
