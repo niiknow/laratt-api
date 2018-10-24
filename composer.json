@@ -13,6 +13,7 @@
         "laravel/tinker": "^1.0",
         "league/flysystem-aws-s3-v3": "^1.0",
         "rachidlaasri/laravel-installer": "^4.0",
+        "spatie/laravel-backup": "^5.11",
         "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {
