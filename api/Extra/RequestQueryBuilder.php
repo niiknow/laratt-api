@@ -26,7 +26,7 @@ class RequestQueryBuilder
      * select columns
      * @var array
      */
-    public $columns = ["*"];
+    public $columns = [];
 
     /**
      * QueryBuilder constructor.
@@ -83,13 +83,13 @@ class RequestQueryBuilder
         if (isset($sel)) {
             // do not allow caps in column name
             $sel     = mb_strtolower(sel);
-            $pattern = '/[^a-z0-9_]+/i';
+            $pattern = '/[^a-z0-9_\*]+/i';
             $cols    = collect(explode(",", $sel))->map(function ($col) {
                 // sanitize column name
                 return trim(preg_replace($pattern, '', $col));
             })->filter(function ($col) {
                 // only return valid column name
-                return strlen($col) > 1;
+                return strlen($col) > 0;
             });
 
             // finally set column as array
@@ -97,7 +97,9 @@ class RequestQueryBuilder
         }
 
         if (count($this->columns) <= 0) {
-            $this->columns = ["*"];
+            // if none is passed in, default to these columns
+            // prevent returning too much data unless explicity requested
+            $this->columns = ["id", "uid", "updated_at", "created_at"];
         }
     }
 

@@ -32,9 +32,9 @@ Use-case/useful with SaaS (similar to Azure Table Storage):
 5. set your `.env` * set your admin credential and database login, etc...
 6. `php artisan migrate:fresh --seed`
 7. Run/Serve the Site
-    - laravel valet: valet link tapi
-    - homestead: homestead up
-    [tapi.test/](tapi.test)
+    - laravel valet: `valet link tapi`
+    - homestead: `homestead up`
+8. after `valet link tapi`, visit [tapi.test/](tapi.test) or npm run watch
 
 **Configuration Note**
 - `ADMIN_TOKEN`=set this to secure your api with `x-token` header
@@ -150,7 +150,19 @@ For `AND` clauses, use another `filter[]` query.
 /list?filter[]=column1:operator:value1&filter[]=column2:operator:value2
 ```
 
-## Future TODO
+## Features
+- [x] multitenancy with `x-tenant` header
+- [x] dynamic table with `tenantid_tablename`
+- [x] simple and flexible CRUD (create, retrieve, update, delete) REST api
+- [x] simple query and bulk delete `/list` REST endpoint
+- [x] jQuery DataTables with `/data` endpoint with [latavel-datatables](https://github.com/yajra/laravel-datatables)
+- [x] simplify installation with [rachidlaasri/laravel-installer](https://github.com/rashidlaasri/LaravelInstaller)
+- [x] simplify backup with [spatie/laravel-backup](https://github.com/spatie/laravel-backup)   
+- [x] simple authentication with `x-token` header
+- [x] pre-defined structured schema for `profile`
+- [x] ecommerce and schedulable schema type for dynamic table model
+
+## Future Feature/TODO
 - [ ] Some Benchmarking
 - [ ] Being able to exclude object from auditable to save cost?
 - [ ] Bulk import.
