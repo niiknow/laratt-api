@@ -3,7 +3,7 @@
 Route::group(['prefix' => 'v1'], function () {
     // specifically map user and dynamic api routes
     Route::match(
-        ['get'],
+        ['get','delete'],
         'profiles/list',
         'ProfileController@list'
     )->name('api.profiles.list');
@@ -34,7 +34,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     // table stuff
     Route::match(
-        ['get'],
+        ['get','delete'],
         'tables/list',
         'TableController@list'
     )->name('api.table.list');

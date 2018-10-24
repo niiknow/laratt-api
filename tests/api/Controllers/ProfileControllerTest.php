@@ -109,7 +109,7 @@ class ProfileControllerTest extends TestCase
 
         $headers = array(
             'Accept'        => 'application/json',
-            'x-tenant'      => 'utest'
+            'x-tenant'      => 'ltest'
         );
         $url     = $this->url . '/create';
 
@@ -122,14 +122,9 @@ class ProfileControllerTest extends TestCase
         });
 
         // count 20
-        $items = \Api\Models\Profile::query()->from('utest_profile')->get();
+        $items = \Api\Models\Profile::query()->from('ltest_profile')->get();
         $this->assertSame(20, count($items));
 
-        // perform query
-        $headers  = array(
-            'Accept'        => 'application/json',
-            'x-tenant'      => 'utest'
-        );
         $url      = $this->url . '/list?limit=5&page=2';
         $response = $this->withHeaders($headers)->get($url);
         $response->assertStatus(200);
@@ -138,6 +133,15 @@ class ProfileControllerTest extends TestCase
         $this->assertTrue(isset($body), "Query response with data.");
         $this->assertSame(2, $body['current_page'], "Correctly parse page parameter.");
         $this->assertSame(5, count($body['data']), "Has right count.");
+        $expected = \Api\Models\Profile::query()->from('ltest_profile')->count() - 8;
+
+        $url      = $this->url . '/list?filter[]=id:lte:8';
+        $response = $this->withHeaders($headers)->delete($url);
+        $response->assertStatus(200);
+        // \Log::error(json_encode($response->json()));
+
+        $count = \Api\Models\Profile::query()->from('ltest_profile')->count();
+        $this->assertSame($expected, $count, "Has right count.");
 
         echo " {$this->green}[OK]{$this->white}\r\n";
     }

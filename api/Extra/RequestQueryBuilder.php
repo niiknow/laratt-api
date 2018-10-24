@@ -64,6 +64,10 @@ class RequestQueryBuilder
             $page = 1;
         }
 
+        if ($request->isMethod('delete')) {
+            return $this->builder->delete();
+        }
+
         // \Log::info($qb->columns);
         return $this->builder->paginate(
             $limit,
