@@ -96,6 +96,14 @@ class TableController extends Controller
         return $qb->applyRequest($request);
     }
 
+    public function data(Request $request)
+    {
+        $item = new DynamicModel();
+        $item->createTableIfNotExists(tenantId(), $table);
+
+        return DataTables::of(\DB::table($item->getTable()))->make(true);
+    }
+
     public function update(Request $request, $table, $uid)
     {
         $this->validateTable($table);

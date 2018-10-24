@@ -9,6 +9,12 @@ Route::group(['prefix' => 'v1'], function () {
     )->name('api.profiles.list');
 
     Route::match(
+        ['get'],
+        'profiles/data',
+        'ProfileController@data'
+    )->name('api.profiles.data');
+
+    Route::match(
         ['post', 'put', 'patch'],
         'profiles/create',
         'ProfileController@create'
@@ -38,6 +44,12 @@ Route::group(['prefix' => 'v1'], function () {
         'tables/list',
         'TableController@list'
     )->name('api.table.list');
+
+    Route::match(
+        ['get'],
+        'tables/data',
+        'TableController@data'
+    )->name('api.table.data');
 
     Route::match(
         ['post', 'put', 'patch'],

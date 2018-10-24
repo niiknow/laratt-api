@@ -79,6 +79,14 @@ class ProfileController extends Controller
         return $qb->applyRequest($request);
     }
 
+    public function data(Request $request)
+    {
+        $item = new Profile();
+        $item->createTableIfNotExists(tenantId());
+
+        return DataTables::of(\DB::table($item->getTable()))->make(true);
+    }
+
     public function update(Request $request, $uid)
     {
         $rules = array();
