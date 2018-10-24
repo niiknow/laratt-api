@@ -125,6 +125,16 @@ class ProfileControllerTest extends TestCase
         $items = \Api\Models\Profile::query()->from('ltest_profile')->get();
         $this->assertSame(20, count($items));
 
+        // test datatable query
+        $url      = $this->url . '/data';
+        $response = $this->withHeaders($headers)->get($url);
+        $response->assertStatus(200);
+        $body = $response->json();
+
+        $this->assertTrue(isset($body), "Query response with data.");
+        $this->assertSame(20, $body['recordsTotal'], "Correctly return datatable.");
+
+        // test list query
         $url      = $this->url . '/list?limit=5&page=2';
         $response = $this->withHeaders($headers)->get($url);
         $response->assertStatus(200);

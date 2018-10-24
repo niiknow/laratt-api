@@ -7,6 +7,7 @@ use App\Exceptions\GeneralException;
 use Api\Extra\RequestQueryBuilder;
 use Api\Controllers\Controller;
 use Api\Models\Profile;
+use Yajra\DataTables\DataTables;
 
 class ProfileController extends Controller
 {

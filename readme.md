@@ -51,9 +51,10 @@ Expect two headers:
 
 [Profile Schema](https://github.com/niiknow/tapi/blob/master/api/Models/Profile.php#L76)
 
-| method | endpoint | name |
+| method(s) | endpoint | name |
 | --- | --- | --- |
-| GET | api/v1/profiles/list | api.profiles.list |
+| GET,DELETE | api/v1/profiles/list | api.profiles.list |
+| GET | api/v1/profiles/data | api.profiles.data |
 | POST,PUT,PATCH | api/v1/profiles/create | api.profiles.create |
 | GET | api/v1/profiles/{uid}/retrieve| api.profiles.retrieve |
 | POST,PUT,PATCH | api/v1/profiles/{uid}/update | api.profiles.update |
@@ -63,9 +64,10 @@ Expect two headers:
 
 Special multi-tables endpoint @ `/api/v1/tables/{table}`; where `{table}` is the table name you want to create.  Example, let say `x-tenant: clienta` and `{table} = product`, then the resulting table will be `clienta_product`.
 
-| method | endpoint | name |
+| method(s) | endpoint | name |
 | --- | --- | --- |
-| GET | api/v1/tables/{table}/list | api.tables.list |
+| GET,DELETE | api/v1/tables/{table}/list | api.tables.list |
+| GET | api/v1/profiles/data | api.profiles.data |
 | POST,PUT,PATCH | api/v1/tables/{table}/create | api.tables.create |
 | GET | api/v1/tables/{table}/{uid}/retrieve| api.tables.retrieve |
 | POST,PUT,PATCH | api/v1/tables/{table}/{uid}/update | api.tables.update |
@@ -75,8 +77,11 @@ Also note that there are two ids: `id` and `uid`. `id` is internal to **tapi**. 
 
 Providing a `uid` allow the API `update` to effectively act as an `merge/upsert` operation.  This mean that, if you call update with a `uid`, it will `update` if the record is found, otherwise `insert` a new record.
 
+- `/list` endpoint is use for query and bulk delete, see: [Query Syntax](#query-syntax)
+- `/data` endpoint is use for returning jQuery DataTables format using [latavel-datatables](https://github.com/yajra/laravel-datatables).
+
 ## Query-Syntax
-Query endpoints: `api/v1/profiles/list` or `api/v1/tables/{table}/list`
+This library provide simple query endpoint for search and bulk delete: `api/v1/profiles/list` or `api/v1/tables/{table}/list` - see **CRUD Format** above.
 
 ### Limiting
 

@@ -9,6 +9,7 @@ use Api\Extra\RequestQueryBuilder;
 use Api\Controllers\Controller;
 use Api\Models\DynamicModel;
 use Illuminate\Validation\Validator;
+use Yajra\DataTables\DataTables;
 
 class TableController extends Controller
 {
