@@ -94,7 +94,9 @@ class Profile extends Authenticatable
                 $table->string('last_name')->nullable();
 
                 // field allowing for two factor auth
-                $table->enum('tfa_type', ['off', 'email', 'sms', 'call', 'google_soft_token', 'authy_soft_token', 'authy_onetouch'])->default('off');
+                $table->enum('tfa_type', [
+                    'off', 'email', 'sms', 'call', 'google_soft_token', 'authy_soft_token', 'authy_onetouch'
+                ])->default('off');
                 $table->string('authy_id')->unique()->nullable();
                 $table->string('authy_status')->nullable();
                 $table->string('google_tfa_secret')->nullable();

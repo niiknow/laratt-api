@@ -128,7 +128,9 @@ class RequestQueryBuilder
     protected function applyRequestSort($sort)
     {
         list($column, $direction) = array_pad(
-            explode(':', trim($sort), 2), 2, null
+            explode(':', trim($sort), 2),
+            2,
+            null
         );
 
         $column = trim($column);
@@ -198,17 +200,20 @@ class RequestQueryBuilder
      * @param string $clause The clause to apply to the builder: and|or
      * @return Builder
      */
+    // phpcs:ignore
     protected function applyRequestFilter($filter, $clause = 'and')
     {
         list($column, $operator, $value) = array_pad(
-            explode(':', trim($filter), 3), 3, null
+            explode(':', trim($filter), 3),
+            3,
+            null
         );
 
         $column = trim($column);
         $column = array_key_exists($column, $this->maps) ? $this->maps[$column] : $column;
 
         $operator = strtolower(trim($operator));
-        $value = trim(rawurldecode($value));
+        $value    = trim(rawurldecode($value));
 
         if (empty($column)) {
             return $this->builder;
