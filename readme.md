@@ -48,7 +48,9 @@ Expect two headers:
 - `x-tenant` the tenant id - must be alphabetic, all lower case, less than 21 characters.
 
 **CRUD Format**
+
 [Profile Schema](https://github.com/niiknow/tapi/blob/master/api/Models/Profile.php#L76)
+
 | method | endpoint | name |
 | --- | --- | --- |
 | GET | api/v1/profiles/list | api.profiles.list |
@@ -59,6 +61,8 @@ Expect two headers:
 
 [Tables Schema](https://github.com/niiknow/tapi/blob/master/api/Models/DynamicModel.php#L79)
 
+Special multi-tables endpoint @ `/api/v1/tables/{table}`; where `{table}` is the table name you want to create.  Example, let say `x-tenant: clienta` and `{table} = product`, then the resulting table will be `clienta_product`.
+
 | method | endpoint | name |
 | --- | --- | --- |
 | GET | api/v1/tables/{table}/list | api.tables.list |
@@ -66,8 +70,6 @@ Expect two headers:
 | GET | api/v1/tables/{table}/{uid}/retrieve| api.tables.retrieve |
 | POST,PUT,PATCH | api/v1/tables/{table}/{uid}/update | api.tables.update |
 | POST,DELETE | api/v1/tables/{table}/{uid}/delete | api.tables.delete |
-
-Special multi-tables endpoint @ `/api/v1/tables/{table}`; where `{table}` is the table name you want to create.  Example, let say `x-tenant: clienta` and `{table} = product`, then the resulting table will be `clienta_product`.
 
 Also note that there are two ids: `id` and `uid`. `id` is internal to **tapi**.  You should be using `uid` for all operations.  `uid` is an auto-generated guid, if none is provide during `insert`.
 
