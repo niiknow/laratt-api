@@ -150,11 +150,11 @@ For `AND` clauses, use another `filter[]` query.
 ## Q and A
 > Why Laravel, and why not Lumin?
 
-Laravel because we Eloquent provide everything we need.  Ability to set table prefix to support multitenancy.
-Since it will be accessing the database, Lumin would not have made a lot of improvement, ref: https://medium.com/@laurencei/lumen-vs-laravel-performance-in-2018-1a9346428c01
+Laravel because Eloquent has everything we need.  Primarily, the ability to set table prefix for multitenancy support.
+Since our app will be accessing the database, Lumin would not have made a lot of performance improvement, ref: https://medium.com/@laurencei/lumen-vs-laravel-performance-in-2018-1a9346428c01 or https://jason.pureconcepts.net/2017/02/lumen-is-dead-long-live-lumen/
 
 > Why PHP vs (nodejs/lua/golang/csharp)?
 
-Again, see why Laravel explained above.  PHP is easy to deploy.  We can simply deploy this on some cpanel and/or docker.  Hey, we can even do serverless (https://read.acloud.guru/serverless-php-630bb3e950f5) and combine with Aurora Serverless Database for high scalability.
+Again, see why Laravel explained above.  PHP is also easy to deploy, similar to other langs mentioned above.  We can simply deploy this on some cPanel or similar hosting and/or docker.  Hey, we can even do serverless (https://read.acloud.guru/serverless-php-630bb3e950f5) and combine with Aurora Serverless Database for high scalability.
 
 # MIT
