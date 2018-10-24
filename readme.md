@@ -45,7 +45,7 @@ Use-case/useful with SaaS (similar to Azure Table Storage):
 ## API
 Expect two headers:
 - `x-token` the ADMIN_TOKEN above
-- `x-tenant` the tenant id - must be alphabetic, all lower case, less than 21 characters.
+- `x-tenant` the tenant id - must start with alpha character with remaining character of alphanumeric.  Mininum of 3 characters and max of 20.
 
 **CRUD Format**
 
@@ -62,7 +62,7 @@ Expect two headers:
 
 [Tables Schema](https://github.com/niiknow/tapi/blob/master/api/Models/DynamicModel.php#L79)
 
-Special multi-tables endpoint @ `/api/v1/tables/{table}`; where `{table}` is the table name you want to create.  Example, let say `x-tenant: clienta` and `{table} = product`, then the resulting table will be `clienta_product`.
+Special multi-tables endpoint @ `/api/v1/tables/{table}`; where `{table}` is the table name you want to create.  `{table}` must be all lower cased alphanumeric with mininum of 3 characters to 30 max.  Example, let say `x-tenant: clienta` and `{table} = product`, then the resulting table will be `clienta_product`.
 
 | method(s) | endpoint | name |
 | --- | --- | --- |
