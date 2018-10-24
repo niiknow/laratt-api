@@ -156,12 +156,10 @@ For `AND` clauses, use another `filter[]` query.
 - [ ] Some Benchmarking
 - [ ] Being able to exclude object from auditable to save cost?
 - [ ] Bulk import.
-- [ ] Merge (insert/update) feature.
-- [ ] Query based delete.
 - [ ] Ability to perform daily backup/dump of database to local folder. Should also automatically delete older backups.
-- [ ] Ability to install from the front-end - without access to shell.
 - [ ] Ability to subscribe to automatic updates.
 - [ ] Automatically launder image_url to our own CDN - maybe only for certain table names?
+- [ ] API authorization with users object and jwt instead?
 - [ ] Other ideas?
 
 ## Q and A
