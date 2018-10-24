@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Exceptions\GeneralException;
 use Api\Extra\RequestQueryBuilder;
 use Api\Controllers\Controller;
-use Api\Models\User;
+use Api\Models\Profile;
 
-class UserController extends Controller
+class ProfileController extends Controller
 {
     /**
      * @var array
@@ -57,7 +57,7 @@ class UserController extends Controller
 
     public function retrieve($id)
     {
-        return (new User())->tableFind($id, 'user');
+        return (new Profile())->tableFind($id, 'profile');
     }
 
     public function delete(Request $request, $id)
@@ -65,13 +65,13 @@ class UserController extends Controller
         $item = $this->retrieve($id);
 
         if ($item && !$item->delete()) {
-            throw new GeneralException(__('exceptions.user.delete'));
+            throw new GeneralException(__('exceptions.profile.delete'));
         }
     }
 
     public function list(Request $request)
     {
-        $item = new User();
+        $item = new Profile();
         $item->createTableIfNotExists(tenantId());
 
         $qb = new RequestQueryBuilder(\DB::table($item->getTable()));
@@ -85,15 +85,15 @@ class UserController extends Controller
         $this->validate($request, $rules);
 
         $inputs = $request->all();
-        $item   = new User($inputs);
+        $item   = new Profile($inputs);
         if (isset($id)) {
-            $item = $item->tableFill($id, $inputs, 'user');
+            $item = $item->tableFill($id, $inputs, 'profile');
         } else {
-            $item = $item->tableCreate('user');
+            $item = $item->tableCreate('profile');
         }
 
         if (!$item->save()) {
-            throw new GeneralException(__('exceptions.user.update'));
+            throw new GeneralException(__('exceptions.profile.update'));
         }
 
         return $item;

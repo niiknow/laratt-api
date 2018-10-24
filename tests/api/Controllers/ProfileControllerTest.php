@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Artisan as Artisan;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Mockery;
 
-class UserControllerTest extends TestCase
+class ProfileControllerTest extends TestCase
 {
     use DatabaseTransactions;
 
     private $yellow = "\e[1;33m";
     private $green  = "\e[0;32m";
     private $white  = "\e[0;37m";
-    private $url    = "/api/v1/users";
+    private $url    = "/api/v1/profiles";
 
     /**
      * Disclaimer:
@@ -30,7 +30,7 @@ class UserControllerTest extends TestCase
 
     protected static function initDB()
     {
-        echo "\n\r\e[0;31mRefreshing the database for UserControllerTest...\n\r";
+        echo "\n\r\e[0;31mRefreshing the database for ProfileControllerTest...\n\r";
         Artisan::call('migrate:fresh');
     }
 
@@ -55,12 +55,12 @@ class UserControllerTest extends TestCase
 
     public function mockServices()
     {
-        return new \Api\Controllers\UserController();
+        return new \Api\Controllers\ProfileController();
     }
 
-    public function testCreateUpdateDeleteUser()
+    public function testCreateUpdateDeleteProfile()
     {
-        echo "\n\r{$this->yellow}    should create, update, and delete user...";
+        echo "\n\r{$this->yellow}    should create, update, and delete profile...";
 
         $postData = [
             'email'         => 'tom@noogen.com',
@@ -78,34 +78,34 @@ class UserControllerTest extends TestCase
         $response->assertStatus(201);
         $body = $response->json();
 
-        $user = \Api\Models\User::query()->from('utest_user')->where('email', $postData['email'])->first();
-        $this->assertTrue(isset($user));
+        $item = \Api\Models\Profile::query()->from('utest_profile')->where('email', $postData['email'])->first();
+        $this->assertTrue(isset($item));
 
-        $url = $this->url . '/' . $user->id . '/update';
+        $url = $this->url . '/' . $item->id . '/update';
 
         // update
         $postData['last_name'] = 'Niiknow';
-        $postData['id']        = $user->id;
+        $postData['id']        = $item->id;
         $response              = $this->post($url, $postData, $headers);
 
-        $user = \Api\Models\User::query()->from('utest_user')->where('email', $postData['email'])->first();
-        $this->assertTrue(isset($user));
-        $this->assertSame('Niiknow', $user->last_name);
+        $item = \Api\Models\Profile::query()->from('utest_profile')->where('email', $postData['email'])->first();
+        $this->assertTrue(isset($item));
+        $this->assertSame('Niiknow', $item->last_name);
 
-        $url = $this->url . '/' . $user->id . '/delete';
+        $url = $this->url . '/' . $item->id . '/delete';
 
         //delete
         $response = $this->post($url, [], $headers);
 
-        $user = \Api\Models\User::query()->from('utest_user')->where('email', $postData['email'])->first();
-        $this->assertTrue(!isset($user));
+        $item = \Api\Models\Profile::query()->from('utest_profile')->where('email', $postData['email'])->first();
+        $this->assertTrue(!isset($item));
 
         echo " {$this->green}[OK]{$this->white}\r\n";
     }
 
-    public function testQueryUser()
+    public function testQueryProfile()
     {
-        echo "\n\r{$this->yellow}    query user...";
+        echo "\n\r{$this->yellow}    query profile...";
 
         $headers = array(
             'Accept'        => 'application/json',
@@ -115,15 +115,15 @@ class UserControllerTest extends TestCase
 
 
         // call create 20 times
-        factory(\Api\Models\User::class, 20)->make()->each(function ($u) use ($url, $headers) {
+        factory(\Api\Models\Profile::class, 20)->make()->each(function ($u) use ($url, $headers) {
             // create
             $response = $this->post($url, $u->toArray(), $headers);
             // \Log::error(json_encode($response));
         });
 
         // count 20
-        $users = \Api\Models\User::query()->from('utest_user')->get();
-        $this->assertSame(20, count($users));
+        $items = \Api\Models\Profile::query()->from('utest_profile')->get();
+        $this->assertSame(20, count($items));
 
         // perform query
         $headers  = array(

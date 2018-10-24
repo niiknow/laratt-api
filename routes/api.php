@@ -4,33 +4,33 @@ Route::group(['prefix' => 'v1'], function () {
     // specifically map user and dynamic api routes
     Route::match(
         ['get'],
-        'users',
-        'UserController@list'
-    )->name('api.users.list');
+        'profiles',
+        'ProfileController@list'
+    )->name('api.profiles.list');
 
     Route::match(
         ['post', 'put', 'patch'],
-        'users/create',
-        'UserController@create'
-    )->name('api.users.create');
+        'profiles/create',
+        'ProfileController@create'
+    )->name('api.profiles.create');
 
     Route::match(
         ['get'],
-        'users/{id}/retrieve',
-        'UserController@retrieve'
-    )->name('api.users.retrieve');
+        'profiles/{id}/retrieve',
+        'ProfileController@retrieve'
+    )->name('api.profiles.retrieve');
 
     Route::match(
         ['post', 'put', 'patch'],
-        'users/{id}/update',
-        'UserController@update'
-    )->name('api.users.update');
+        'profiles/{id}/update',
+        'ProfileController@update'
+    )->name('api.profiles.update');
 
     Route::match(
         ['post', 'delete'],
-        'users/{id}/delete',
-        'UserController@delete'
-    )->name('api.users.delete');
+        'profiles/{id}/delete',
+        'ProfileController@delete'
+    )->name('api.profiles.delete');
 
     // table stuff
     Route::match(
