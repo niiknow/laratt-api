@@ -21,6 +21,7 @@ class ProfileController extends Controller
         'phone_country_code' => 'nullable|regex:/^(\+?\d{1,3}|\d{1,4})$/',
         'phone' => 'nullable|regex:/\d{7,20}+/',
         'group' => 'nullable|string|max:190',
+        'access' => 'nullable|string|max:190',
         'tfa_type' => 'nullable|in:off,email,sms,call',
         'authy_id' => 'nullable|string|max:190',
         'authy_status' => 'nullable|string|max:190',

@@ -21,7 +21,7 @@ class DynamicModel extends Model
      */
     protected $fillable = [
         'uid', 'name', 'label', 'teaser', 'group', 'started_at', 'ended_at', 'priority',
-        'title', 'summary', 'image_url', 'keywords', 'tags', 'hostnames',
+        'title', 'summary', 'image_url', 'keywords', 'tags', 'hostnames', 'geos',
         'week_schedules', 'analytic_code', 'imp_pixel', 'msrp', 'price',
         'sale_price', 'sale_qty', 'skus', 'gtins', 'brands', 'cat1',
         'cat2', 'cat3', 'cat4', 'map_coords', 'clk_url', 'content',
@@ -85,7 +85,7 @@ class DynamicModel extends Model
                 // example: location x, y, and z home slider
                 $table->string('label')->nullable();
                 $table->string('teaser')->nullable(); // ex: sale sale sale
-                $table->string('group')->nullable(); // ex: sales, daily
+                $table->string('group')->nullable()->index(); // ex: sales, daily
                 $table->timestamp('started_at')->nullable()->index();
                 $table->timestamp('ended_at')->nullable()->index();
                 $table->unsignedSmallInteger('priority')->default(100);
@@ -96,6 +96,7 @@ class DynamicModel extends Model
                 $table->string('keywords')->nullable(); // ex: valentine, birthday, ...
 
                 // targeting data, for advertising
+                $table->string('geos')->nullable();
                 $table->string('tags')->nullable();
                 $table->string('hostnames')->nullable(); // ex: example.com,go.com
                 $table->string('week_schedules')->nullable(); // csv of 101 to 724

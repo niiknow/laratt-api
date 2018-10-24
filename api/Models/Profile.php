@@ -31,7 +31,7 @@ class Profile extends Authenticatable
         'is_retired_or_unemployed', 'occupation', 'employer',
 
         'stripe_customer_id', 'card_brand', 'card_last4',
-        'data', 'meta', 'seen_at'
+        'data', 'meta', 'seen_at', 'access'
     ];
 
     /**
@@ -102,7 +102,8 @@ class Profile extends Authenticatable
                 $table->timestamp('tfa_exp_at')->nullable();
 
                 // member, admin, etc...
-                $table->string('group')->default('member');
+                $table->string('group')->nullable()->index();
+                $table->string('access')->default('member');
 
                 // federally required donation contact info
                 $table->string('email_alt')->nullable();
