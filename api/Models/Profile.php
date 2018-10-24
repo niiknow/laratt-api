@@ -75,6 +75,9 @@ class Profile extends Authenticatable
                 // for example, duplicate during bulk import
                 $table->string('uid')->unique();
 
+                // the list of fields below has been carefully
+                // choosen to support profile including
+                // ecommerce and federal donation system
                 $table->string('email')->unique();
                 $table->timestamp('email_verified_at')->nullable();
                 $table->timestamp('seen_at')->nullable();
@@ -82,12 +85,15 @@ class Profile extends Authenticatable
                 $table->string('password')->nullable();
                 $table->timestamp('password_updated_at')->nullable();
 
+                // profile image and two factor auth phone
                 $table->string('image_url')->nullable();
                 $table->string('phone_country_code', 5)->default('1');
                 $table->string('phone', 20)->nullable();
 
                 $table->string('first_name')->nullable();
                 $table->string('last_name')->nullable();
+
+                // field allowing for two factor auth
                 $table->enum('tfa_type', ['off', 'email', 'sms', 'call', 'google_soft_token', 'authy_soft_token', 'authy_onetouch'])->default('off');
                 $table->string('authy_id')->unique()->nullable();
                 $table->string('authy_status')->nullable();
@@ -98,6 +104,7 @@ class Profile extends Authenticatable
                 // member, admin, etc...
                 $table->string('group')->default('member');
 
+                // federally required donation contact info
                 $table->string('email_alt')->nullable();
                 $table->string('address1')->nullable();
                 $table->string('address2')->nullable();
@@ -108,7 +115,7 @@ class Profile extends Authenticatable
                 $table->double('lat', 11, 8)->nullable();
                 $table->double('lng', 11, 8)->nullable();
 
-                // subscription info
+                // email subscription and federal required donation contact
                 $table->timestamp('email_list_optin_at')->nullable();
                 $table->boolean('is_retired_or_unemployed')->default(0);
                 $table->string('occupation')->nullable();
@@ -120,7 +127,9 @@ class Profile extends Authenticatable
 
                 $table->timestamps();
 
+                // extra meta to store things like social provider
                 $table->mediumText('extra_meta')->nullable();
+                // extra data/attribute about the user
                 $table->mediumText('extra_data')->nullable();
             });
 

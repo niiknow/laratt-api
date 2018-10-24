@@ -87,7 +87,13 @@ class ProfileController extends Controller
         $inputs = $request->all();
         $item   = new Profile($inputs);
         if (isset($uid)) {
-            $item = $item->tableFill($uid, $inputs, 'profile');
+            $inputs['uid'] = $uid;
+            $item          = $item->tableFill($uid, $inputs, 'profile');
+
+            // if we cannot find item, insert
+            if (!isset($item)) {
+                $item = $item->tableCreate('profile');
+            }
         } else {
             $item = $item->tableCreate('profile');
         }

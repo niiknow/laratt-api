@@ -105,7 +105,13 @@ class TableController extends Controller
         $inputs = $request->all();
         $item   = new DynamicModel($inputs);
         if (isset($uid)) {
-            $item = $item->tableFill($uid, $inputs, $table);
+            $input['uid'] = $uid;
+            $item         = $item->tableFill($uid, $inputs, $table);
+
+            // if we cannot find item, do insert
+            if (!isset($item)) {
+                $item = $item->tableCreate($table);
+            }
         } else {
             $item = $item->tableCreate($table);
         }

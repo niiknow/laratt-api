@@ -78,30 +78,32 @@ class DynamicModel extends Model
                 // allow to uniquely identify this model
                 $table->string('uid')->unique();
 
+                // example, name: home slider
                 $table->string('name')->nullable();
                 // label should be hidden from user, viewable by admin
+                // example: location x, y, and z home slider
                 $table->string('label')->nullable();
-                $table->string('teaser')->nullable();
-                $table->string('group')->nullable();
+                $table->string('teaser')->nullable(); // ex: sale sale sale
+                $table->string('group')->nullable(); // ex: sales, daily
                 $table->timestamp('started_at')->nullable()->index();
                 $table->timestamp('ended_at')->nullable()->index();
                 $table->unsignedSmallInteger('priority')->default(100);
 
-                $table->string('title')->nullable();
-                $table->string('summary')->nullable();
-                $table->string('image_url')->nullable();
-                $table->string('keywords')->nullable();
+                $table->string('title')->nullable(); // ex: box of chocolate
+                $table->string('summary')->nullable(); // ex: summay of box
+                $table->string('image_url')->nullable(); // ex: picture of box
+                $table->string('keywords')->nullable(); // ex: valentine, birthday, ...
 
-                // targetting
+                // targeting data, for advertising
                 $table->string('tags')->nullable();
-                $table->string('hostnames')->nullable();
-                $table->string('week_schedules')->nullable();
+                $table->string('hostnames')->nullable(); // ex: example.com,go.com
+                $table->string('week_schedules')->nullable(); // csv of 101 to 724
 
                 // tracking/impression
                 $table->string('analytic_code')->nullable(); // for google ua
-                $table->string('imp_pixel')->nullable();
+                $table->string('imp_pixel')->nullable(); // track display
 
-                // in cents
+                // ecommerce stuff, value should be in cents - no decimal
                 $table->unsignedInteger('msrp')->default(0);
                 $table->unsignedInteger('price')->default(0);
                 $table->unsignedInteger('sale_price')->default(0);
@@ -113,14 +115,14 @@ class DynamicModel extends Model
                 $table->string('cat2')->nullable();
                 $table->string('cat3')->nullable();
                 $table->string('cat4')->nullable();
-                $table->string('map_coords')->nullable();
+                $table->string('map_coords')->nullable(); // hot map coordinates
 
                 $table->timestamps();
 
-                // conversion/click
+                // conversion/click tracking url
                 $table->string('clk_url', 500)->nullable();
 
-                $table->text('content')->nullable();
+                $table->mediumText('content')->nullable(); // detail description of things
                 $table->mediumText('extra_meta')->nullable();
                 $table->mediumText('extra_data')->nullable();
             });

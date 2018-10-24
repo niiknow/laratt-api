@@ -48,20 +48,30 @@ Expect two headers:
 - `x-tenant` the tenant id - must be alphabetic, all lower case, less than 21 characters.
 
 **CRUD Format**
-
+[Profile Schema](https://github.com/niiknow/tapi/blob/master/api/Models/Profile.php#L76)
 | method | endpoint | name |
-| --- | --- | --- |      
+| --- | --- | --- |
 | GET | api/v1/profiles/list | api.profiles.list |
 | POST,PUT,PATCH | api/v1/profiles/create | api.profiles.create |
 | GET | api/v1/profiles/{uid}/retrieve| api.profiles.retrieve |
-| POST,PUT,PATCH | api/v1/profiles/{uid}/update | api.profiles.update |       
+| POST,PUT,PATCH | api/v1/profiles/{uid}/update | api.profiles.update |
 | POST,DELETE | api/v1/profiles/{uid}/delete | api.profiles.delete |
 
-Special multi-tables endpoint @ `/api/v1/tables/{table}`; where `{table}` is the table name you want to create.  
+[Tables Schema](https://github.com/niiknow/tapi/blob/master/api/Models/DynamicModel.php#L79)
 
-Also note that there are two ids: `id` and `uid`. `id` is internal to **tapi**.  You should be using `uid` for all operations.  `uid` is automatically generated guid if none is provide during `insert`.
+| method | endpoint | name |
+| --- | --- | --- |
+| GET | api/v1/tables/{table}/list | api.tables.list |
+| POST,PUT,PATCH | api/v1/tables/{table}/create | api.tables.create |
+| GET | api/v1/tables/{table}/{uid}/retrieve| api.tables.retrieve |
+| POST,PUT,PATCH | api/v1/tables/{table}/{uid}/update | api.tables.update |
+| POST,DELETE | api/v1/tables/{table}/{uid}/delete | api.tables.delete |
 
-Example, let say you `x-tenant: clienta` and `{table} = product`, then the resulting table will be `clienta_product`.
+Special multi-tables endpoint @ `/api/v1/tables/{table}`; where `{table}` is the table name you want to create.  Example, let say `x-tenant: clienta` and `{table} = product`, then the resulting table will be `clienta_product`.
+
+Also note that there are two ids: `id` and `uid`. `id` is internal to **tapi**.  You should be using `uid` for all operations.  `uid` is an auto-generated guid, if none is provide during `insert`.
+
+Providing a `uid` allow the API `update` to effectively act as an `merge/upsert` operation.  This mean that, if you call update with a `uid`, it will `update` if the record is found, otherwise `insert` a new record.
 
 ## Query-Syntax
 Query endpoints: `api/v1/profiles/list` or `api/v1/tables/{table}/list`
