@@ -130,7 +130,7 @@ class ProfileControllerTest extends TestCase
             'Accept'        => 'application/json',
             'x-tenant'      => 'utest'
         );
-        $url      = $this->url . '?limit=5&page=2';
+        $url      = $this->url . '/list?limit=5&page=2';
         $response = $this->withHeaders($headers)->get($url);
         $response->assertStatus(200);
         $body = $response->json();

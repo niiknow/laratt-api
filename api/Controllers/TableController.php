@@ -48,8 +48,9 @@ class TableController extends Controller
 
         'clk_url' => 'nullable|url|max:500',
         'content' => 'nullable|string',
-        'extra_data' => 'nullable',
-        'extra_meta' => 'nullable',
+        'data' => 'nullable',
+        'meta' => 'nullable',
+        'var' => 'nullable',
     ];
 
     protected function validateTable($table)

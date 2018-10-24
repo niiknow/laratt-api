@@ -25,7 +25,7 @@ class DynamicModel extends Model
         'week_schedules', 'analytic_code', 'imp_pixel', 'msrp', 'price',
         'sale_price', 'sale_qty', 'skus', 'gtins', 'brands', 'cat1',
         'cat2', 'cat3', 'cat4', 'map_coords', 'clk_url', 'content',
-        'extra_data', 'extra_meta'
+        'data', 'meta', 'var'
     ];
 
     /**
@@ -36,8 +36,9 @@ class DynamicModel extends Model
         'msrp'       => 'integer',
         'price'      => 'integer',
         'sale_price' => 'integer',
-        'extra_meta' => 'array',
-        'extra_data' => 'array',
+        'meta' => 'array',
+        'data' => 'array',
+        'var' => 'array',
     ];
 
     /**
@@ -123,8 +124,13 @@ class DynamicModel extends Model
                 $table->string('clk_url', 500)->nullable();
 
                 $table->mediumText('content')->nullable(); // detail description of things
-                $table->mediumText('extra_meta')->nullable();
-                $table->mediumText('extra_data')->nullable();
+                // things that are hidden from the user
+                // like tax_group, ship_weight/length/height
+                $table->mediumText('meta')->nullable();
+                // things that are shown like extra images
+                $table->mediumText('data')->nullable();
+                // variant color, size, price, etc...
+                $table->mediumText('var')->nullable();
             });
 
             // cache database check for 12 hours or half a day

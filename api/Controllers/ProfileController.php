@@ -46,8 +46,8 @@ class ProfileController extends Controller
         'stripe_customer_id' => 'nullable|string|max:190',
         'card_brand' => 'nullable|string|max:50',
         'card_last4' => 'nullable|string|max:4',
-        'extra_data' => 'nullable',
-        'extra_meta' => 'nullable'
+        'data' => 'nullable',
+        'meta' => 'nullable'
     ];
 
     public function create(Request $request)

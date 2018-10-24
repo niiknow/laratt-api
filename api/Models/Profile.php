@@ -31,15 +31,15 @@ class Profile extends Authenticatable
         'is_retired_or_unemployed', 'occupation', 'employer',
 
         'stripe_customer_id', 'card_brand', 'card_last4',
-        'extra_data', 'extra_meta', 'seen_at'
+        'data', 'meta', 'seen_at'
     ];
 
     /**
      * @var array
      */
     protected $casts = [
-        'extra_meta' => 'array',
-        'extra_data' => 'array',
+        'meta' => 'array',
+        'data' => 'array',
         'is_retired_or_unemployed' => 'boolean'
     ];
 
@@ -128,9 +128,9 @@ class Profile extends Authenticatable
                 $table->timestamps();
 
                 // extra meta to store things like social provider
-                $table->mediumText('extra_meta')->nullable();
+                $table->mediumText('meta')->nullable();
                 // extra data/attribute about the user
-                $table->mediumText('extra_data')->nullable();
+                $table->mediumText('data')->nullable();
             });
 
             // cache database check for 12 hours or half a day
