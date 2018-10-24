@@ -48,6 +48,7 @@ Expect two headers:
 - `x-tenant` the tenant id - must be alphabetic, all lower case, less than 21 characters.
 
 **CRUD Format**
+
 | method | endpoint | name |
 | --- | --- | --- |      
 | GET | api/v1/profiles/list | api.profiles.list |
@@ -144,10 +145,12 @@ For `AND` clauses, use another `filter[]` query.
 
 ## Q and A
 > Why Laravel, and why not Lumin?
+
 Laravel because we Eloquent provide everything we need.  Ability to set table prefix to support multitenancy.
 Since it will be accessing the database, Lumin would not have made a lot of improvement, ref: https://medium.com/@laurencei/lumen-vs-laravel-performance-in-2018-1a9346428c01
 
 > Why PHP vs (nodejs/lua/golang/csharp)?
+
 Again, see why Laravel explained above.  PHP is easy to deploy.  We can simply deploy this on some cpanel and/or docker.  Hey, we can even do serverless (https://read.acloud.guru/serverless-php-630bb3e950f5) and combine with Aurora Serverless Database for high scalability.
 
 # MIT
