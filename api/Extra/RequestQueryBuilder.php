@@ -81,20 +81,22 @@ class RequestQueryBuilder
     {
         $sel = $request->query('select');
         if (isset($sel)) {
-            // do not allow caps
+            // do not allow caps in column name
             $sel     = mb_strtolower(sel);
             $pattern = '/[^a-z0-9_]+/i';
             $cols    = collect(explode(",", $sel))->map(function ($col) {
+                // sanitize column name
                 return trim(preg_replace($pattern, '', $col));
             })->filter(function ($col) {
+                // only return valid column name
                 return strlen($col) > 1;
             });
 
-            // finally map columns
+            // finally set column as array
             $this->columns = $cols->toArray();
         }
 
-        if (count($this->columns) > 0) {
+        if (count($this->columns) <= 0) {
             $this->columns = ["*"];
         }
     }
