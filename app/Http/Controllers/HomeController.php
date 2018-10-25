@@ -20,8 +20,8 @@ class HomeController extends Controller
 
     public function healthCheck(Request $request)
     {
-        //$output = exec('cd .. && ./webqueue.sh');
-        // return $output;
-        echo phpinfo();
+        $output = exec('cd .. && ./webqueue.sh');
+        return $output;
+        // echo phpinfo();
     }
 }

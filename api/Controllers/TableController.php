@@ -574,9 +574,9 @@ class TableController extends Controller
         $data  = [];
         $rowno = 0;
         $limit = config('admin.import_limit', 999);
-
+        $jobid = (string) Str::uuid();
         foreach ($csv as $row) {
-            $inputs = array();
+            $inputs = ['job_id' => $jobid];
 
             // undot the csv array
             foreach ($row as $key => $value) {
@@ -624,7 +624,7 @@ class TableController extends Controller
         $item->createTableIfNotExists(tenantId(), $table);
 
         // wrap import in a transaction
-        \DB::transaction(function () use ($data, &$rst, $table) {
+        \DB::transaction(function () use ($data, &$rst, $table, $jobid) {
             $rowno = 0;
             foreach ($data as $inputs) {
                 // get uid
@@ -651,7 +651,8 @@ class TableController extends Controller
                         [
                             "error" => "Error while attempting to import row",
                             "rowno" => $rowno,
-                            "row" => $item
+                            "row" => $item,
+                            "job_id" => $jobid
                         ],
                         422
                     );
@@ -667,7 +668,7 @@ class TableController extends Controller
 
         // import success response
         $out = array_pluck($rst, 'uid');
-        return response()->json(["data" => $out], 200);
+        return response()->json(["data" => $out, 'job_id' => $jobid], 200);
     }
 
     /**

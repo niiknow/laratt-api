@@ -206,7 +206,7 @@ trait CloudAuditable
             $filename = "$table/" . (9999 - $now->year) .
                 (99 - $now->month) .
                 (99 - $now->day) .
-                "-revts";
+                "_revts";
         } elseif (strpos($filename, $table . "/") === false) {
             $path = "$table/$filename";
         }

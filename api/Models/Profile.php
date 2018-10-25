@@ -31,7 +31,7 @@ class Profile extends Authenticatable
         'is_retired_or_unemployed', 'occupation', 'employer',
 
         'stripe_customer_id', 'card_brand', 'card_last4',
-        'data', 'meta', 'seen_at', 'access'
+        'data', 'meta', 'seen_at', 'access', 'job_id'
     ];
 
     /**
@@ -136,6 +136,7 @@ class Profile extends Authenticatable
                 $table->mediumText('meta')->nullable();
                 // extra data/attribute about the user
                 $table->mediumText('data')->nullable();
+                $table->uuid('job_id')->nullable()->index();
             });
 
             // cache database check for 12 hours or half a day

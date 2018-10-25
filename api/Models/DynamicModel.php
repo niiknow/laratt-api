@@ -25,7 +25,7 @@ class DynamicModel extends Model
         'week_schedules', 'analytic_code', 'imp_pixel', 'msrp', 'price',
         'sale_price', 'sale_qty', 'skus', 'gtins', 'brands', 'cat1',
         'cat2', 'cat3', 'cat4', 'map_coords', 'clk_url', 'content',
-        'data', 'meta', 'var'
+        'data', 'meta', 'var', 'job_id'
     ];
 
     /**
@@ -134,6 +134,7 @@ class DynamicModel extends Model
                 $table->mediumText('data')->nullable();
                 // variant color, size, price, etc...
                 $table->mediumText('var')->nullable();
+                $table->uuid('job_id')->nullable()->index();
             });
 
             // cache database check for 12 hours or half a day

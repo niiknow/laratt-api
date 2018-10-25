@@ -26,14 +26,14 @@ trait DynamicModelTrait
         });
     }
 
-    public function tableCreate($table)
+    public function tableCreate($table, $tenant = null)
     {
         // \Log::info($table);
-        $this->createTableIfNotExists(tenantId(), $table);
+        $this->createTableIfNotExists($tenant, $table);
         return $this;
     }
 
-    public function tableFill($uid, $data, $table)
+    public function tableFill($uid, $data, $table, $tenant = null)
     {
         $item = $this->tableFind($uid, $table);
         if (isset($item)) {
@@ -42,19 +42,23 @@ trait DynamicModelTrait
         return $item;
     }
 
-    public function tableFind($uid, $table)
+    public function tableFind($uid, $table, $tenant = null)
     {
-        $this->createTableIfNotExists(tenantId(), $table);
+        $this->createTableIfNotExists($tenant, $table);
         $tn   = $this->getTable();
         $item = $this->query()->from($tn)->where('uid', $uid)->first();
         if (isset($item)) {
-            $item->setTableName(tenantId(), $table);
+            $item->setTableName($tenant, $table);
         }
         return $item;
     }
 
     public function setTableName($tenant, $tableName)
     {
+        if ($tenant == null) {
+            $tenant = tenantId();
+        }
+
         $newName     = tenantSlug($tenant) . '_' . tenantSlug($tableName);
         $this->table = $newName;
         return $newName;

@@ -40,7 +40,9 @@ class Kernel extends ConsoleKernel
             // these are suggested defaults and can be
             // override on the queue object itself
             // - see laravel doc on this topic
-            $cmd2 = 'queue:work --queue=default --tries=1 --sleep=2 --timeout=300';
+            // there is a report of queue running out of memory issue
+            // this set to max use of 1GB or 1024 megabytes
+            $cmd2 = 'queue:work --queue=default --tries=1 --sleep=2 --timeout=300 --memory=1024';
             $schedule->command($cmd2)
                 // since it's a queue processor, only check every 30 minutes or so
                 ->everyThirtyMinutes()

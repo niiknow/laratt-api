@@ -9,6 +9,7 @@ use Api\Controllers\Controller;
 use Api\Models\Profile;
 use Yajra\DataTables\DataTables;
 use Validator;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -458,8 +459,9 @@ class ProfileController extends Controller
         $data  = [];
         $rowno = 0;
         $limit = config('admin.import_limit', 999);
+        $jobid = (string) Str::uuid();
         foreach ($csv as $row) {
-            $inputs = array();
+            $inputs = ['job_id' => $jobid];
 
             // undot the csv array
             foreach ($row as $key => $value) {
@@ -505,7 +507,7 @@ class ProfileController extends Controller
         $self = $this;
 
         // wrap import in a transaction
-        \DB::transaction(function () use ($data, &$rst, $self) {
+        \DB::transaction(function () use ($data, &$rst, $jobid) {
             $rowno = 0;
             foreach ($data as $inputs) {
                 // get uid
@@ -532,7 +534,8 @@ class ProfileController extends Controller
                         [
                             "error" => "Error while attempting to import row",
                             "rowno" => $rowno,
-                            "row" => $item
+                            "row" => $item,
+                            "job_id" => $jobid
                         ],
                         422
                     );
@@ -548,7 +551,7 @@ class ProfileController extends Controller
 
         // import success response
         $out = array_pluck($rst, 'uid');
-        return response()->json(["data" => $out], 200);
+        return response()->json(["data" => $out, "job_id" => $jobid], 200);
     }
 
     /**
