@@ -4,12 +4,12 @@ return [
     'auditable' => [
         'bucket' => env('AWS_BUCKET_AUDITABLE'),
         'include' => [
-            'tables' => '.*',
-            'tenants' => '.*'
+            'table' => '.*',
+            'tenant' => '.*'
         ],
         'exclude' => [
-            'tables' => '(log.*|cache)',
-            'tenants' => '(demo|test)'
+            'table' => '(log.*|cache)',
+            'tenant' => '(demo|test)'
         ],
     ],
     'api_key' => env('API_KEY'),
