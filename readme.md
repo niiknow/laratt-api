@@ -37,13 +37,15 @@ Use-case/useful with SaaS (similar to Azure Table Storage):
 8. after `valet link tapi`, visit [tapi.test/](tapi.test) or npm run watch
 
 **Configuration Note**
-- `ADMIN_API_KEY`=set this to secure your api with `X-API-Key` header
+- `API_KEY`=set this to secure your api with `X-API-Key` header
 - `AWS_BUCKET_AUDITABLE`=set all of the AWS configuration to enable s3 storage
 
 ## API
 Expect two headers:
-- `X-API-Key` the ADMIN_API_KEY above
+- `X-API-Key` the API_KEY above
 - `X-Tenant` the tenant id - must start with alpha character with remaining character of alphanumeric.  Mininum of 3 characters and max of 20.
+
+Separating Tenant and Table Name allow for better control and validation.  It also allow for future support of some kind of JWT auth that contain information about the Tenant.
 
 **CRUD Format**
 

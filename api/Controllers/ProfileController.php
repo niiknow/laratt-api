@@ -545,7 +545,8 @@ class ProfileController extends Controller
      * @OA\Post(
      *   path="/profiles/truncate",
      *   tags={"profiles"},
-     *   summary="delete everything from the profile table, why not?",
+     *   summary="delete everything from the profile table. Why not?
+     *   Hint: this is why 'uid' is better than system 'id'.",
      *   @OA\Parameter(
      *     name="X-API-Key",
      *     in="header",

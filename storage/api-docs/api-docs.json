@@ -375,7 +375,7 @@
                 "tags": [
                     "profiles"
                 ],
-                "summary": "delete everything from the profile table, why not?",
+                "summary": "delete everything from the profile table. Why not?\n     *   Hint: this is why 'uid' is better than system 'id'.",
                 "operationId": "Api\\Controllers\\ProfileController::truncate",
                 "parameters": [
                     {
@@ -855,7 +855,7 @@
                 "tags": [
                     "tables"
                 ],
-                "summary": "delete everything from the table, why not?",
+                "summary": "delete everything from the table.  Why not?\n     *   Hint: this is why 'uid' is better than system 'id'.",
                 "operationId": "Api\\Controllers\\TableController::truncate",
                 "parameters": [
                     {
