@@ -1,5 +1,5 @@
 {
-    "name": "niiknow/laratt",
+    "name": "niiknow/laratt-api",
     "description": "Table API",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
@@ -16,7 +16,8 @@
         "rachidlaasri/laravel-installer": "^4.0",
         "spatie/laravel-backup": "^5.11",
         "yajra/laravel-datatables-oracle": "~8.0",
-        "zircote/swagger-php": "^3.0"
+        "zircote/swagger-php": "^3.0",
+        "niiknow/laratt": "^1.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -86,12 +87,5 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
         ]
-    },
-    "config": {
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "optimize-autoloader": true
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }

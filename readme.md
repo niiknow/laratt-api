@@ -26,7 +26,7 @@ Use-case/useful with SaaS (similar to Azure Table Storage):
 - PHP [xdebug](http://www.artemdwo.com/install-php72-and-xdebug-on-mac-os-x) for phpunit code coverage
 
 ## Installation
-1. `git clone https://github.com/niiknow/laratt`
+1. `git clone https://github.com/niiknow/laratt-api`
 2. `cd laratt`
 3. `composer install`
 4. `npm install`
@@ -169,8 +169,8 @@ For `AND` clauses, use another `filter[]` query.
 - [x] simplify installation with [rachidlaasri/laravel-installer](https://github.com/rashidlaasri/LaravelInstaller)
 - [x] simplify backup with [spatie/laravel-backup](https://github.com/spatie/laravel-backup)   
 - [x] simple authentication with `X-API-Key` header
-- [x] pre-defined structured schema for `Profile` model
-- [x] ecommerce and schedulable schema type for `DynamicModel` table
+- [x] pre-defined structured schema for `ProfileModel`
+- [x] ecommerce and schedulable schema type for `TableModel` table
 - [x] cloud auditable/s3 backed of individual record transaction.  This allow you to trigger lambda on some event instead of having to create scheduled jobs.
 - [ ] being able to include and exclude table from auditable - so you don't have to audit things like when you're using it for logging/caching or when client doesn't need it for some particular reason. 
 

@@ -4,7 +4,9 @@ namespace Api\Controllers;
 
 use Illuminate\Http\Request;
 use Api\Controllers\Controller;
-use Api\Models\Profile;
+use Niiknow\Laratt\Models\ProfileModel;
+
+use Niiknow\Laratt\Traits\ApiTableTrait;
 
 class ProfileController extends Controller
 {
@@ -58,7 +60,7 @@ class ProfileController extends Controller
 
     public function getModel($attrs = [])
     {
-        return new Profile($attrs);
+        return new ProfileModel($attrs);
     }
 
     /**

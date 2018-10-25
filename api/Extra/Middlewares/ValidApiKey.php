@@ -5,7 +5,7 @@ use Closure;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 
-use Api\TenantResolver;
+use Niiknow\Laratt\TenancyResolver;
 
 class ValidApiKey
 {
@@ -19,7 +19,7 @@ class ValidApiKey
      */
     public function handle($request, Closure $next)
     {
-        $tenant = TenantResolver::resolve();
+        $tenant = TenancyResolver::resolve();
         if (!preg_match('/[a-z]{1}[0-9a-z]{2,19}/', $tenant)) {
             return response()->json(['error' => 'You must provide a valid tenant id.'], 422);
         }

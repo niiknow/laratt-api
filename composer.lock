@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b884a882d01e2128a5bc1e47b43212e",
+    "content-hash": "c5008626d5fecb9e5e67357a5ca78661",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1439,6 +1439,65 @@
                 "time"
             ],
             "time": "2018-09-20T19:36:25+00:00"
+        },
+        {
+            "name": "niiknow/laratt",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/niiknow/laratt.git",
+                "reference": "af85117ee552dfd7e7b4e97f8a51c86a6e1ca27b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/niiknow/laratt/zipball/af85117ee552dfd7e7b4e97f8a51c86a6e1ca27b",
+                "reference": "af85117ee552dfd7e7b4e97f8a51c86a6e1ca27b",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~5.5.0|~5.6.0|~5.7.0",
+                "league/csv": "^9.1",
+                "league/flysystem": "^1.0.27",
+                "php": ">=7.1",
+                "yajra/laravel-datatables-oracle": "~8.0"
+            },
+            "require-dev": {
+                "fzaninotto/faker": "^1.4",
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Niiknow\\Laratt\\LarattServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Niiknow\\Laratt\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tom Noogen",
+                    "email": "friends@niiknow.org",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel 5 package to support table multitenancy",
+            "homepage": "https://github.com/niiknow/laratt",
+            "keywords": [
+                "database",
+                "laratt",
+                "niiknow"
+            ],
+            "time": "2018-10-25T17:01:58+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -6138,9 +6197,9 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [],
-    "prefer-stable": true,
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^7.1.3"
