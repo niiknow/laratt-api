@@ -1,12 +1,19 @@
 # laratt-api (Laravel Table Tenancy API)
 > A rest-ful API supporting multi-tenant dynamic table manipulations 
 
-Use-case/useful with SaaS (similar to Azure Table Storage):
-* A need of profile endpoint.
-* A need to provide some kind of a product endpoint.
-* Being able to quickly load hundred-of-thousands of items.
-* Ability to segment client/tenant data for security and scalability.
-* Can even provide some kind of a endpoint to stash logs.
+This is an API built on top of the [laratt](https://github.com/niiknow/laratt) library.
+
+Use-case/useful:
+* Multitenancy is usually related to some kind of a Software as a Service (SaaS) app.
+* Headless CMS
+* Headless Profile management
+* Headless Ecommerce or anything else
+* Stashing of logs
+* Email subscribers list
+* Email bounce/blacklist
+* Products API
+
+This API give you the ability to quickly import hundred-of-thousands of rows.  
 
 # Table of Contents
 1. [Requirements](#requirements)
@@ -14,7 +21,7 @@ Use-case/useful with SaaS (similar to Azure Table Storage):
 3. [Configuration](#configuration)
 4. [API](#api)
 5. [Query Syntax](#query-syntax)
-6. [Future TODO](#future-todo)
+6. [Future Feature TODO](#todo)
 7. [Q and A](#Q-and-A)
 
 ## Requirements
@@ -50,20 +57,7 @@ Separating Tenant and Table Name allow for better control and validation.  It al
 
 **CRUD Format**
 
-[Profile Schema](https://github.com/niiknow/laratt/blob/master/api/Models/Profile.php#L76)
-
-| method(s) | endpoint | name |
-| --- | --- | --- |
-| GET,DELETE | api/v1/profiles/list | api.profiles.list |
-| GET | api/v1/profiles/data | api.profiles.data |
-| POST | api/v1/profiles/create | api.profiles.create |
-| GET | api/v1/profiles/{uid}/retrieve| api.profiles.retrieve |
-| POST | api/v1/profiles/{uid}/upsert | api.profiles.upsert |
-| POST,DELETE | api/v1/profiles/{uid}/delete | api.profiles.delete |
-| POST | api/v1/profiles/import | api.profiles.import |
-| POST | api/v1/profiles/truncate | api.profiles.truncate |
-
-[Tables Schema](https://github.com/niiknow/laratt/blob/master/api/Models/DynamicModel.php#L79)
+[Tables Schema](https://github.com/niiknow/laratt/blob/master/src/Models/TableModel.php#L82)
 
 Special multi-tables endpoint @ `/api/v1/tables/{table}`; where `{table}` is the table name you want to create.  `{table}` must be all lower cased alphanumeric with mininum of 3 characters to 30 max.  Example, let say `x-tenant: clienta` and `{table} = product`, then the resulting table will be `clienta_product`.
 
@@ -87,6 +81,20 @@ Providing a `uid` allow the API `update` to effectively act as an `merge/upsert`
 - `/truncate` Why not?  Now you can do all kind of crazy stuff with table.
 
 Also see [/api/documentation](http://laratt.test/api/documentation) for swagger docs.
+
+What about your own/custom schema?  See example of our [Profile Schema](https://github.com/niiknow/laratt/blob/master/src/Models/ProfileModel.php#L78)
+
+| method(s) | endpoint | name |
+| --- | --- | --- |
+| GET,DELETE | api/v1/profiles/list | api.profiles.list |
+| GET | api/v1/profiles/data | api.profiles.data |
+| POST | api/v1/profiles/create | api.profiles.create |
+| GET | api/v1/profiles/{uid}/retrieve| api.profiles.retrieve |
+| POST | api/v1/profiles/{uid}/upsert | api.profiles.upsert |
+| POST,DELETE | api/v1/profiles/{uid}/delete | api.profiles.delete |
+| POST | api/v1/profiles/import | api.profiles.import |
+| POST | api/v1/profiles/truncate | api.profiles.truncate |
+
 
 ## Query-Syntax
 This library provide simple query endpoint for search and bulk delete: `api/v1/profiles/list` or `api/v1/tables/{table}/list` - see **CRUD Format** above.
@@ -172,7 +180,10 @@ For `AND` clauses, use another `filter[]` query.
 - [x] pre-defined structured schema for `ProfileModel`
 - [x] ecommerce and schedulable schema type for `TableModel` table
 - [x] cloud auditable/s3 backed of individual record transaction.  This allow you to trigger lambda on some event instead of having to create scheduled jobs.
-- [ ] being able to include and exclude table from auditable - so you don't have to audit things like when you're using it for logging/caching or when client doesn't need it for some particular reason. 
+- [x] being able to include and exclude table from auditable - so you don't have to audit things like when you're using it for logging/caching or when client doesn't need it for some particular reason. 
+
+## TODO
+- [ ] refactor and test in separate library
 
 ## Q and A
 > Why Laravel, and why not Lumin?
