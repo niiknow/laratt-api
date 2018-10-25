@@ -500,11 +500,10 @@ class TableController extends Controller
         return $item;
     }
 
-    public function processCsv($csv, &$data)
+    public function processCsv($csv, &$data, $jobid)
     {
         $rowno = 0;
         $limit = config('admin.import_limit', 999);
-        $jobid = (string) Str::uuid();
         foreach ($csv as $row) {
             $inputs = ['job_id' => $jobid];
 
@@ -623,8 +622,9 @@ class TableController extends Controller
         $csv  = \League\Csv\Reader::createFromFileObject($file)
             ->setHeaderOffset(0);
 
-        $data = [];
-        $rst  = $this->processCsv($csv, $data);
+        $data  = [];
+        $jobid = (string) Str::uuid();
+        $rst   = $this->processCsv($csv, $data, $jobid);
         if ($rst) {
             return $rst;
         }
