@@ -22,19 +22,19 @@ Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
 
     Route::match(
         ['get'],
-        'profiles/{id}/retrieve',
+        'profiles/{uid}/retrieve',
         'ProfileController@retrieve'
     )->name('api.profiles.retrieve');
 
     Route::match(
         ['post'],
-        'profiles/{id}/upsert',
+        'profiles/{uid}/upsert',
         'ProfileController@upsert'
     )->name('api.profiles.upsert');
 
     Route::match(
         ['post', 'delete'],
-        'profiles/{id}/delete',
+        'profiles/{uid}/delete',
         'ProfileController@delete'
     )->name('api.profiles.delete');
 
@@ -71,19 +71,19 @@ Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
 
     Route::match(
         ['get'],
-        'tables/{table}/{id}/retrieve',
+        'tables/{table}/{uid}/retrieve',
         'TableController@retrieve'
     )->name('api.table.retrieve');
 
     Route::match(
         ['post'],
-        'tables/{table}/{id}/upsert',
+        'tables/{table}/{uid}/upsert',
         'TableController@upsert'
     )->name('api.table.upsert');
 
     Route::match(
         ['post', 'delete'],
-        'tables/{table}/{id}/delete',
+        'tables/{table}/{uid}/delete',
         'TableController@delete'
     )->name('api.table.delete');
 

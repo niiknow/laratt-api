@@ -3,17 +3,12 @@
 namespace Api\Controllers;
 
 use Illuminate\Http\Request;
-use App\Exceptions\GeneralException;
-use Api\Extra\RequestQueryBuilder;
 use Api\Controllers\Controller;
 use Api\Models\Profile;
-use Yajra\DataTables\DataTables;
-use Validator;
-use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiTabletrait;
 
     /**
      * @var array
@@ -56,6 +51,16 @@ class ProfileController extends Controller
         'meta.*' => 'nullable'
     ];
 
+    public function getTable()
+    {
+        return 'profile';
+    }
+
+    public function getModel($attrs = [])
+    {
+        return new Profile($attrs);
+    }
+
     /**
      * @OA\Post(
      *   path="/profiles/create",
@@ -87,10 +92,6 @@ class ProfileController extends Controller
      *   )
      * )
      */
-    public function create(Request $request)
-    {
-        return $this->upsert($request, null);
-    }
 
     /**
      * @OA\Get(
@@ -137,11 +138,6 @@ class ProfileController extends Controller
      *   )
      * )
      */
-    public function retrieve($uid)
-    {
-        $item = (new Profile())->tableFind($uid, 'profile');
-        return $this->rsp(isset($item) ? 200 : 404, $item);
-    }
 
     /**
      * @OA\Delete(
@@ -189,16 +185,6 @@ class ProfileController extends Controller
      *   )
      * )
      */
-    public function delete(Request $request, $uid)
-    {
-        $item = (new Profile())->tableFind($uid, 'profile');
-
-        if ($item && !$item->delete()) {
-            throw new GeneralException(__('exceptions.profile.delete'));
-        }
-
-        return $this->rsp(isset($item) ? 200 : 404, $item);
-    }
 
     /**
      * @OA\Get(
@@ -273,14 +259,6 @@ class ProfileController extends Controller
      *   )
      * )
      */
-    public function list(Request $request)
-    {
-        $item = new Profile();
-        $item->createTableIfNotExists(tenantId());
-
-        $qb = new RequestQueryBuilder(\DB::table($item->getTable()));
-        return $qb->applyRequest($request);
-    }
 
     /**
      * @OA\Get(
@@ -313,13 +291,6 @@ class ProfileController extends Controller
      *   )
      * )
      */
-    public function data(Request $request)
-    {
-        $item = new Profile();
-        $item->createTableIfNotExists(tenantId());
-
-        return DataTables::of(\DB::table($item->getTable()))->make(true);
-    }
 
     /**
      * @OA\Post(
@@ -362,91 +333,6 @@ class ProfileController extends Controller
      *   )
      * )
      */
-    public function upsert(Request $request, $uid)
-    {
-        $rules = array();
-        $rules = $this->vrules;
-        $code  = 200;
-        $this->validate($request, $rules);
-
-        $data   = $request->all();
-        $inputs = array();
-        foreach ($data as $key => $value) {
-            array_set($inputs, $key, $value);
-        }
-
-        $item = new Profile($inputs);
-        if (isset($uid)) {
-            $inputs['uid'] = $uid;
-            $item          = $item->tableFill($uid, $inputs, 'profile');
-
-            // if we cannot find item, insert
-            if (!isset($item)) {
-                $code = 201;
-                $item = $item->tableCreate('profile');
-            }
-        } else {
-            $code = 201;
-            $item = $item->tableCreate('profile');
-        }
-
-        if (!$item->save()) {
-            throw new GeneralException(__('exceptions.profile.upsert'));
-        }
-
-        return $this->rsp($code, $item);
-    }
-
-    public function processCsv($csv, &$data, $jobid)
-    {
-        $rowno = 0;
-        $limit = config('admin.import_limit', 999);
-        foreach ($csv as $row) {
-            $inputs = ['job_id' => $jobid];
-
-            // undot the csv array
-            foreach ($row as $key => $value) {
-                $cell = $value;
-                if (!is_string($cell)) {
-                    $cell = (string)$cell;
-                }
-
-                if ($cell === '' || $cell === 'null') {
-                    $cell = null;
-                } elseif (is_numeric($cell)) {
-                    $cell = $cell + 0;
-                }
-
-                // undot array
-                array_set($inputs, $key, $cell);
-            }
-
-            // validate data
-            $validator = Validator::make($inputs, $this->vrules);
-
-            // capture and provide better error message
-            if ($validator->fails()) {
-                return response()->json(
-                    [
-                        "error" => $validator->errors(),
-                        "rowno" => $rowno,
-                        "row" => $inputs
-                    ],
-                    422
-                );
-            }
-
-            $data[] = $inputs;
-            if ($rowno > $limit) {
-                // we must improve a limit due to memory/resource restriction
-                return response()->json(
-                    ['error' => "Each import must be less than $limit records"],
-                    422
-                );
-            }
-            $rowno += 1;
-        }
-    }
 
     /**
      * @OA\Post(
@@ -498,73 +384,6 @@ class ProfileController extends Controller
      *   )
      * )
      */
-    public function import(Request $request)
-    {
-        // validate that the file import is required
-        $this->validate($request, ['file' => 'required']);
-
-        $file = $request->file('file')->openFile();
-        $csv  = \League\Csv\Reader::createFromFileObject($file)
-            ->setHeaderOffset(0);
-
-        $data  = [];
-        $jobid = (string) Str::uuid();
-        $rst   = $this->processCsv($csv, $data, $jobid);
-        if ($rst) {
-            return $rst;
-        }
-
-        $rst  = array();
-        $item = new Profile();
-        $item->createTableIfNotExists(tenantId());
-
-        // wrap import in a transaction
-        \DB::transaction(function () use ($data, &$rst, $jobid) {
-            $rowno = 0;
-            foreach ($data as $inputs) {
-                // get uid
-                $uid  = isset($inputs['uid']) ? $inputs['uid'] : null;
-                $item = new Profile($inputs);
-                if (isset($uid)) {
-                    $inputs['uid'] = $uid;
-                    $item          = $item->tableFill($uid, $inputs, 'profile');
-
-                    // if we cannot find item, insert
-                    if (!isset($item)) {
-                        $item = $item->tableCreate('profile');
-                    }
-                } else {
-                    $item = $item->tableCreate('profile');
-                }
-
-                // disable audit for bulk import
-                $item->no_audit = true;
-
-                // something went wrong, error out
-                if (!$item->save()) {
-                    response()->json(
-                        [
-                            "error" => "Error while attempting to import row",
-                            "rowno" => $rowno,
-                            "row" => $item,
-                            "job_id" => $jobid
-                        ],
-                        422
-                    );
-
-                    // throw exception to rollback transaction
-                    throw new GeneralException(__('exceptions.profiles.import'));
-                }
-
-                $rst[]  = $item->toArray();
-                $rowno += 1;
-            }
-        });
-
-        // import success response
-        $out = array_pluck($rst, 'uid');
-        return response()->json(["data" => $out, "job_id" => $jobid], 200);
-    }
 
     /**
      * @OA\Post(
@@ -598,12 +417,4 @@ class ProfileController extends Controller
      *   )
      * )
      */
-    public function truncate(Request $request)
-    {
-        $item = new Profile();
-        $item->createTableIfNotExists(tenantId());
-
-        \DB::table($item->getTable())->truncate();
-        return response()->json();
-    }
 }
