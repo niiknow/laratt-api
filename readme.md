@@ -39,7 +39,7 @@ Use-case/useful with SaaS (similar to Azure Table Storage):
 
 **Configuration Note**
 - `API_KEY`=set this to secure your api with `X-API-Key` header
-- `AWS_BUCKET_AUDITABLE`=set all of the AWS configuration to enable s3 storage
+- `AWS_BUCKET_AUDIT`=set all of the AWS configuration to enable s3 storage
 
 ## API
 Expect two headers:

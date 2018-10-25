@@ -1,15 +1,15 @@
 <?php
 
 return [
-    'auditable' => [
-        'bucket' => env('AWS_BUCKET_AUDITABLE'),
+    'audit' => [
+        'bucket' => env('AWS_BUCKET_AUDIT'),
         'include' => [
             'table' => '.*',
             'tenant' => '.*'
         ],
         'exclude' => [
             'table' => '(log.*|cache)',
-            'tenant' => '(demo|test)'
+            'tenant' => null
         ],
     ],
     'api_key' => env('API_KEY'),

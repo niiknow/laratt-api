@@ -60,26 +60,27 @@ trait CloudAuditable
             return false;
         }
 
-        $iten = config('admin.include.tenant');
-        $itab = config('admin.include.table');
+        $iten = config('admin.audit.include.tenant');
+        $itab = config('admin.audit.include.table');
         if (!isset($iten) || !isset($itab)) {
             return false;
         }
 
         $tn    = $this->getTable();
-        $parts = explode($tn, ",");
-        if (!preg_match($iten, $parts[0]) || preg_match($itab, $parts[1])) {
+        $parts = explode("_", $tn);
+        if (!preg_match("/$iten/", $parts[0])
+            || !preg_match("/$itab/", $parts[1])) {
             return false;
         }
 
-        $xten = config('admin.exclude.tenant');
-        $xtab = config('admin.exclude.table');
+        $xten = config('admin.audit.exclude.tenant');
+        $xtab = config('admin.audit.exclude.table');
 
-        if (isset($xten) && preg_match($xten, $parts[0])) {
+        if (isset($xten) && preg_match("/$xten/", $parts[0])) {
             return false;
         }
 
-        if (isset($xtab) && preg_match($xtab, $parts[1])) {
+        if (isset($xtab) && preg_match("/$xtab/", $parts[1])) {
             return false;
         }
 
@@ -95,10 +96,10 @@ trait CloudAuditable
      */
     public function cloudAuditBody($action, $log = [])
     {
+        // $user    = null;
         $tn      = $this->getTable();
-        $parts   = explode($tn, ",");
+        $parts   = explode("_", $tn);
         $request = request();
-        $user    = null;
         $now     = Carbon::now('UTC');
         $memuse  = round(memory_get_peak_usage(true) / 1024 / 1024, 1);
         $body    = [
@@ -109,8 +110,6 @@ trait CloudAuditable
             'tenant'       => $parts[0],
             'table'        => $parts[1],
             'action'       => $action,
-            'user_id'      => isset($user) ? $user->id : null,
-            'user_request' => $request_info,
             'log'          => $log,
             'created_at'   => $now->timestamp,
             'mem_use'      => $memuse,
@@ -118,11 +117,11 @@ trait CloudAuditable
         ];
 
         if (isset($request)) {
-            $user         = $request->user();
+            // $user         = $request->user();
             $route_params = $request->route()->parameters();
 
             $body = array_merge($body, [
-                'user'          => $user,
+                // 'user'          => $user,
                 'id_address'    => $request->ip(),
                 'user_agent'    => $request->userAgent(),
                 'referer'       => $request->header('referer'),
@@ -139,7 +138,6 @@ trait CloudAuditable
                 'path'          => $request->path(),
                 'url'           => $request->url(),
                 'full_url'      => $request->fullUrl(),
-                'route_name'    => $route_name,
                 'route_action'  => $request->route()->getActionName(),
                 'route_query'   => $request->query(),
                 'route_params'  => $route_params
@@ -213,13 +211,13 @@ trait CloudAuditable
             $body['custom'] = $model;
         } else {
             $body['uid']      = $this->uid;
-            $body['model_id'] = $id;
+            $body['model_id'] = $this->id;
             $body['model']    = $this->toArray();
             $body['info']     = $this->getCloudAuditInfo() ?: [];
         }
 
         // store to s3
-        $bucket = config('admin.auditable.bucket');
+        $bucket = config('admin.audit.bucket');
         if (!isset($bucket) || strlen($bucket) <= 0) {
             return $this;
         }
