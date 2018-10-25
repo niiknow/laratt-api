@@ -23,6 +23,7 @@ Use-case/useful with SaaS (similar to Azure Table Storage):
 - Node JS
 - NPM
 - Laravel Valet (NGINX) or Homestead
+- PHP [xdebug](http://www.artemdwo.com/install-php72-and-xdebug-on-mac-os-x) for phpunit code coverage
 
 ## Installation
 1. `git clone https://github.com/niiknow/tapi`

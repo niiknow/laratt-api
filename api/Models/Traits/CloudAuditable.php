@@ -56,11 +56,6 @@ trait CloudAuditable
      */
     public function canCloudAudit()
     {
-        $bucket = config('admin.auditable.bucket');
-        if (!isset($bucket) || strlen($bucket) <= 0) {
-            return false;
-        }
-
         if ($this->no_audit) {
             return false;
         }
@@ -224,6 +219,11 @@ trait CloudAuditable
         }
 
         // store to s3
+        $bucket = config('admin.auditable.bucket');
+        if (!isset($bucket) || strlen($bucket) <= 0) {
+            return $this;
+        }
+
         \Storage::disk('s3')
             ->getDriver()
             ->getAdapter()
