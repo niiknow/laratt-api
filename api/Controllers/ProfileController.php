@@ -368,8 +368,13 @@ class ProfileController extends Controller
         $code  = 200;
         $this->validate($request, $rules);
 
-        $inputs = $request->all();
-        $item   = new Profile($inputs);
+        $data   = $request->all();
+        $inputs = array();
+        foreach ($data as $key => $value) {
+            array_set($inputs, $key, $value);
+        }
+
+        $item = new Profile($inputs);
         if (isset($uid)) {
             $inputs['uid'] = $uid;
             $item          = $item->tableFill($uid, $inputs, 'profile');
@@ -444,64 +449,66 @@ class ProfileController extends Controller
     public function import(Request $request)
     {
         // validate that the file import is required
-        $this->validate($request, [
-            'file' => 'required',
-        ]);
-        $file   = $request->file('file')->openFile();
-        $reader = \League\Csv\Reader::createFromFileObject($file)->setHeaderOffset(0);
-        $data   = $reader->fetchOne(1002);
+        $this->validate($request, ['file' => 'required']);
 
-        if (count($data) > 1001) {
-            // we must improve a limit due to memory/resource restriction
-            return response()->json(['error' => 'Each import must not be greater than 1000 records.'], 422);
+        $file = $request->file('file')->openFile();
+        $csv  = \League\Csv\Reader::createFromFileObject($file)
+            ->setHeaderOffset(0);
+
+        $data  = [];
+        $rowno = 0;
+        foreach ($csv as $row) {
+            $inputs = array();
+
+            // undot the csv array
+            foreach ($row as $key => $value) {
+                $cell = $value;
+                if (!is_string($cell)) {
+                    $cell = (string)$cell;
+                }
+
+                if ($cell === '' || $cell === 'null') {
+                    $cell = null;
+                } elseif (is_numeric($cell)) {
+                    $cell = $cell + 0;
+                }
+
+                // undot array
+                array_set($inputs, $key, $cell);
+            }
+
+            // validate data
+            $validator = Validator::make($inputs, $this->vrules);
+
+            // capture and provide better error message
+            if ($validator->fails()) {
+                return response()->json(
+                    [
+                        "error" => $validator->errors(),
+                        "rowno" => $rowno,
+                        "row" => $inputs
+                    ],
+                    422
+                );
+            }
+
+            $data[] = $inputs;
+            $rowno += 1;
+            if ($rowno > 1001) {
+                // we must improve a limit due to memory/resource restriction
+                return response()->json(['error' => 'Each import must not be greater than 1000 records.'], 422);
+            }
         }
 
-        $rst  = [];
+        $rst  = array();
         $self = $this;
 
         // wrap import in a transaction
-        \DB::transaction(function () use ($data, $rst, $self) {
+        \DB::transaction(function () use ($data, &$rst, $self) {
             $rowno = 0;
-            foreach ($data as $row) {
-                $inputs = array();
-
-                // undot the csv array
-                foreach ($row as $key => $value) {
-                    $cell = $value;
-                    if (!is_string($cell)) {
-                        $cell = (string)$cell;
-                    }
-
-                    if ($cell === '' || $cell === 'null') {
-                        $cell = null;
-                    } elseif (is_numeric($cell)) {
-                        $cell = $cell + 0;
-                    }
-
-                    // undot array
-                    array_set($inputs, $key, $cell);
-                }
-
-                // validate data
-                $validator = Validator::make($inputs, $this->$vrules);
-
-                // capture and provide better error message
-                if ($validator->fails()) {
-                    response()->json(
-                        [
-                            "error" => $validator->errors(),
-                            "rowno" => $rowno,
-                            "row" => $inputs
-                        ],
-                        422
-                    );
-
-                    // throw exception to rollback transaction
-                    throw new GeneralException(__('exceptions.profile.import'));
-                }
-
+            foreach ($data as $inputs) {
                 // get uid
-                $uid  = $inputs['uid'];
+                $uid  = isset($inputs['uid']) ? $inputs['uid'] : null;
                 $item = new Profile($inputs);
                 if (isset($uid)) {
                     $inputs['uid'] = $uid;
@@ -530,15 +537,17 @@ class ProfileController extends Controller
                     );
 
                     // throw exception to rollback transaction
-                    throw new GeneralException(__('exceptions.profile.import'));
+                    throw new GeneralException(__('exceptions.profiles.import'));
                 }
 
-                $rst[] = $item;
+                $rst[]  = $item->toArray();
+                $rowno += 1;
             }
         });
 
         // import success response
-        return response()->json(["data" = $rst], 200);
+        $out = array_pluck($rst, 'uid');
+        return response()->json(["data" => $out], 200);
     }
 
     /**
@@ -578,6 +587,7 @@ class ProfileController extends Controller
         $item = new Profile();
         $item->createTableIfNotExists(tenantId());
 
-        return \DB::table($item->getTable())->truncate();
+        \DB::table($item->getTable())->truncate();
+        return response()->json();
     }
 }

@@ -155,4 +155,55 @@ class ProfileControllerTest extends TestCase
 
         echo " {$this->green}[OK]{$this->white}\r\n";
     }
+
+    public function testImportProfile()
+    {
+        echo "\n\r{$this->yellow}    import and truncate profile...";
+
+        $headers  = array(
+            'Accept'        => 'application/json',
+            'x-tenant'      => 'itest'
+        );
+        $url      = $this->url . '/import';
+        $expected = 1000;
+
+        // Fake any disk here
+        \Storage::fake('local');
+
+        $filePath = '/tmp/randomstring.csv';
+
+        // Create file
+        $data  = "email,password,data.x,data.y,meta.domain\n";
+        $faker = \Faker\Factory::create();
+        for ($i = 0; $i < $expected; $i++) {
+            $fakedata = [
+                'email' => $faker->unique()->safeEmail,
+                'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+                'data.x' => $faker->catchPhrase,
+                'data.y' => $faker->domainName,
+                'meta.domain' => $faker->domainWord
+            ];
+
+            $data .= '"' . join($fakedata, '","') . "\"\n";
+        }
+
+        // Create file
+        file_put_contents($filePath, $data);
+
+        // \Log::info($data);
+        $response = $this->withHeaders($headers)->post($url, [
+            'file' => new \Illuminate\Http\UploadedFile($filePath, 'test.csv', null, null, null, true),
+        ]);
+        $response->assertStatus(200);
+
+        $count = \Api\Models\Profile::query()->from('itest_profile')->count();
+        $this->assertSame($expected, $count, "Has right count.");
+
+        $url      = $this->url . '/truncate';
+        $response = $this->withHeaders($headers)->post($url);
+        $response->assertStatus(200);
+
+        $count = \Api\Models\Profile::query()->from('itest_profile')->count();
+        $this->assertSame(0, $count, "Has right count.");
+    }
 }

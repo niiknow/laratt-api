@@ -44,6 +44,12 @@ Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
         'ProfileController@import'
     )->name('api.profiles.import');
 
+    Route::match(
+        ['post'],
+        'profiles/truncate',
+        'ProfileController@truncate'
+    )->name('api.profiles.truncate');
+
     // table stuff
     Route::match(
         ['get','delete'],
@@ -86,4 +92,10 @@ Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
         'tables/{table}/import',
         'TableController@import'
     )->name('api.table.import');
+
+    Route::match(
+        ['post'],
+        'tables/{table}/truncate',
+        'TableController@truncate'
+    )->name('api.table.truncate');
 });

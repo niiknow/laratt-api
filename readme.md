@@ -173,13 +173,6 @@ For `AND` clauses, use another `filter[]` query.
 - [x] cloud auditable/s3 backed of individual record transaction.  This allow you to trigger lambda on some event instead of having to create scheduled jobs.
 - [ ] being able to include and exclude table from auditable - so you don't have to audit things like when you're using it for logging/caching or when client doesn't need it for some particular reason. 
 
-## Future Feature/TODO
-- [ ] Some Benchmarking
-- [ ] Bulk import.
-- [ ] Automatically launder image_url to our own CDN - maybe only for certain table names? - maybe this can be done with auditable s3 event
-- [ ] API authorization with users object and jwt instead? maybe using a separate database?
-- [ ] Other ideas?
-
 ## Q and A
 > Why Laravel, and why not Lumin?
 
