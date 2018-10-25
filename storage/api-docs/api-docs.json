@@ -14,405 +14,13 @@
         }
     ],
     "paths": {
-        "/profiles/create": {
-            "post": {
-                "tags": [
-                    "profiles"
-                ],
-                "summary": "create profile",
-                "operationId": "Api\\Controllers\\ProfileController::create",
-                "parameters": [
-                    {
-                        "name": "X-API-Key",
-                        "in": "header",
-                        "description": "api key",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "X-Tenant",
-                        "in": "header",
-                        "description": "tenant id",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "default": {
-                        "description": "new profile object"
-                    }
-                }
-            }
-        },
-        "/profiles/{uid}/retrieve": {
-            "get": {
-                "tags": [
-                    "profiles"
-                ],
-                "summary": "get profile",
-                "operationId": "Api\\Controllers\\ProfileController::retrieve",
-                "parameters": [
-                    {
-                        "name": "X-API-Key",
-                        "in": "header",
-                        "description": "api key",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "X-Tenant",
-                        "in": "header",
-                        "description": "tenant id",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "uid",
-                        "in": "path",
-                        "description": "uid",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "404": {
-                        "description": "profile not found"
-                    },
-                    "default": {
-                        "description": "profile object"
-                    }
-                }
-            }
-        },
-        "/profiles/{uid}/delete": {
-            "delete": {
-                "tags": [
-                    "profiles"
-                ],
-                "summary": "delete a single profile, also accept method: POST\n     *   See also /list for bulk delete by query.",
-                "operationId": "Api\\Controllers\\ProfileController::delete",
-                "parameters": [
-                    {
-                        "name": "X-API-Key",
-                        "in": "header",
-                        "description": "api key",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "X-Tenant",
-                        "in": "header",
-                        "description": "tenant id",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "uid",
-                        "in": "path",
-                        "description": "uid",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "404": {
-                        "description": "profile not found"
-                    },
-                    "default": {
-                        "description": "deleted profile object"
-                    }
-                }
-            }
-        },
-        "/profiles/list": {
-            "get": {
-                "tags": [
-                    "profiles"
-                ],
-                "summary": "search or delete profile, use DELETE http method to bulk delete",
-                "parameters": [
-                    {
-                        "name": "X-API-Key",
-                        "in": "header",
-                        "description": "api key",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "X-Tenant",
-                        "in": "header",
-                        "description": "tenant id",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "select",
-                        "in": "query",
-                        "description": "comma separated list of columns that you want to return",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "filter",
-                        "in": "query",
-                        "description": "array of column_name:operator:value to filter result with",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    {
-                        "name": "limit",
-                        "in": "query",
-                        "description": "limit the number of returned",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "sort",
-                        "in": "query",
-                        "description": "array of column_name:asc/desc to sort result",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "default": {
-                        "description": "Eloquent builder paginated json"
-                    }
-                }
-            }
-        },
-        "/profiles/data": {
-            "get": {
-                "tags": [
-                    "profiles"
-                ],
-                "summary": "jQuery DataTable endpoint",
-                "operationId": "Api\\Controllers\\ProfileController::data",
-                "parameters": [
-                    {
-                        "name": "X-API-Key",
-                        "in": "header",
-                        "description": "api key",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "X-Tenant",
-                        "in": "header",
-                        "description": "tenant id",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "default": {
-                        "description": "jQuery DataTable json"
-                    }
-                }
-            }
-        },
-        "/profiles/{uid}/upsert": {
-            "post": {
-                "tags": [
-                    "profiles"
-                ],
-                "summary": "upsert profile",
-                "operationId": "Api\\Controllers\\ProfileController::upsert",
-                "parameters": [
-                    {
-                        "name": "X-API-Key",
-                        "in": "header",
-                        "description": "api key",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "X-Tenant",
-                        "in": "header",
-                        "description": "tenant id",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "uid",
-                        "in": "path",
-                        "description": "uid",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "default": {
-                        "description": "new or updated profile object"
-                    }
-                }
-            }
-        },
-        "/profiles/import": {
-            "post": {
-                "tags": [
-                    "profiles"
-                ],
-                "summary": "import csv of profiles",
-                "operationId": "Api\\Controllers\\ProfileController::import",
-                "parameters": [
-                    {
-                        "name": "X-API-Key",
-                        "in": "header",
-                        "description": "api key",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "X-Tenant",
-                        "in": "header",
-                        "description": "tenant id",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "required": [
-                                    "file"
-                                ],
-                                "properties": {
-                                    "file": {
-                                        "description": "csv file with header columns",
-                                        "type": "string",
-                                        "format": "file"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "422": {
-                        "description": "import with error, rowno, and errored row"
-                    },
-                    "default": {
-                        "description": "imported list of uid(s)"
-                    }
-                }
-            }
-        },
-        "/profiles/truncate": {
-            "post": {
-                "tags": [
-                    "profiles"
-                ],
-                "summary": "delete everything from the profile table. Why not?\n     *   Hint: this is why 'uid' is better than system 'id'.",
-                "operationId": "Api\\Controllers\\ProfileController::truncate",
-                "parameters": [
-                    {
-                        "name": "X-API-Key",
-                        "in": "header",
-                        "description": "api key",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "X-Tenant",
-                        "in": "header",
-                        "description": "tenant id",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "default": {
-                        "description": "nothing if success"
-                    }
-                }
-            }
-        },
         "/tables/{table}/create": {
             "post": {
                 "tags": [
                     "tables"
                 ],
                 "summary": "create new object and store in {table}",
-                "operationId": "Api\\Controllers\\TableController::create",
+                "operationId": "create",
                 "parameters": [
                     {
                         "name": "X-API-Key",
@@ -461,7 +69,7 @@
                     "tables"
                 ],
                 "summary": "get object of specified table",
-                "operationId": "Api\\Controllers\\TableController::retrieve",
+                "operationId": "retrieve",
                 "parameters": [
                     {
                         "name": "X-API-Key",
@@ -523,7 +131,7 @@
                     "tables"
                 ],
                 "summary": "delete object of specified table, also accept method: POST\n     *   See also /list for bulk delete by query.",
-                "operationId": "Api\\Controllers\\TableController::delete",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "X-API-Key",
@@ -679,7 +287,7 @@
                     "tables"
                 ],
                 "summary": "jQuery DataTable endpoint",
-                "operationId": "Api\\Controllers\\TableController::data",
+                "operationId": "data",
                 "parameters": [
                     {
                         "name": "X-API-Key",
@@ -728,7 +336,7 @@
                     "tables"
                 ],
                 "summary": "upsert object of specified table",
-                "operationId": "Api\\Controllers\\TableController::upsert",
+                "operationId": "upsert",
                 "parameters": [
                     {
                         "name": "X-API-Key",
@@ -787,7 +395,7 @@
                     "tables"
                 ],
                 "summary": "import csv of object",
-                "operationId": "Api\\Controllers\\TableController::import",
+                "operationId": "import",
                 "parameters": [
                     {
                         "name": "X-API-Key",
@@ -856,7 +464,7 @@
                     "tables"
                 ],
                 "summary": "delete everything from the table.  Why not?\n     *   Hint: this is why 'uid' is better than system 'id'.",
-                "operationId": "Api\\Controllers\\TableController::truncate",
+                "operationId": "truncate",
                 "parameters": [
                     {
                         "name": "X-API-Key",
@@ -882,6 +490,391 @@
                         "name": "table",
                         "in": "path",
                         "description": "specified table name",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "nothing if success"
+                    }
+                }
+            }
+        },
+        "/profiles/create": {
+            "post": {
+                "tags": [
+                    "profiles"
+                ],
+                "summary": "create profile",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "new profile object"
+                    }
+                }
+            }
+        },
+        "/profiles/{uid}/retrieve": {
+            "get": {
+                "tags": [
+                    "profiles"
+                ],
+                "summary": "get profile",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "uid",
+                        "in": "path",
+                        "description": "uid",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "profile not found"
+                    },
+                    "default": {
+                        "description": "profile object"
+                    }
+                }
+            }
+        },
+        "/profiles/{uid}/delete": {
+            "delete": {
+                "tags": [
+                    "profiles"
+                ],
+                "summary": "delete a single profile, also accept method: POST\n     *   See also /list for bulk delete by query.",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "uid",
+                        "in": "path",
+                        "description": "uid",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "profile not found"
+                    },
+                    "default": {
+                        "description": "deleted profile object"
+                    }
+                }
+            }
+        },
+        "/profiles/list": {
+            "get": {
+                "tags": [
+                    "profiles"
+                ],
+                "summary": "search or delete profile, use DELETE http method to bulk delete",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "select",
+                        "in": "query",
+                        "description": "comma separated list of columns that you want to return",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "array of column_name:operator:value to filter result with",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "limit the number of returned",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "array of column_name:asc/desc to sort result",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Eloquent builder paginated json"
+                    }
+                }
+            }
+        },
+        "/profiles/data": {
+            "get": {
+                "tags": [
+                    "profiles"
+                ],
+                "summary": "jQuery DataTable endpoint",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "jQuery DataTable json"
+                    }
+                }
+            }
+        },
+        "/profiles/{uid}/upsert": {
+            "post": {
+                "tags": [
+                    "profiles"
+                ],
+                "summary": "upsert profile",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "uid",
+                        "in": "path",
+                        "description": "uid",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "new or updated profile object"
+                    }
+                }
+            }
+        },
+        "/profiles/import": {
+            "post": {
+                "tags": [
+                    "profiles"
+                ],
+                "summary": "import csv of profiles",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "file"
+                                ],
+                                "properties": {
+                                    "file": {
+                                        "description": "csv file with header columns",
+                                        "type": "string",
+                                        "format": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "import with error, rowno, and errored row"
+                    },
+                    "default": {
+                        "description": "imported list of uid(s)"
+                    }
+                }
+            }
+        },
+        "/profiles/truncate": {
+            "post": {
+                "tags": [
+                    "profiles"
+                ],
+                "summary": "delete everything from the profile table. Why not?\n     *   Hint: this is why 'uid' is better than system 'id'.",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
                         "required": true,
                         "style": "form",
                         "schema": {
