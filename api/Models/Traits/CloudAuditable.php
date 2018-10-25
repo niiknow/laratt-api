@@ -49,6 +49,11 @@ trait CloudAuditable
         });
     }
 
+    /**
+     * Determine if cloud audit is enabled.
+     *
+     * @return boolean   false if not enabled
+     */
     public function canCloudAudit()
     {
         $bucket = config('admin.auditable.bucket');
@@ -86,6 +91,13 @@ trait CloudAuditable
         return true;
     }
 
+    /**
+     * Obtain cloud audit metadata.
+     *
+     * @param  string $action audit action
+     * @param  array  $log    extra log info
+     * @return object         the audit meta data
+     */
     public function cloudAuditBody($action, $log = [])
     {
         $tn      = $this->getTable();
@@ -136,12 +148,19 @@ trait CloudAuditable
                 'route_action'  => $request->route()->getActionName(),
                 'route_query'   => $request->query(),
                 'route_params'  => $route_params
-            ];
+            ]);
         }
 
         return $body;
     }
 
+    /**
+     * use to audit the current object
+     *
+     * @param  string $action audit action
+     * @param  array  $log    extra log info
+     * @return object         the current object
+     */
     public function cloudAudit($action, $log = [])
     {
         $id  = $this->id;
@@ -150,11 +169,11 @@ trait CloudAuditable
             return;
         }
 
-        if (!$this->canCloudAudit()) {
-            return;
+        if ($this->canCloudAudit()) {
+            $table    = $this->getTable();
+            $filename = "$uid/$table/index";
+            return $this->cloudAuditWrite($action, $log, null, $filename);
         }
-
-        return $this->cloudAuditWrite("index.json", $body);
     }
 
     /**
@@ -170,37 +189,39 @@ trait CloudAuditable
      * write to cloud - allow to override or special audit
      * per example use in bulk import
      *
+     * @param  string $action audit action
+     * @param  array  $log    extra log info
      * @param  string $model    the object
      * @param  string $filename the file name without extension, null is $timestamp-log.json
      * @return object           the current object
      */
     public function cloudAuditWrite($action, $log = [], $model = null, $filename = null)
     {
+        $table = $this->getTable();
+
         if (!isset($filename)) {
             // timestamp in reverse chronological order
             // this allow for latest first
             $now      = Carbon::now('UTC');
-            $filename = (9999 - $now->year) .
+            $filename = "$table/" . (9999 - $now->year) .
                 (99 - $now->month) .
                 (99 - $now->day) .
-                "-tsrev";
+                "-revts";
+        } elseif (strpos($filename, $table . "/") === false) {
+            $path = "$table/$filename";
         }
 
+        $path = $filename . ".json";
         $body = $this->cloudAuditBody($action, $log);
 
-        if (!isset($model)) {
+        if ($model) {
+            $body['custom'] = $model;
+        } else {
             $body['uid']      = $this->uid;
             $body['model_id'] = $id;
             $body['model']    = $this->toArray();
             $body['info']     = $this->getCloudAuditInfo() ?: [];
-        } else {
-            $body['data'] = $model;
         }
-
-        $fn    = \Str::slug($filename) . ".json";
-        $table = $this->getTable();
-        $uid   = $this->uid;
-        $path  = "uid/$table/$fn";
 
         // store to s3
         \Storage::disk('s3')
@@ -222,11 +243,21 @@ trait CloudAuditable
         return $this;
     }
 
+    /**
+     * get no_audit property
+     *
+     * @return boolean  if enable audit
+     */
     public function getNoAuditAttribute()
     {
         return $this->no_audit;
     }
 
+    /**
+     * set no_audit property
+     *
+     * @return boolean  if enable audit
+     */
     public function setNoAuditAttribute($value)
     {
         $this->no_audit = $value;
