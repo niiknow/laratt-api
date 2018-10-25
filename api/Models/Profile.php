@@ -11,6 +11,8 @@ use Api\Models\Traits\CloudAuditable;
 use Api\Models\Traits\DynamicModelTrait;
 use Carbon\Carbon;
 
+use Api\TenantResolver;
+
 class Profile extends Authenticatable
 {
     use CloudAuditable,

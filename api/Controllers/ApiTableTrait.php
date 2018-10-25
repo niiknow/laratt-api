@@ -15,6 +15,8 @@ use Carbon\Carbon;
 use League\Csv\Reader;
 use Yajra\DataTables\DataTables;
 
+use Api\TenantResolver;
+
 trait ApiTableTrait
 {
 
@@ -322,7 +324,7 @@ trait ApiTableTrait
     {
         $table = $this->getTable();
         $item  = $this->getModel();
-        $item->createTableIfNotExists(tenantId(), $table);
+        $item->createTableIfNotExists(TenantResolver::resolve(), $table);
 
         $qb = new RequestQueryBuilder(\DB::table($item->getTable()));
         return $qb->applyRequest($request);
@@ -377,7 +379,7 @@ trait ApiTableTrait
     {
         $table = $this->getTable();
         $item  = $this->getModel();
-        $item->createTableIfNotExists(tenantId(), $table);
+        $item->createTableIfNotExists(TenantResolver::resolve(), $table);
 
         return DataTables::of(\DB::table($item->getTable()))->make(true);
     }
@@ -603,7 +605,7 @@ trait ApiTableTrait
 
         $rst  = array();
         $item = $this->getModel();
-        $item->createTableIfNotExists(tenantId());
+        $item->createTableIfNotExists(TenantResolver::resolve());
 
         // wrap import in a transaction
         \DB::transaction(function () use ($data, &$rst, $jobid, $table) {
@@ -699,7 +701,7 @@ trait ApiTableTrait
     {
         $table = $this->getTable();
         $item  = $this->getModel();
-        $item->createTableIfNotExists(tenantId(), $table);
+        $item->createTableIfNotExists(TenantResolver::resolve(), $table);
 
         \DB::table($item->getTable())->truncate();
         return response()->json();

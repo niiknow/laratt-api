@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Config;
 
 use Carbon\Carbon;
 
+use Api\TenantResolver;
+
 /**
  * Add ability to audit to the cloud - such as s3
  * Enable revision support on s3

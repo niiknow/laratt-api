@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 
 use Carbon\Carbon;
 
+use Api\TenantResolver;
+
 /**
  * Add ability to audit to the cloud - such as s3
  * Enable revision support on s3
@@ -56,10 +58,10 @@ trait DynamicModelTrait
     public function setTableName($tenant, $tableName)
     {
         if ($tenant == null) {
-            $tenant = tenantId();
+            $tenant = TenantResolver::resolve();
         }
 
-        $newName     = tenantSlug($tenant) . '_' . tenantSlug($tableName);
+        $newName     = TenantResolver::slug($tenant) . '_' . TenantResolver::slug($tableName);
         $this->table = $newName;
         return $newName;
     }
