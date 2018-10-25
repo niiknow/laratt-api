@@ -66,8 +66,8 @@ mix.sass(`${ source }/sass/myapp.scss`, `${ public }/css`, {
 });
 mix.sourceMaps();
 mix.browserSync({
-  proxy: 'tapi.test',
-  host: 'tapi.test',
+  proxy: 'laratt.test',
+  host: 'laratt.test',
   files: [
     `${ source }/views/**/*.php`,
     `${ public }/js/**/*.js`,

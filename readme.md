@@ -1,4 +1,4 @@
-# Table API (tapi)
+# laratt-api (Laravel Table Tenancy API)
 > A rest-ful API supporting multi-tenant dynamic table manipulations 
 
 Use-case/useful with SaaS (similar to Azure Table Storage):
@@ -26,16 +26,16 @@ Use-case/useful with SaaS (similar to Azure Table Storage):
 - PHP [xdebug](http://www.artemdwo.com/install-php72-and-xdebug-on-mac-os-x) for phpunit code coverage
 
 ## Installation
-1. `git clone https://github.com/niiknow/tapi`
-2. `cd tapi`
+1. `git clone https://github.com/niiknow/laratt`
+2. `cd laratt`
 3. `composer install`
 4. `npm install`
 5. set your `.env` * set your admin credential and database login, etc...
 6. `php artisan migrate:fresh --seed`
 7. Run/Serve the Site
-    - laravel valet: `valet link tapi`
+    - laravel valet: `valet link laratt`
     - homestead: `homestead up`
-8. after `valet link tapi`, visit [tapi.test/](tapi.test) or npm run watch
+8. after `valet link laratt`, visit [laratt.test/](laratt.test) or npm run watch
 
 **Configuration Note**
 - `API_KEY`=set this to secure your api with `X-API-Key` header
@@ -50,7 +50,7 @@ Separating Tenant and Table Name allow for better control and validation.  It al
 
 **CRUD Format**
 
-[Profile Schema](https://github.com/niiknow/tapi/blob/master/api/Models/Profile.php#L76)
+[Profile Schema](https://github.com/niiknow/laratt/blob/master/api/Models/Profile.php#L76)
 
 | method(s) | endpoint | name |
 | --- | --- | --- |
@@ -63,7 +63,7 @@ Separating Tenant and Table Name allow for better control and validation.  It al
 | POST | api/v1/profiles/import | api.profiles.import |
 | POST | api/v1/profiles/truncate | api.profiles.truncate |
 
-[Tables Schema](https://github.com/niiknow/tapi/blob/master/api/Models/DynamicModel.php#L79)
+[Tables Schema](https://github.com/niiknow/laratt/blob/master/api/Models/DynamicModel.php#L79)
 
 Special multi-tables endpoint @ `/api/v1/tables/{table}`; where `{table}` is the table name you want to create.  `{table}` must be all lower cased alphanumeric with mininum of 3 characters to 30 max.  Example, let say `x-tenant: clienta` and `{table} = product`, then the resulting table will be `clienta_product`.
 
@@ -77,7 +77,7 @@ Special multi-tables endpoint @ `/api/v1/tables/{table}`; where `{table}` is the
 | POST,DELETE | api/v1/tables/{table}/{uid}/delete | api.tables.delete |
 | POST | api/v1/tables/{table}/truncate | api.tables.truncate |
 
-Also note that there are two ids: `id` and `uid`. `id` is internal to **tapi**.  You should be using `uid` for all operations.  `uid` is an auto-generated guid, if none is provide during `insert`.
+Also note that there are two ids: `id` and `uid`. `id` is internal to **laratt**.  You should be using `uid` for all operations.  `uid` is an auto-generated guid, if none is provide during `insert`.
 
 Providing a `uid` allow the API `update` to effectively act as an `merge/upsert` operation.  This mean that, if you call update with a `uid`, it will `update` if the record is found, otherwise `insert` a new record.
 
@@ -86,7 +86,7 @@ Providing a `uid` allow the API `update` to effectively act as an `merge/upsert`
 - `/import` bulk import is csv to allow for bigger import.  Up to 10000 records instead of some small number like 100 for Azure Table Storage (also see admin config to adjust).  This allow for efficiency of smaller file and quicker file transfer/upload.
 - `/truncate` Why not?  Now you can do all kind of crazy stuff with table.
 
-Also see [/api/documentation](http://tapi.test/api/documentation) for swagger docs.
+Also see [/api/documentation](http://laratt.test/api/documentation) for swagger docs.
 
 ## Query-Syntax
 This library provide simple query endpoint for search and bulk delete: `api/v1/profiles/list` or `api/v1/tables/{table}/list` - see **CRUD Format** above.

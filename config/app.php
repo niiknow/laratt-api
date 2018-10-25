@@ -54,7 +54,7 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'domain' => env('APP_DOMAIN', 'tapi.test'),
+    'domain' => env('APP_DOMAIN', 'laratt.test'),
 
     'api' => env('APP_API', '/api/v1'),
 
