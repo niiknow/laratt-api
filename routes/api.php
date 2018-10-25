@@ -15,7 +15,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
     )->name('api.profiles.data');
 
     Route::match(
-        ['post', 'put', 'patch'],
+        ['post'],
         'profiles/create',
         'ProfileController@create'
     )->name('api.profiles.create');
@@ -27,7 +27,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
     )->name('api.profiles.retrieve');
 
     Route::match(
-        ['post', 'put', 'patch'],
+        ['post'],
         'profiles/{id}/upsert',
         'ProfileController@upsert'
     )->name('api.profiles.upsert');
@@ -37,6 +37,12 @@ Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
         'profiles/{id}/delete',
         'ProfileController@delete'
     )->name('api.profiles.delete');
+
+    Route::match(
+        ['post'],
+        'profiles/import',
+        'ProfileController@import'
+    )->name('api.profiles.import');
 
     // table stuff
     Route::match(
@@ -52,7 +58,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
     )->name('api.table.data');
 
     Route::match(
-        ['post', 'put', 'patch'],
+        ['post'],
         'tables/{table}/create',
         'TableController@create'
     )->name('api.table.create');
@@ -64,7 +70,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
     )->name('api.table.retrieve');
 
     Route::match(
-        ['post', 'put', 'patch'],
+        ['post'],
         'tables/{table}/{id}/upsert',
         'TableController@upsert'
     )->name('api.table.upsert');
@@ -74,4 +80,10 @@ Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
         'tables/{table}/{id}/delete',
         'TableController@delete'
     )->name('api.table.delete');
+
+    Route::match(
+        ['post'],
+        'tables/{table}/import',
+        'TableController@import'
+    )->name('api.table.import');
 });

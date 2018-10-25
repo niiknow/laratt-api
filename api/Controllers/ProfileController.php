@@ -58,8 +58,8 @@ class ProfileController extends Controller
     /**
      * @OA\Post(
      *   path="/profiles/create",
-     *   tags={"profile"},
-     *   summary="create profile, accepts:POST,PUT,PATCH",
+     *   tags={"profiles"},
+     *   summary="create profile",
      *   @OA\Parameter(
      *     name="X-API-Key",
      *     in="header",
@@ -94,7 +94,7 @@ class ProfileController extends Controller
     /**
      * @OA\Get(
      *   path="/profiles/{uid}/retrieve",
-     *   tags={"profile"},
+     *   tags={"profiles"},
      *   summary="get profile",
      *   @OA\Parameter(
      *     name="X-API-Key",
@@ -145,8 +145,9 @@ class ProfileController extends Controller
     /**
      * @OA\Delete(
      *   path="/profiles/{uid}/delete",
-     *   tags={"profile"},
-     *   summary="delete profile",
+     *   tags={"profiles"},
+     *   summary="delete a single profile, also accept method: POST
+     *   See also /list for bulk delete by query.",
      *   @OA\Parameter(
      *     name="X-API-Key",
      *     in="header",
@@ -201,7 +202,7 @@ class ProfileController extends Controller
     /**
      * @OA\Get(
      *   path="/profiles/list",
-     *   tags={"profile"},
+     *   tags={"profiles"},
      *   summary="search or delete profile, use DELETE http method to bulk delete",
      *   @OA\Parameter(
      *     name="X-API-Key",
@@ -283,7 +284,7 @@ class ProfileController extends Controller
     /**
      * @OA\Get(
      *   path="/profiles/data",
-     *   tags={"profile"},
+     *   tags={"profiles"},
      *   summary="jQuery DataTable endpoint",
      *   @OA\Parameter(
      *     name="X-API-Key",
@@ -322,8 +323,8 @@ class ProfileController extends Controller
     /**
      * @OA\Post(
      *   path="/profiles/{uid}/upsert",
-     *   tags={"profile"},
-     *   summary="upsert profile, accepts:POST,PUT,PATCH",
+     *   tags={"profiles"},
+     *   summary="upsert profile",
      *   @OA\Parameter(
      *     name="X-API-Key",
      *     in="header",
@@ -393,7 +394,7 @@ class ProfileController extends Controller
     /**
      * @OA\Post(
      *   path="/profiles/import",
-     *   tags={"profile"},
+     *   tags={"profiles"},
      *   summary="import csv of profiles",
      *   @OA\Parameter(
      *     name="X-API-Key",
@@ -431,8 +432,12 @@ class ProfileController extends Controller
      *     )
      *   ),
      *   @OA\Response(
+     *     response="422",
+     *     description="import with error, rowno, and errored row"
+     *   ),
+     *   @OA\Response(
      *     response="default",
-     *     description=""
+     *     description="imported list of uid(s)"
      *   )
      * )
      */
@@ -456,8 +461,9 @@ class ProfileController extends Controller
 
         // wrap import in a transaction
         \DB::transaction(function () use ($data, $rst, $self) {
+            $rowno = 0;
             foreach ($data as $row) {
-                $array = array();
+                $inputs = array();
 
                 // undot the csv array
                 foreach ($row as $key => $value) {
@@ -472,17 +478,30 @@ class ProfileController extends Controller
                         $cell = $cell + 0;
                     }
 
-                    array_set($array, $key, $cell);
+                    // undot array
+                    array_set($inputs, $key, $cell);
                 }
 
                 // validate data
-                $data = Validator::make($array, $this->$vrules)->validate();
+                $validator = Validator::make($inputs, $this->$vrules);
 
-                // TODO: provide better error message
-                // like row number and validation error
+                // capture and provide better error message
+                if ($validator->fails()) {
+                    response()->json(
+                        [
+                            "error" => $validator->errors(),
+                            "rowno" => $rowno,
+                            "row" => $inputs
+                        ],
+                        422
+                    );
+
+                    // throw exception to rollback transaction
+                    throw new GeneralException(__('exceptions.profile.import'));
+                }
 
                 // get uid
-                $uid  = $data['uid'];
+                $uid  = $inputs['uid'];
                 $item = new Profile($inputs);
                 if (isset($uid)) {
                     $inputs['uid'] = $uid;
@@ -501,8 +520,16 @@ class ProfileController extends Controller
 
                 // something went wrong, error out
                 if (!$item->save()) {
-                    // TODO: provide better error message
-                    // like row number
+                    response()->json(
+                        [
+                            "error" => "Error while attempting to import row",
+                            "rowno" => $rowno,
+                            "row" => $item
+                        ],
+                        422
+                    );
+
+                    // throw exception to rollback transaction
                     throw new GeneralException(__('exceptions.profile.import'));
                 }
 
@@ -512,5 +539,44 @@ class ProfileController extends Controller
 
         // import success response
         return response()->json(["data" = $rst], 200);
+    }
+
+    /**
+     * @OA\Post(
+     *   path="/profiles/truncate",
+     *   tags={"profiles"},
+     *   summary="delete everything from the profile table, why not?",
+     *   @OA\Parameter(
+     *     name="X-API-Key",
+     *     in="header",
+     *     description="api key",
+     *     required=false,
+     *     @OA\Schema(
+     *       type="string"
+     *     ),
+     *     style="form"
+     *   ),
+     *   @OA\Parameter(
+     *     name="X-Tenant",
+     *     in="header",
+     *     description="tenant id",
+     *     required=true,
+     *     @OA\Schema(
+     *       type="string"
+     *     ),
+     *     style="form"
+     *   ),
+     *   @OA\Response(
+     *     response="default",
+     *     description="nothing if success"
+     *   )
+     * )
+     */
+    public function truncate(Request $request)
+    {
+        $item = new Profile();
+        $item->createTableIfNotExists(tenantId());
+
+        return \DB::table($item->getTable())->truncate();
     }
 }

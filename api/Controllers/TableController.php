@@ -71,7 +71,7 @@ class TableController extends Controller
      * @OA\Post(
      *   path="/tables/{table}/create",
      *   tags={"tables"},
-     *   summary="create new object and store in {table}, accepts:POST,PUT,PATCH",
+     *   summary="create new object and store in {table}",
      *   @OA\Parameter(
      *     name="X-API-Key",
      *     in="header",
@@ -189,7 +189,8 @@ class TableController extends Controller
      * @OA\Delete(
      *   path="/tables/{table}/{uid}/delete",
      *   tags={"tables"},
-     *   summary="delete object of specified table",
+     *   summary="delete object of specified table, also accept method: POST
+     *   See also /list for bulk delete by query.",
      *   @OA\Parameter(
      *     name="X-API-Key",
      *     in="header",
@@ -414,7 +415,7 @@ class TableController extends Controller
      * @OA\Post(
      *   path="/tables/{table}/{uid}/upsert",
      *   tags={"tables"},
-     *   summary="upsert object of specified table, accepts:POST,PUT,PATCH",
+     *   summary="upsert object of specified table",
      *   @OA\Parameter(
      *     name="X-API-Key",
      *     in="header",
@@ -492,5 +493,217 @@ class TableController extends Controller
         }
 
         return $item;
+    }
+
+    /**
+     * @OA\Post(
+     *   path="/tables/{table}/import",
+     *   tags={"tables"},
+     *   summary="import csv of object",
+     *   @OA\Parameter(
+     *     name="X-API-Key",
+     *     in="header",
+     *     description="api key",
+     *     required=false,
+     *     @OA\Schema(
+     *       type="string"
+     *     ),
+     *     style="form"
+     *   ),
+     *   @OA\Parameter(
+     *     name="X-Tenant",
+     *     in="header",
+     *     description="tenant id",
+     *     required=true,
+     *     @OA\Schema(
+     *       type="string"
+     *     ),
+     *     style="form"
+     *   ),
+     *   @OA\Parameter(
+     *     name="table",
+     *     in="path",
+     *     description="specified table name",
+     *     required=true,
+     *     @OA\Schema(
+     *       type="string"
+     *     ),
+     *     style="form"
+     *   ),
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           description="csv file with header columns",
+     *           property="file",
+     *           type="string",
+     *           format="file",
+     *         ),
+     *         required={"file"}
+     *       )
+     *     )
+     *   ),
+     *   @OA\Response(
+     *     response="422",
+     *     description="import with error, rowno, and errored row"
+     *   ),
+     *   @OA\Response(
+     *     response="default",
+     *     description="imported list of uid(s)"
+     *   )
+     * )
+     */
+    public function import(Request $request, $table)
+    {
+        // validate that the file import is required
+        $this->validate($request, [
+            'file' => 'required',
+        ]);
+        $file   = $request->file('file')->openFile();
+        $reader = \League\Csv\Reader::createFromFileObject($file)->setHeaderOffset(0);
+        $data   = $reader->fetchOne(1002);
+
+        if (count($data) > 1001) {
+            // we must improve a limit due to memory/resource restriction
+            return response()->json(['error' => 'Each import must not be greater than 1000 records.'], 422);
+        }
+
+        $rst  = [];
+        $self = $this;
+
+        // wrap import in a transaction
+        \DB::transaction(function () use ($data, $rst, $table, $self) {
+            $rowno = 0;
+            foreach ($data as $row) {
+                $inputs = array();
+
+                // undot the csv array
+                foreach ($row as $key => $value) {
+                    $cell = $value;
+                    if (!is_string($cell)) {
+                        $cell = (string)$cell;
+                    }
+
+                    if ($cell === '' || $cell === 'null') {
+                        $cell = null;
+                    } elseif (is_numeric($cell)) {
+                        $cell = $cell + 0;
+                    }
+
+                    // undot array
+                    array_set($inputs, $key, $cell);
+                }
+
+                // validate data
+                $validator = Validator::make($inputs, $this->$vrules);
+
+                // capture and provide better error message
+                if ($validator->fails()) {
+                    response()->json(
+                        [
+                            "error" => $validator->errors(),
+                            "rowno" => $rowno,
+                            "row" => $inputs
+                        ],
+                        422
+                    );
+
+                    // throw exception to rollback transaction
+                    throw new GeneralException(__('exceptions.profile.import'));
+                }
+
+                // get uid
+                $uid  = $inputs['uid'];
+                $item = new DynamicModel($inputs);
+                if (isset($uid)) {
+                    $input['uid'] = $uid;
+                    $item         = $item->tableFill($uid, $inputs, $table);
+
+                    // if we cannot find item, do insert
+                    if (!isset($item)) {
+                        $item = $item->tableCreate($table);
+                    }
+                } else {
+                    $item = $item->tableCreate($table);
+                }
+
+                // disable audit for bulk import
+                $item->no_audit = true;
+
+                // something went wrong, error out
+                if (!$item->save()) {
+                    response()->json(
+                        [
+                            "error" => "Error while attempting to import row",
+                            "rowno" => $rowno,
+                            "row" => $item
+                        ],
+                        422
+                    );
+
+                    // throw exception to rollback transaction
+                    throw new GeneralException(__('exceptions.profile.import'));
+                }
+
+                $rst[] = $item;
+            }
+        });
+
+        // import success response
+        return response()->json(["data" => array_only($rst, ['uid'])], 200);
+    }
+
+
+    /**
+     * @OA\Post(
+     *   path="/tables/{table}/truncate",
+     *   tags={"tables"},
+     *   summary="delete everything from the table, why not?",
+     *   @OA\Parameter(
+     *     name="X-API-Key",
+     *     in="header",
+     *     description="api key",
+     *     required=false,
+     *     @OA\Schema(
+     *       type="string"
+     *     ),
+     *     style="form"
+     *   ),
+     *   @OA\Parameter(
+     *     name="X-Tenant",
+     *     in="header",
+     *     description="tenant id",
+     *     required=true,
+     *     @OA\Schema(
+     *       type="string"
+     *     ),
+     *     style="form"
+     *   ),
+     *   @OA\Parameter(
+     *     name="table",
+     *     in="path",
+     *     description="specified table name",
+     *     required=true,
+     *     @OA\Schema(
+     *       type="string"
+     *     ),
+     *     style="form"
+     *   ),
+     *   @OA\Response(
+     *     response="default",
+     *     description="nothing if success"
+     *   )
+     * )
+     */
+    public function truncate(Request $request, $table)
+    {
+        $this->validateTable($table);
+
+        $item = new DynamicModel();
+        $item->createTableIfNotExists(tenantId(), $table);
+
+        return \DB::table($item->getTable())->truncate();
     }
 }

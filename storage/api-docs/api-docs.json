@@ -17,7 +17,7 @@
         "/profiles/create": {
             "post": {
                 "tags": [
-                    "profile"
+                    "profiles"
                 ],
                 "summary": "create profile, accepts:POST,PUT,PATCH",
                 "operationId": "Api\\Controllers\\ProfileController::create",
@@ -53,7 +53,7 @@
         "/profiles/{uid}/retrieve": {
             "get": {
                 "tags": [
-                    "profile"
+                    "profiles"
                 ],
                 "summary": "get profile",
                 "operationId": "Api\\Controllers\\ProfileController::retrieve",
@@ -102,9 +102,9 @@
         "/profiles/{uid}/delete": {
             "delete": {
                 "tags": [
-                    "profile"
+                    "profiles"
                 ],
-                "summary": "delete profile",
+                "summary": "delete a single profile, also accept method: POST\n     *   See also /list for bulk delete by query.",
                 "operationId": "Api\\Controllers\\ProfileController::delete",
                 "parameters": [
                     {
@@ -151,7 +151,7 @@
         "/profiles/list": {
             "get": {
                 "tags": [
-                    "profile"
+                    "profiles"
                 ],
                 "summary": "search or delete profile, use DELETE http method to bulk delete",
                 "parameters": [
@@ -232,7 +232,7 @@
         "/profiles/data": {
             "get": {
                 "tags": [
-                    "profile"
+                    "profiles"
                 ],
                 "summary": "jQuery DataTable endpoint",
                 "operationId": "Api\\Controllers\\ProfileController::data",
@@ -268,9 +268,9 @@
         "/profiles/{uid}/upsert": {
             "post": {
                 "tags": [
-                    "profile"
+                    "profiles"
                 ],
-                "summary": "upsert profile, accepts:POST,PUT,PATCH",
+                "summary": "upsert profile",
                 "operationId": "Api\\Controllers\\ProfileController::upsert",
                 "parameters": [
                     {
@@ -314,7 +314,7 @@
         "/profiles/import": {
             "post": {
                 "tags": [
-                    "profile"
+                    "profiles"
                 ],
                 "summary": "import csv of profiles",
                 "operationId": "Api\\Controllers\\ProfileController::import",
@@ -361,8 +361,47 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "description": "import with error, rowno, and errored row"
+                    },
                     "default": {
-                        "description": ""
+                        "description": "imported list of uid(s)"
+                    }
+                }
+            }
+        },
+        "/profiles/truncate": {
+            "post": {
+                "tags": [
+                    "profiles"
+                ],
+                "summary": "delete everything from the profile table, why not?",
+                "operationId": "Api\\Controllers\\ProfileController::truncate",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "nothing if success"
                     }
                 }
             }
@@ -372,7 +411,7 @@
                 "tags": [
                     "tables"
                 ],
-                "summary": "create new object and store in {table}, accepts:POST,PUT,PATCH",
+                "summary": "create new object and store in {table}",
                 "operationId": "Api\\Controllers\\TableController::create",
                 "parameters": [
                     {
@@ -483,7 +522,7 @@
                 "tags": [
                     "tables"
                 ],
-                "summary": "delete object of specified table",
+                "summary": "delete object of specified table, also accept method: POST\n     *   See also /list for bulk delete by query.",
                 "operationId": "Api\\Controllers\\TableController::delete",
                 "parameters": [
                     {
@@ -688,7 +727,7 @@
                 "tags": [
                     "tables"
                 ],
-                "summary": "upsert object of specified table, accepts:POST,PUT,PATCH",
+                "summary": "upsert object of specified table",
                 "operationId": "Api\\Controllers\\TableController::upsert",
                 "parameters": [
                     {
@@ -738,6 +777,121 @@
                     },
                     "default": {
                         "description": "new or updated object of specified table"
+                    }
+                }
+            }
+        },
+        "/tables/{table}/import": {
+            "post": {
+                "tags": [
+                    "tables"
+                ],
+                "summary": "import csv of object",
+                "operationId": "Api\\Controllers\\TableController::import",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "table",
+                        "in": "path",
+                        "description": "specified table name",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "file"
+                                ],
+                                "properties": {
+                                    "file": {
+                                        "description": "csv file with header columns",
+                                        "type": "string",
+                                        "format": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "import with error, rowno, and errored row"
+                    },
+                    "default": {
+                        "description": "imported list of uid(s)"
+                    }
+                }
+            }
+        },
+        "/tables/{table}/truncate": {
+            "post": {
+                "tags": [
+                    "tables"
+                ],
+                "summary": "delete everything from the table, why not?",
+                "operationId": "Api\\Controllers\\TableController::truncate",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "table",
+                        "in": "path",
+                        "description": "specified table name",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "nothing if success"
                     }
                 }
             }

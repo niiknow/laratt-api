@@ -53,11 +53,12 @@ Expect two headers:
 | --- | --- | --- |
 | GET,DELETE | api/v1/profiles/list | api.profiles.list |
 | GET | api/v1/profiles/data | api.profiles.data |
-| POST,PUT,PATCH | api/v1/profiles/create | api.profiles.create |
+| POST | api/v1/profiles/create | api.profiles.create |
 | GET | api/v1/profiles/{uid}/retrieve| api.profiles.retrieve |
-| POST,PUT,PATCH | api/v1/profiles/{uid}/upsert | api.profiles.upsert |
+| POST | api/v1/profiles/{uid}/upsert | api.profiles.upsert |
 | POST,DELETE | api/v1/profiles/{uid}/delete | api.profiles.delete |
 | POST | api/v1/profiles/import | api.profiles.import |
+| POST | api/v1/profiles/truncate | api.profiles.truncate |
 
 [Tables Schema](https://github.com/niiknow/tapi/blob/master/api/Models/DynamicModel.php#L79)
 
@@ -67,10 +68,11 @@ Special multi-tables endpoint @ `/api/v1/tables/{table}`; where `{table}` is the
 | --- | --- | --- |
 | GET,DELETE | api/v1/tables/{table}/list | api.tables.list |
 | GET | api/v1/profiles/data | api.profiles.data |
-| POST,PUT,PATCH | api/v1/tables/{table}/create | api.tables.create |
+| POST | api/v1/tables/{table}/create | api.tables.create |
 | GET | api/v1/tables/{table}/{uid}/retrieve| api.tables.retrieve |
-| POST,PUT,PATCH | api/v1/tables/{table}/{uid}/upsert | api.tables.upsert |
+| POST | api/v1/tables/{table}/{uid}/upsert | api.tables.upsert |
 | POST,DELETE | api/v1/tables/{table}/{uid}/delete | api.tables.delete |
+| POST | api/v1/tables/{table}/truncate | api.tables.truncate |
 
 Also note that there are two ids: `id` and `uid`. `id` is internal to **tapi**.  You should be using `uid` for all operations.  `uid` is an auto-generated guid, if none is provide during `insert`.
 
@@ -79,6 +81,9 @@ Providing a `uid` allow the API `update` to effectively act as an `merge/upsert`
 - `/list` endpoint is use for query and bulk delete, see: [Query Syntax](#query-syntax)
 - `/data` endpoint is use for returning jQuery DataTables format using [latavel-datatables](https://github.com/yajra/laravel-datatables).
 - `/import` bulk import is csv to allow for bigger import.  Up to 1000 records instead of just 100.  This allow for efficiency of smaller file and quicker file transfer/upload.
+- `/truncate` Why not?  Now you can do all kind of crazy stuff with table.
+
+Also see [/api/documentation](http://tapi.test/api/documentation) for swagger docs.
 
 ## Query-Syntax
 This library provide simple query endpoint for search and bulk delete: `api/v1/profiles/list` or `api/v1/tables/{table}/list` - see **CRUD Format** above.
