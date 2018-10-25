@@ -397,6 +397,58 @@ class ProfileController extends Controller
         return $this->rsp($code, $item);
     }
 
+    public function processCsv($csv, &$data)
+    {
+        $rowno = 0;
+        $limit = config('admin.import_limit', 999);
+        $jobid = (string) Str::uuid();
+        foreach ($csv as $row) {
+            $inputs = ['job_id' => $jobid];
+
+            // undot the csv array
+            foreach ($row as $key => $value) {
+                $cell = $value;
+                if (!is_string($cell)) {
+                    $cell = (string)$cell;
+                }
+
+                if ($cell === '' || $cell === 'null') {
+                    $cell = null;
+                } elseif (is_numeric($cell)) {
+                    $cell = $cell + 0;
+                }
+
+                // undot array
+                array_set($inputs, $key, $cell);
+            }
+
+            // validate data
+            $validator = Validator::make($inputs, $this->vrules);
+
+            // capture and provide better error message
+            if ($validator->fails()) {
+                return response()->json(
+                    [
+                        "error" => $validator->errors(),
+                        "rowno" => $rowno,
+                        "row" => $inputs
+                    ],
+                    422
+                );
+            }
+
+            $data[] = $inputs;
+            if ($rowno > $limit) {
+                // we must improve a limit due to memory/resource restriction
+                return response()->json(
+                    ['error' => "Each import must be less than $limit records"],
+                    422
+                );
+            }
+            $rowno += 1;
+        }
+    }
+
     /**
      * @OA\Post(
      *   path="/profiles/import",
@@ -456,55 +508,15 @@ class ProfileController extends Controller
         $csv  = \League\Csv\Reader::createFromFileObject($file)
             ->setHeaderOffset(0);
 
-        $data  = [];
-        $rowno = 0;
-        $limit = config('admin.import_limit', 999);
-        $jobid = (string) Str::uuid();
-        foreach ($csv as $row) {
-            $inputs = ['job_id' => $jobid];
-
-            // undot the csv array
-            foreach ($row as $key => $value) {
-                $cell = $value;
-                if (!is_string($cell)) {
-                    $cell = (string)$cell;
-                }
-
-                if ($cell === '' || $cell === 'null') {
-                    $cell = null;
-                } elseif (is_numeric($cell)) {
-                    $cell = $cell + 0;
-                }
-
-                // undot array
-                array_set($inputs, $key, $cell);
-            }
-
-            // validate data
-            $validator = Validator::make($inputs, $this->vrules);
-
-            // capture and provide better error message
-            if ($validator->fails()) {
-                return response()->json(
-                    [
-                        "error" => $validator->errors(),
-                        "rowno" => $rowno,
-                        "row" => $inputs
-                    ],
-                    422
-                );
-            }
-
-            $data[] = $inputs;
-            if ($rowno > $limit) {
-                // we must improve a limit due to memory/resource restriction
-                return response()->json(['error' => "Each import must be less than $limit records."], 422);
-            }
-            $rowno += 1;
+        $data = [];
+        $rst  = $this->processCsv($csv, $data);
+        if ($rst) {
+            return $rst;
         }
 
         $rst  = array();
-        $self = $this;
+        $item = new Profile();
+        $item->createTableIfNotExists(tenantId());
 
         // wrap import in a transaction
         \DB::transaction(function () use ($data, &$rst, $jobid) {
