@@ -86,28 +86,35 @@ trait CloudAuditable
         return true;
     }
 
-    public function cloudAudit($action, $log = [])
+    public function cloudAuditBody($action, $log = [])
     {
-        $id  = $this->id;
-        $uid = $this->uid;
-        if (!isset($id) || !isset($uid)) {
-            return;
-        }
+        $tn      = $this->getTable();
+        $parts   = explode($tn, ",");
+        $request = request();
+        $user    = null;
+        $now     = Carbon::now('UTC');
+        $memuse  = round(memory_get_peak_usage(true) / 1024 / 1024, 1);
+        $body    = [
+            // unique id allow for event idempotency/nonce key
+            'app_name'     => config('app.name'),
+            'class_name'   => get_class($this),
+            'table_name'   => $tn,
+            'tenant'       => $parts[0],
+            'table'        => $parts[1],
+            'action'       => $action,
+            'user_id'      => isset($user) ? $user->id : null,
+            'user_request' => $request_info,
+            'log'          => $log,
+            'created_at'   => $now->timestamp,
+            'mem_use'      => $memuse,
+            'uname'        => php_uname(),
+        ];
 
-        if (!$this->canCloudAudit()) {
-            return;
-        }
-
-        $model        = $this->toArray();
-        $request      = request();
-        $user         = null;
-        $now          = Carbon::now('UTC');
-        $request_info = [];
         if (isset($request)) {
             $user         = $request->user();
             $route_params = $request->route()->parameters();
-            $memory_usage = round(memory_get_peak_usage(true) / 1024 / 1024, 1);
-            $request_info = [
+
+            $body = array_merge($body, [
                 'user'          => $user,
                 'id_address'    => $request->ip(),
                 'user_agent'    => $request->userAgent(),
@@ -128,30 +135,24 @@ trait CloudAuditable
                 'route_name'    => $route_name,
                 'route_action'  => $request->route()->getActionName(),
                 'route_query'   => $request->query(),
-                'uname'         => php_uname(),
-                'route_params'  => $route_params,
-                'mem_use'       => $memory_usage
+                'route_params'  => $route_params
             ];
         }
 
-        $info = $this->getCloudAuditInfo() ?: [];
-        $body = array_merge($info, [
-            // unique id allow for event idempotency/nonce key
-            'uid'          => $this->uid,
-            'app_name'     => config('app.name'),
-            'class_name'   => get_class($this),
-            'table_name'   => $tn,
-            'tenant'       => $parts[0],
-            'table'        => $parts[1],
-            'action'       => $action,
-            'user_id'      => isset($user) ? $user->id : null,
-            'user_request' => $request_info,
-            'log'          => $log,
-            'model_id'     => $id,
-            'model'        => $model,
-            'created_at'   => $now->timestamp
-        ]);
-        $path = $this->getCloudAuditFile($body);
+        return $body;
+    }
+
+    public function cloudAudit($action, $log = [])
+    {
+        $id  = $this->id;
+        $uid = $this->uid;
+        if (!isset($id) || !isset($uid)) {
+            return;
+        }
+
+        if (!$this->canCloudAudit()) {
+            return;
+        }
 
         return $this->cloudAuditWrite("index.json", $body);
     }
@@ -169,11 +170,11 @@ trait CloudAuditable
      * write to cloud - allow to override or special audit
      * per example use in bulk import
      *
-     * @param  string $body     the object
+     * @param  string $model    the object
      * @param  string $filename the file name without extension, null is $timestamp-log.json
      * @return object           the current object
      */
-    public function cloudAuditWrite($body, $filename = null)
+    public function cloudAuditWrite($action, $log = [], $model = null, $filename = null)
     {
         if (!isset($filename)) {
             // timestamp in reverse chronological order
@@ -183,6 +184,17 @@ trait CloudAuditable
                 (99 - $now->month) .
                 (99 - $now->day) .
                 "-tsrev";
+        }
+
+        $body = $this->cloudAuditBody($action, $log);
+
+        if (!isset($model)) {
+            $body['uid']      = $this->uid;
+            $body['model_id'] = $id;
+            $body['model']    = $this->toArray();
+            $body['info']     = $this->getCloudAuditInfo() ?: [];
+        } else {
+            $body['data'] = $model;
         }
 
         $fn    = \Str::slug($filename) . ".json";
