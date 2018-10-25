@@ -13,7 +13,7 @@ Use-case/useful:
 * Email bounce/blacklist
 * Products API
 
-This API give you the ability to quickly import hundred-of-thousands of rows.  
+This API give you the ability to quickly import hundred-of-thousands of rows.  Deploy this somewhere, use X-API-Key for private access, and let this API handle your database access.  Think of this as a Serverless/Headless kind of database endpoint.  Let this library worry about handling of your data.  Otherwise, just use the [laratt](https://github.com/niiknow/laratt) library in your own app.  This library give you a starter/bootstrap framework on how to make that possible.
 
 # Table of Contents
 1. [Requirements](#requirements)
@@ -34,7 +34,7 @@ This API give you the ability to quickly import hundred-of-thousands of rows.
 
 ## Installation
 1. `git clone https://github.com/niiknow/laratt-api`
-2. `cd laratt`
+2. `cd laratt-api`
 3. `composer install`
 4. `npm install`
 5. set your `.env` * set your admin credential and database login, etc...
@@ -94,7 +94,6 @@ What about your own/custom schema?  See example of our [Profile Schema](https://
 | POST,DELETE | api/v1/profiles/{uid}/delete | api.profiles.delete |
 | POST | api/v1/profiles/import | api.profiles.import |
 | POST | api/v1/profiles/truncate | api.profiles.truncate |
-
 
 ## Query-Syntax
 This library provide simple query endpoint for search and bulk delete: `api/v1/profiles/list` or `api/v1/tables/{table}/list` - see **CRUD Format** above.
@@ -188,8 +187,8 @@ For `AND` clauses, use another `filter[]` query.
 ## Q and A
 > Why Laravel, and why not Lumin?
 
-Laravel because Eloquent has everything we need.  Primarily, the ability to set table prefix for multitenancy support.
-Since our app will be accessing the database, Lumin would not have made a lot of performance improvement, ref: https://medium.com/@laurencei/lumen-vs-laravel-performance-in-2018-1a9346428c01 or https://jason.pureconcepts.net/2017/02/lumen-is-dead-long-live-lumen/
+Laravel because Eloquent has everything we need.  Primarily, the ability to set table prefix for multitenancy support.  Because of all the feature of Laravel, this library was mostly completed within 3 days from start.  Also,
+since our app will be accessing the database, Lumin would not have made a lot of performance improvement, ref: https://medium.com/@laurencei/lumen-vs-laravel-performance-in-2018-1a9346428c01 or https://jason.pureconcepts.net/2017/02/lumen-is-dead-long-live-lumen/
 
 > Why PHP vs (nodejs/lua/golang/csharp)?
 
