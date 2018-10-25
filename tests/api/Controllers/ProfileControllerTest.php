@@ -165,7 +165,7 @@ class ProfileControllerTest extends TestCase
             'x-tenant'      => 'itest'
         );
         $url      = $this->url . '/import';
-        $expected = 1000;
+        $expected = 10000;
 
         // Fake any disk here
         \Storage::fake('local');

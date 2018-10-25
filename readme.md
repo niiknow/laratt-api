@@ -82,7 +82,7 @@ Providing a `uid` allow the API `update` to effectively act as an `merge/upsert`
 
 - `/list` endpoint is use for query and bulk delete, see: [Query Syntax](#query-syntax)
 - `/data` endpoint is use for returning jQuery DataTables format using [latavel-datatables](https://github.com/yajra/laravel-datatables).
-- `/import` bulk import is csv to allow for bigger import.  Up to 1000 records instead of just 100.  This allow for efficiency of smaller file and quicker file transfer/upload.
+- `/import` bulk import is csv to allow for bigger import.  Up to 10000 records instead of some small number like 100 for Azure Table Storage (also see admin config to adjust).  This allow for efficiency of smaller file and quicker file transfer/upload.
 - `/truncate` Why not?  Now you can do all kind of crazy stuff with table.
 
 Also see [/api/documentation](http://tapi.test/api/documentation) for swagger docs.

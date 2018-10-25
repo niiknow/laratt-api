@@ -12,5 +12,6 @@ return [
             'tenants' => '(demo|test)'
         ],
     ],
-    'api_key' => env('API_KEY')
+    'api_key' => env('API_KEY'),
+    'import_limit' => 9999
 ];

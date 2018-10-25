@@ -573,6 +573,8 @@ class TableController extends Controller
 
         $data  = [];
         $rowno = 0;
+        $limit = config('admin.import_limit', 999);
+
         foreach ($csv as $row) {
             $inputs = array();
 
@@ -609,11 +611,11 @@ class TableController extends Controller
             }
 
             $data[] = $inputs;
-            $rowno += 1;
-            if ($rowno > 1001) {
+            if ($rowno > $limit) {
                 // we must improve a limit due to memory/resource restriction
-                return response()->json(['error' => 'Each import must not be greater than 1000 records.'], 422);
+                return response()->json(['error' => "Each import must be less than $limit records."], 422);
             }
+            $rowno += 1;
         }
 
         $rst = array();
