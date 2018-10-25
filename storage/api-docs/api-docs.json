@@ -19,7 +19,7 @@
                 "tags": [
                     "profiles"
                 ],
-                "summary": "create profile, accepts:POST,PUT,PATCH",
+                "summary": "create profile",
                 "operationId": "Api\\Controllers\\ProfileController::create",
                 "parameters": [
                     {

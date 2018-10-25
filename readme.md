@@ -67,7 +67,7 @@ Special multi-tables endpoint @ `/api/v1/tables/{table}`; where `{table}` is the
 | method(s) | endpoint | name |
 | --- | --- | --- |
 | GET,DELETE | api/v1/tables/{table}/list | api.tables.list |
-| GET | api/v1/profiles/data | api.profiles.data |
+| GET | api/v1/tables/data | api.tables.data |
 | POST | api/v1/tables/{table}/create | api.tables.create |
 | GET | api/v1/tables/{table}/{uid}/retrieve| api.tables.retrieve |
 | POST | api/v1/tables/{table}/{uid}/upsert | api.tables.upsert |
