@@ -1442,16 +1442,16 @@
         },
         {
             "name": "niiknow/laratt",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/niiknow/laratt.git",
-                "reference": "0af60fb4cf445811eac80914a18afa1b54bd58c8"
+                "reference": "ee81c3296bfdb0942abeb022b4d46531af69e676"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/niiknow/laratt/zipball/0af60fb4cf445811eac80914a18afa1b54bd58c8",
-                "reference": "0af60fb4cf445811eac80914a18afa1b54bd58c8",
+                "url": "https://api.github.com/repos/niiknow/laratt/zipball/ee81c3296bfdb0942abeb022b4d46531af69e676",
+                "reference": "ee81c3296bfdb0942abeb022b4d46531af69e676",
                 "shasum": ""
             },
             "require": {
@@ -1497,7 +1497,7 @@
                 "laratt",
                 "niiknow"
             ],
-            "time": "2018-10-25T17:55:52+00:00"
+            "time": "2018-10-26T02:45:35+00:00"
         },
         {
             "name": "nikic/php-parser",

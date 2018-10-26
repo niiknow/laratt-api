@@ -196,6 +196,8 @@ since our app will be accessing the database, Lumin would not have made a lot of
 Again, see why Laravel explained above.  PHP is also easy to deploy, similar to other langs mentioned above.  We can simply deploy this on some cPanel or similar hosting and/or docker.  Hey, we can even do serverless (https://read.acloud.guru/serverless-php-630bb3e950f5) and combine with Aurora Serverless Database for high scalability.
 
 ## Docker
+What we're doing with docker is to use the most common/Official Docker Images for demonstration.  For things like Letsencrypt SSL and custom docker container is outside the scope of this project.  This allow us to present a docker-compose file in clear and simple manner, so to help user understand and maybe even provide a starting template for more complex scenario.
+
 See docker-compose.example.yml for demonstration.  Simply rename to docker-compose.yml and run:
 ```
 docker-compose up
