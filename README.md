@@ -35,11 +35,11 @@ This API give you the ability to quickly import hundred-of-thousands of rows.  D
 
 ## Installation
 1. `git clone https://github.com/niiknow/laratt-api`
-2. `cd laratt-api/src`
+2. `cd laratt-api`
 3. `composer install`
 4. `npm install`
-5. set your `.env` * set your admin credential and database login, etc...
-6. `php artisan migrate:fresh --seed`
+5. set your `.env` by copying from `.env.example`
+6. `php artisan key:generate` and `php artisan migrate:fresh --seed`
 7. Run/Serve the Site
     - laravel valet: `valet link laratt`
     - homestead: `homestead up`
@@ -54,7 +54,7 @@ Expect two headers:
 - `X-API-Key` the API_KEY above
 - `X-Tenant` the tenant id - must start with alpha character with remaining character of alphanumeric.  Mininum of 3 characters and max of 20.
 
-Separating Tenant and Table Name allow for better control and validation.  It also allow for future support of some kind of JWT auth that contain information about the Tenant.
+Separating Tenant and Table Name allow for better control and validation.  It also allow for future support of JWT/Token Auth that contain information about the Tenant.
 
 **CRUD Format**
 
@@ -77,7 +77,7 @@ Also note that there are two ids: `id` and `uid`. `id` is internal to **laratt**
 Providing a `uid` allow the API `update` to effectively act as an `merge/upsert` operation.  This mean that, if you call update with a `uid`, it will `update` if the record is found, otherwise `insert` a new record.
 
 - `/list` endpoint is use for query and bulk delete, see: [Query Syntax](#query-syntax)
-- `/data` endpoint is use for returning jQuery DataTables format using [latavel-datatables](https://github.com/yajra/laravel-datatables).
+- `/data` endpoint is use for returning jQuery DataTables format using [laravel-datatables](https://github.com/yajra/laravel-datatables).
 - `/import` bulk import is csv to allow for bigger import.  Up to 10000 records instead of some small number like 100 for Azure Table Storage (also see admin config to adjust).  This allow for efficiency of smaller file and quicker file transfer/upload.
 - `/truncate` Why not?  Now you can do all kind of crazy stuff with table.
 
