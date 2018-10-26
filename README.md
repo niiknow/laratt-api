@@ -203,4 +203,6 @@ See docker-compose.example.yml for demonstration.  Simply rename to docker-compo
 docker-compose up
 ```
 
+Note, we also configured `innodb_file_per_table=1` in `my.cnf` which may help improve performance in this particular usage.  It may degrade performance when the number of tables reach in the tens of thousands depending on your server resource.
+
 # MIT
