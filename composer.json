@@ -75,6 +75,10 @@
             "chmod -R 775 boostrap/cache/",
             "echo 'composer install --no-dev --optimize-autoloader'"
         ],
+        "docker:clear": [
+            "rm -rf .docker/data/mysql/*",
+            "rm -rf .docker/logs/*"
+        ],
         "auto-complete:generate": [
             "php artisan ide-helper:meta",
             "php artisan ide-helper:generate",

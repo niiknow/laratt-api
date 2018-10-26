@@ -23,3 +23,4 @@ public/js/parts/*
 !.docker/data/*.gitkeep
 .env
 src/storage/installed
+docker-compose.yml
