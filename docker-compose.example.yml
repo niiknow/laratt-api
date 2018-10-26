@@ -24,7 +24,7 @@ services:
       - dbhost
     networks:
       - laratt-network
-    image: cyberduck/php-fpm-laravel:7.2
+    image: laradock/php-fpm:2.2-7.2
     volumes:
       - "./:/var/www"
 
@@ -38,12 +38,22 @@ services:
     command: ["mysqld", "--innodb-buffer-pool-size=1G"]
     environment:
       - "MYSQL_ROOT_PASSWORD=secret"
-      - "MYSQL_DATABASE=homestead"
-      - "MYSQL_USER=laratt"
+      - "MYSQL_DATABASE=laratt"
+      - "MYSQL_USER=homestead"
       - "MYSQL_PASSWORD=secret"
     volumes:
       - "./.docker/conf/my.cnf:/etc/mysql/my.cnf:ro"
       - "./.docker/data/mysql:/var/lib/mysql:rw"
+# The reason you want to physically mount /var/lib/mysql
+# because I don't trust docker.  There are instances
+# when docker can become unresponsive and the only
+# way to get it back is to start from scratch
+# by deleting rm -rf /var/lib/docker/*
+#
+# Using docker volume means you will loose your data
+# but redis is fine if we're just using it like
+# memcache.
+
 
 # The redis caching server.
 # redis:
@@ -59,17 +69,15 @@ services:
 # (Optional) A PHPMyAdmin web interface for the database.
 #    phpmyadmin:
 #      depends_on:
-#        - db
+#        - dbhost
 #      image: phpmyadmin/phpmyadmin
 #      restart: always
 #      ports:
 #        - 8080:80
-#      env_file:
-#        - ./config/mysql.env
 #      environment:
 #        PMA_HOST: db
 #      networks:
-#        - app-network
+#        - laratt-network
 
 networks:
   laratt-network:

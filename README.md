@@ -23,6 +23,7 @@ This API give you the ability to quickly import hundred-of-thousands of rows.  D
 5. [Query Syntax](#query-syntax)
 6. [Future Feature TODO](#todo)
 7. [Q and A](#Q-and-A)
+8. [Docker](#docker)
 
 ## Requirements
 - PHP 7.1+
@@ -193,5 +194,11 @@ since our app will be accessing the database, Lumin would not have made a lot of
 > Why PHP vs (nodejs/lua/golang/csharp)?
 
 Again, see why Laravel explained above.  PHP is also easy to deploy, similar to other langs mentioned above.  We can simply deploy this on some cPanel or similar hosting and/or docker.  Hey, we can even do serverless (https://read.acloud.guru/serverless-php-630bb3e950f5) and combine with Aurora Serverless Database for high scalability.
+
+## Docker
+See docker-compose.example.yml for demonstration.  Simply rename to docker-compose.yml and run:
+```
+docker-compose up
+```
 
 # MIT

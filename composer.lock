@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.69.14",
+            "version": "3.69.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "904e9e21389efe93935701be0b857990752d6245"
+                "reference": "148a3b363fe630b4e14dda00363713265d2bf092"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/904e9e21389efe93935701be0b857990752d6245",
-                "reference": "904e9e21389efe93935701be0b857990752d6245",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/148a3b363fe630b4e14dda00363713265d2bf092",
+                "reference": "148a3b363fe630b4e14dda00363713265d2bf092",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-10-24T19:17:46+00:00"
+            "time": "2018-10-25T18:34:08+00:00"
         },
         {
             "name": "darkaonline/l5-swagger",
