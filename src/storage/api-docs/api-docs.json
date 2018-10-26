@@ -14,496 +14,6 @@
         }
     ],
     "paths": {
-        "/tables/{table}/create": {
-            "post": {
-                "tags": [
-                    "tables"
-                ],
-                "summary": "create new object and store in {table}",
-                "operationId": "create",
-                "parameters": [
-                    {
-                        "name": "X-API-Key",
-                        "in": "header",
-                        "description": "api key",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "X-Tenant",
-                        "in": "header",
-                        "description": "tenant id",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "table",
-                        "in": "path",
-                        "description": "specified table name",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "422": {
-                        "description": "invalid table name"
-                    },
-                    "default": {
-                        "description": "new object in specified {table}"
-                    }
-                }
-            }
-        },
-        "/tables/{table}/{uid}/retrieve": {
-            "get": {
-                "tags": [
-                    "tables"
-                ],
-                "summary": "get object of specified table",
-                "operationId": "retrieve",
-                "parameters": [
-                    {
-                        "name": "X-API-Key",
-                        "in": "header",
-                        "description": "api key",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "X-Tenant",
-                        "in": "header",
-                        "description": "tenant id",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "table",
-                        "in": "path",
-                        "description": "specified table name",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "uid",
-                        "in": "path",
-                        "description": "uid",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "404": {
-                        "description": "object not found"
-                    },
-                    "422": {
-                        "description": "invalid table name"
-                    },
-                    "default": {
-                        "description": "found object"
-                    }
-                }
-            }
-        },
-        "/tables/{table}/{uid}/delete": {
-            "delete": {
-                "tags": [
-                    "tables"
-                ],
-                "summary": "delete object of specified table, also accept method: POST\n     *   See also /list for bulk delete by query.",
-                "operationId": "delete",
-                "parameters": [
-                    {
-                        "name": "X-API-Key",
-                        "in": "header",
-                        "description": "api key",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "X-Tenant",
-                        "in": "header",
-                        "description": "tenant id",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "table",
-                        "in": "path",
-                        "description": "specified table name",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "uid",
-                        "in": "path",
-                        "description": "uid",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "404": {
-                        "description": "object not found"
-                    },
-                    "422": {
-                        "description": "invalid table name"
-                    },
-                    "default": {
-                        "description": "deleted object"
-                    }
-                }
-            }
-        },
-        "/tables/{table}/list": {
-            "get": {
-                "tags": [
-                    "tables"
-                ],
-                "summary": "search or delete a table, use DELETE http method to bulk delete",
-                "parameters": [
-                    {
-                        "name": "X-API-Key",
-                        "in": "header",
-                        "description": "api key",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "X-Tenant",
-                        "in": "header",
-                        "description": "tenant id",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "table",
-                        "in": "path",
-                        "description": "specified table name",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "select",
-                        "in": "query",
-                        "description": "comma separated list of columns that you want to return",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "filter",
-                        "in": "query",
-                        "description": "array of column_name:operator:value to filter result with",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    {
-                        "name": "limit",
-                        "in": "query",
-                        "description": "limit the number of returned",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "sort",
-                        "in": "query",
-                        "description": "array of column_name:asc/desc to sort result",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "422": {
-                        "description": "invalid table name"
-                    },
-                    "default": {
-                        "description": "Eloquent builder paginated json"
-                    }
-                }
-            }
-        },
-        "/tables/{table}/data": {
-            "get": {
-                "tags": [
-                    "tables"
-                ],
-                "summary": "jQuery DataTable endpoint",
-                "operationId": "data",
-                "parameters": [
-                    {
-                        "name": "X-API-Key",
-                        "in": "header",
-                        "description": "api key",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "X-Tenant",
-                        "in": "header",
-                        "description": "tenant id",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "table",
-                        "in": "path",
-                        "description": "specified table name",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "422": {
-                        "description": "invalid table name"
-                    },
-                    "default": {
-                        "description": "jQuery DataTable json"
-                    }
-                }
-            }
-        },
-        "/tables/{table}/{uid}/upsert": {
-            "post": {
-                "tags": [
-                    "tables"
-                ],
-                "summary": "upsert object of specified table",
-                "operationId": "upsert",
-                "parameters": [
-                    {
-                        "name": "X-API-Key",
-                        "in": "header",
-                        "description": "api key",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "X-Tenant",
-                        "in": "header",
-                        "description": "tenant id",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "table",
-                        "in": "path",
-                        "description": "specified table name",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "uid",
-                        "in": "path",
-                        "description": "uid",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "422": {
-                        "description": "invalid table name"
-                    },
-                    "default": {
-                        "description": "new or updated object of specified table"
-                    }
-                }
-            }
-        },
-        "/tables/{table}/import": {
-            "post": {
-                "tags": [
-                    "tables"
-                ],
-                "summary": "import csv of object",
-                "operationId": "import",
-                "parameters": [
-                    {
-                        "name": "X-API-Key",
-                        "in": "header",
-                        "description": "api key",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "X-Tenant",
-                        "in": "header",
-                        "description": "tenant id",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "table",
-                        "in": "path",
-                        "description": "specified table name",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "required": [
-                                    "file"
-                                ],
-                                "properties": {
-                                    "file": {
-                                        "description": "csv file with header columns",
-                                        "type": "string",
-                                        "format": "file"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "422": {
-                        "description": "import with error, rowno, and errored row"
-                    },
-                    "default": {
-                        "description": "imported list of uid(s)"
-                    }
-                }
-            }
-        },
-        "/tables/{table}/truncate": {
-            "post": {
-                "tags": [
-                    "tables"
-                ],
-                "summary": "delete everything from the table.  Why not?\n     *   Hint: this is why 'uid' is better than system 'id'.",
-                "operationId": "truncate",
-                "parameters": [
-                    {
-                        "name": "X-API-Key",
-                        "in": "header",
-                        "description": "api key",
-                        "required": false,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "X-Tenant",
-                        "in": "header",
-                        "description": "tenant id",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "table",
-                        "in": "path",
-                        "description": "specified table name",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "default": {
-                        "description": "nothing if success"
-                    }
-                }
-            }
-        },
         "/profiles/create": {
             "post": {
                 "tags": [
@@ -875,6 +385,489 @@
                         "name": "X-Tenant",
                         "in": "header",
                         "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "nothing if success"
+                    }
+                }
+            }
+        },
+        "/tables/{table}/create": {
+            "post": {
+                "tags": [
+                    "tables"
+                ],
+                "summary": "create new object and store in {table}",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "table",
+                        "in": "path",
+                        "description": "specified table name",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "invalid table name"
+                    },
+                    "default": {
+                        "description": "new object in specified {table}"
+                    }
+                }
+            }
+        },
+        "/tables/{table}/{uid}/retrieve": {
+            "get": {
+                "tags": [
+                    "tables"
+                ],
+                "summary": "get object of specified table",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "table",
+                        "in": "path",
+                        "description": "specified table name",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "uid",
+                        "in": "path",
+                        "description": "uid",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "object not found"
+                    },
+                    "422": {
+                        "description": "invalid table name"
+                    },
+                    "default": {
+                        "description": "found object"
+                    }
+                }
+            }
+        },
+        "/tables/{table}/{uid}/delete": {
+            "delete": {
+                "tags": [
+                    "tables"
+                ],
+                "summary": "delete object of specified table, also accept method: POST\n     *   See also /list for bulk delete by query.",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "table",
+                        "in": "path",
+                        "description": "specified table name",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "uid",
+                        "in": "path",
+                        "description": "uid",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "object not found"
+                    },
+                    "422": {
+                        "description": "invalid table name"
+                    },
+                    "default": {
+                        "description": "deleted object"
+                    }
+                }
+            }
+        },
+        "/tables/{table}/list": {
+            "get": {
+                "tags": [
+                    "tables"
+                ],
+                "summary": "search or delete a table, use DELETE http method to bulk delete",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "table",
+                        "in": "path",
+                        "description": "specified table name",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "select",
+                        "in": "query",
+                        "description": "comma separated list of columns that you want to return",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "array of column_name:operator:value to filter result with",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "limit the number of returned",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "array of column_name:asc/desc to sort result",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "invalid table name"
+                    },
+                    "default": {
+                        "description": "Eloquent builder paginated json"
+                    }
+                }
+            }
+        },
+        "/tables/{table}/data": {
+            "get": {
+                "tags": [
+                    "tables"
+                ],
+                "summary": "jQuery DataTable endpoint",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "table",
+                        "in": "path",
+                        "description": "specified table name",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "invalid table name"
+                    },
+                    "default": {
+                        "description": "jQuery DataTable json"
+                    }
+                }
+            }
+        },
+        "/tables/{table}/{uid}/upsert": {
+            "post": {
+                "tags": [
+                    "tables"
+                ],
+                "summary": "upsert object of specified table",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "table",
+                        "in": "path",
+                        "description": "specified table name",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "uid",
+                        "in": "path",
+                        "description": "uid",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "invalid table name"
+                    },
+                    "default": {
+                        "description": "new or updated object of specified table"
+                    }
+                }
+            }
+        },
+        "/tables/{table}/import": {
+            "post": {
+                "tags": [
+                    "tables"
+                ],
+                "summary": "import csv of object",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "table",
+                        "in": "path",
+                        "description": "specified table name",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "file"
+                                ],
+                                "properties": {
+                                    "file": {
+                                        "description": "csv file with header columns",
+                                        "type": "string",
+                                        "format": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "import with error, rowno, and errored row"
+                    },
+                    "default": {
+                        "description": "imported list of uid(s)"
+                    }
+                }
+            }
+        },
+        "/tables/{table}/truncate": {
+            "post": {
+                "tags": [
+                    "tables"
+                ],
+                "summary": "delete everything from the table.  Why not?\n     *   Hint: this is why 'uid' is better than system 'id'.",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "table",
+                        "in": "path",
+                        "description": "specified table name",
                         "required": true,
                         "style": "form",
                         "schema": {

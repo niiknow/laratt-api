@@ -34,7 +34,7 @@ This API give you the ability to quickly import hundred-of-thousands of rows.  D
 
 ## Installation
 1. `git clone https://github.com/niiknow/laratt-api`
-2. `cd laratt-api`
+2. `cd laratt-api/src`
 3. `composer install`
 4. `npm install`
 5. set your `.env` * set your admin credential and database login, etc...

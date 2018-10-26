@@ -1,5 +1,7 @@
 .idea
 .DS_Store
-.docker/data/*/**
+.docker/data/**
 !.docker/data/*/*.gitkeep
+!.docker/data/*.gitkeep
 .env
+src/storage/installed

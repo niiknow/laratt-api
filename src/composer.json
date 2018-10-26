@@ -70,6 +70,9 @@
         ],
         "app:production": [
             "composer app:clear",
+            "chmod -R 775 storage/framework/",
+            "chmod -R 775 storage/logs/",
+            "chmod -R 775 boostrap/cache/",
             "echo 'composer install --no-dev --optimize-autoloader'"
         ],
         "auto-complete:generate": [
