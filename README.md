@@ -56,21 +56,9 @@ Expect two headers:
 
 Separating Tenant and Table Name allow for better control and validation.  It also allow for future support of JWT/Token Auth that contain information about the Tenant.
 
-**CRUD Format**
-
-[Tables Schema](https://github.com/niiknow/laratt/blob/master/src/Models/TableModel.php#L82)
-
+**API Schema**
+![](https://raw.githubusercontent.com/niiknow/laratt-api/master/api.png?raw=true)
 Special multi-tables endpoint @ `/api/v1/tables/{table}`; where `{table}` is the table name you want to create.  `{table}` must be all lower cased alphanumeric with mininum of 3 characters to 30 max.  Example, let say `x-tenant: clienta` and `{table} = product`, then the resulting table will be `clienta_product`.
-
-| method(s) | endpoint | name |
-| --- | --- | --- |
-| GET,DELETE | api/v1/tables/{table}/list | api.tables.list |
-| GET | api/v1/tables/data | api.tables.data |
-| POST | api/v1/tables/{table}/create | api.tables.create |
-| GET | api/v1/tables/{table}/{uid}/retrieve| api.tables.retrieve |
-| POST | api/v1/tables/{table}/{uid}/upsert | api.tables.upsert |
-| POST,DELETE | api/v1/tables/{table}/{uid}/delete | api.tables.delete |
-| POST | api/v1/tables/{table}/truncate | api.tables.truncate |
 
 Also note that there are two ids: `id` and `uid`. `id` is internal to **laratt**.  You should be using `uid` for all operations.  `uid` is an auto-generated guid, if none is provide during `insert`.
 
@@ -79,22 +67,12 @@ Providing a `uid` allow the API `update` to effectively act as an `merge/upsert`
 - `/list` endpoint is use for query and bulk delete, see: [Query Syntax](#query-syntax)
 - `/data` endpoint is use for returning jQuery DataTables format using [laravel-datatables](https://github.com/yajra/laravel-datatables).
 - `/import` bulk import is csv to allow for bigger import.  Up to 10000 records instead of some small number like 100 for Azure Table Storage (also see admin config to adjust).  This allow for efficiency of smaller file and quicker file transfer/upload.
-- `/truncate` Why not?  Now you can do all kind of crazy stuff with table.
+- `/truncate` truncate all data from table.
+- `/drop` drop a table.  Why not?  Now you can do all kind of crazy stuff with table.
 
 Also see [/api/documentation](http://laratt.test/api/documentation) for swagger docs.
 
 What about your own/custom schema?  See example of our [Profile Schema](https://github.com/niiknow/laratt/blob/master/src/Models/ProfileModel.php#L78)
-
-| method(s) | endpoint | name |
-| --- | --- | --- |
-| GET,DELETE | api/v1/profiles/list | api.profiles.list |
-| GET | api/v1/profiles/data | api.profiles.data |
-| POST | api/v1/profiles/create | api.profiles.create |
-| GET | api/v1/profiles/{uid}/retrieve| api.profiles.retrieve |
-| POST | api/v1/profiles/{uid}/upsert | api.profiles.upsert |
-| POST,DELETE | api/v1/profiles/{uid}/delete | api.profiles.delete |
-| POST | api/v1/profiles/import | api.profiles.import |
-| POST | api/v1/profiles/truncate | api.profiles.truncate |
 
 ## Query-Syntax
 This library provide simple query endpoint for search and bulk delete: `api/v1/profiles/list` or `api/v1/tables/{table}/list` - see **CRUD Format** above.
