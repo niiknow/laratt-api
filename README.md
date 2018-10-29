@@ -45,9 +45,9 @@ This API give you the ability to quickly import hundred-of-thousands of rows.  D
     - homestead: `homestead up`
 8. after `valet link laratt`, visit [laratt.test/](laratt.test) or npm run watch
 
-**Configuration Note**
+**Configuration/env Note**
 - `API_KEY`=set this to secure your api with `X-API-Key` header
-- `BUCKET_AUDIT`=set all of the AWS configuration to enable s3 storage
+- `AUDIT_BUCKET`=set all of the AWS configuration to enable s3 storage
 - `AUDIT_DISK`=set the aws disk
 
 ## API
