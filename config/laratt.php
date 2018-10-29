@@ -3,13 +3,14 @@
 return [
     'resolver' => '',
     'audit' => [
-        'bucket' => env('AWS_BUCKET_AUDIT'),
+        'disk'    => env('AUDIT_DISK', 's3'),
+        'bucket'  => env('AUDIT_BUCKET'),
         'include' => [
-            'table' => '.*',
+            'table'  => '.*',
             'tenant' => '.*'
         ],
         'exclude' => [
-            'table' => '(log.*|cache)',
+            'table'  => '(log.*|cache)',
             'tenant' => null
         ],
     ],
