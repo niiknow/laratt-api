@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5008626d5fecb9e5e67357a5ca78661",
+    "content-hash": "67e6a6fca28a847869a05f27893ea227",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1442,16 +1442,16 @@
         },
         {
             "name": "niiknow/laratt",
-            "version": "1.0.14",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/niiknow/laratt.git",
-                "reference": "b6446ee5bef4c54173ef9e39925070859a3431ab"
+                "reference": "fda73390867dfc216c3d0f7f32a837cee45ff163"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/niiknow/laratt/zipball/b6446ee5bef4c54173ef9e39925070859a3431ab",
-                "reference": "b6446ee5bef4c54173ef9e39925070859a3431ab",
+                "url": "https://api.github.com/repos/niiknow/laratt/zipball/fda73390867dfc216c3d0f7f32a837cee45ff163",
+                "reference": "fda73390867dfc216c3d0f7f32a837cee45ff163",
                 "shasum": ""
             },
             "require": {
@@ -1462,8 +1462,9 @@
                 "yajra/laravel-datatables-oracle": "~8.0"
             },
             "require-dev": {
-                "fzaninotto/faker": "^1.4",
+                "fzaninotto/faker": "^1.8",
                 "mockery/mockery": "^1.0",
+                "orchestra/testbench": "~3.0",
                 "phpunit/phpunit": "^7.0"
             },
             "type": "library",
@@ -1497,7 +1498,7 @@
                 "laratt",
                 "niiknow"
             ],
-            "time": "2018-10-29T19:43:05+00:00"
+            "time": "2018-10-29T22:41:08+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -2108,16 +2109,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "5.11.1",
+            "version": "5.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "fc5aa95db8868c9615ffa4cb2060214f95f1d5ce"
+                "reference": "cf018ba36402aa47f92fdc2bc18eb85417a5b58e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/fc5aa95db8868c9615ffa4cb2060214f95f1d5ce",
-                "reference": "fc5aa95db8868c9615ffa4cb2060214f95f1d5ce",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/cf018ba36402aa47f92fdc2bc18eb85417a5b58e",
+                "reference": "cf018ba36402aa47f92fdc2bc18eb85417a5b58e",
                 "shasum": ""
             },
             "require": {
@@ -2172,7 +2173,7 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2018-10-20T07:24:26+00:00"
+            "time": "2018-10-29T21:32:09+00:00"
         },
         {
             "name": "spatie/temporary-directory",
