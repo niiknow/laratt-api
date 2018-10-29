@@ -399,6 +399,41 @@
                 }
             }
         },
+        "/profiles/drop": {
+            "post": {
+                "tags": [
+                    "profiles"
+                ],
+                "summary": "drop the profile table. Why not?",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "nothing if success"
+                    }
+                }
+            }
+        },
         "/tables/{table}/create": {
             "post": {
                 "tags": [
@@ -843,6 +878,51 @@
                     "tables"
                 ],
                 "summary": "delete everything from the table.  Why not?\n     *   Hint: this is why 'uid' is better than system 'id'.",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "table",
+                        "in": "path",
+                        "description": "specified table name",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "nothing if success"
+                    }
+                }
+            }
+        },
+        "/tables/{table}/drop": {
+            "post": {
+                "tags": [
+                    "tables"
+                ],
+                "summary": "drop the table.  Why not?",
                 "parameters": [
                     {
                         "name": "X-API-Key",

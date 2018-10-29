@@ -524,7 +524,7 @@ class TableController extends Controller
      * @OA\Post(
      *   path="/tables/{table}/drop",
      *   tags={"tables"},
-     *   summary="drop the table.  Why not?"
+     *   summary="drop the table.  Why not?",
      *   @OA\Parameter(
      *     name="X-API-Key",
      *     in="header",

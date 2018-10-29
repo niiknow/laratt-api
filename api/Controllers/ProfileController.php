@@ -424,7 +424,7 @@ class ProfileController extends Controller
      * @OA\Post(
      *   path="/profiles/drop",
      *   tags={"profiles"},
-     *   summary="drop the profile table. Why not?"
+     *   summary="drop the profile table. Why not?",
      *   @OA\Parameter(
      *     name="X-API-Key",
      *     in="header",
