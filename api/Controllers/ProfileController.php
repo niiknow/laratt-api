@@ -46,7 +46,7 @@ class ProfileController extends Controller
         'occupation' => 'nullable|string|max:190',
         'employer' => 'nullable|string|max:190',
 
-        'stripe_customer_id' => 'nullable|string|max:190',
+        'card_customer_id' => 'nullable|string|max:190',
         'card_brand' => 'nullable|string|max:50',
         'card_last4' => 'nullable|string|max:4',
         'data.*' => 'nullable',
