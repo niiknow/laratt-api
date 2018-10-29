@@ -47,7 +47,8 @@ This API give you the ability to quickly import hundred-of-thousands of rows.  D
 
 **Configuration Note**
 - `API_KEY`=set this to secure your api with `X-API-Key` header
-- `AWS_BUCKET_AUDIT`=set all of the AWS configuration to enable s3 storage
+- `BUCKET_AUDIT`=set all of the AWS configuration to enable s3 storage
+- `AUDIT_DISK`=set the aws disk
 
 ## API
 Expect two headers:
