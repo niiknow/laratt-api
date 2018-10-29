@@ -519,4 +519,46 @@ class TableController extends Controller
      *   )
      * )
      */
+
+    /**
+     * @OA\Post(
+     *   path="/tables/{table}/drop",
+     *   tags={"tables"},
+     *   summary="drop the table.  Why not?"
+     *   @OA\Parameter(
+     *     name="X-API-Key",
+     *     in="header",
+     *     description="api key",
+     *     required=false,
+     *     @OA\Schema(
+     *       type="string"
+     *     ),
+     *     style="form"
+     *   ),
+     *   @OA\Parameter(
+     *     name="X-Tenant",
+     *     in="header",
+     *     description="tenant id",
+     *     required=true,
+     *     @OA\Schema(
+     *       type="string"
+     *     ),
+     *     style="form"
+     *   ),
+     *   @OA\Parameter(
+     *     name="table",
+     *     in="path",
+     *     description="specified table name",
+     *     required=true,
+     *     @OA\Schema(
+     *       type="string"
+     *     ),
+     *     style="form"
+     *   ),
+     *   @OA\Response(
+     *     response="default",
+     *     description="nothing if success"
+     *   )
+     * )
+     */
 }

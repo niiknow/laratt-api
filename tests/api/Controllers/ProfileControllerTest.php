@@ -209,5 +209,9 @@ class ProfileControllerTest extends TestCase
 
         $count = \Niiknow\Laratt\Models\ProfileModel::query()->from('itest_profile')->count();
         $this->assertSame(0, $count, "Has right count.");
+
+        $url      = $this->url . '/drop';
+        $response = $this->withHeaders($headers)->post($url);
+        $response->assertStatus(200);
     }
 }

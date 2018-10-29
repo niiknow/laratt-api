@@ -419,4 +419,36 @@ class ProfileController extends Controller
      *   )
      * )
      */
+
+    /**
+     * @OA\Post(
+     *   path="/profiles/drop",
+     *   tags={"profiles"},
+     *   summary="drop the profile table. Why not?"
+     *   @OA\Parameter(
+     *     name="X-API-Key",
+     *     in="header",
+     *     description="api key",
+     *     required=false,
+     *     @OA\Schema(
+     *       type="string"
+     *     ),
+     *     style="form"
+     *   ),
+     *   @OA\Parameter(
+     *     name="X-Tenant",
+     *     in="header",
+     *     description="tenant id",
+     *     required=true,
+     *     @OA\Schema(
+     *       type="string"
+     *     ),
+     *     style="form"
+     *   ),
+     *   @OA\Response(
+     *     response="default",
+     *     description="nothing if success"
+     *   )
+     * )
+     */
 }
