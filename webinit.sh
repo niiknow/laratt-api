@@ -10,6 +10,9 @@ if [ ! -f .env ]; then
 
     echo '[i] optimize production'
     composer app:production
+    chmod -R 775 storage/framework/ || true
+    chmod -R 775 storage/logs/ || true
+    chmod -R 775 bootstrap/cache/ || true
     composer install --no-dev --optimize-autoloader
   fi
 fi

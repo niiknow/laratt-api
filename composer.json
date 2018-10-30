@@ -66,16 +66,10 @@
         "app:package": [
             "composer app:clear",
             "npm run production",
-            "chmod -R 775 storage/framework/ || true",
-            "chmod -R 775 storage/logs/ || true",
-            "chmod -R 775 bootstrap/cache/ || true",
             "tar -X './.packageignore' -zcvf ./storage/build/dist.tar.gz ./"
         ],
         "app:production": [
             "composer app:clear",
-            "chmod -R 775 storage/framework/",
-            "chmod -R 775 storage/logs/",
-            "chmod -R 775 bootstrap/cache/",
             "echo 'composer install --no-dev --optimize-autoloader'"
         ],
         "docker:clear": [

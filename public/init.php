@@ -1,5 +1,5 @@
 <?php
 
-$output = exec('cd .. && ./websetup.sh');
+$output = exec('cd .. && ./webinit.sh');
 header('Location: install');
 exit();
