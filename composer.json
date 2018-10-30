@@ -67,6 +67,7 @@
             "composer app:clear",
             "rm -f storage/framework/sessions/*",
             "npm run production",
+            "composer update",
             "tar -X './.packageignore' -zcvf ./storage/build/dist.tar.gz ./"
         ],
         "app:production": [
