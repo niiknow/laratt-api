@@ -14,13 +14,16 @@ yarn-error.log
 .DS_Store
 coverage/
 bootstrap/cache/*.php
-build/Release/
+build/
 public/js/parts/*
 .env
 
-.docker/data/**
+.docker/data/
 !.docker/data/*/*.gitkeep
 !.docker/data/*.gitkeep
+.docker/logs/
+!.docker/logs/*.gitkeep
 .env
-src/storage/installed
+storage/installed
 docker-compose.yml
+.**.png

@@ -53,26 +53,29 @@
         "phpcs": "phpcs",
         "phpcs:fix": "phpcbf -w",
         "app:clear": [
-            "rm -rf ./build/release",
-            "mkdir -p ./build/release",
+            "rm -rf ./storage/build",
+            "mkdir -p ./storage/build",
+            "rm -f bootstrap/cache/config.php",
             "php artisan clear-compiled",
             "php artisan cache:clear",
             "php artisan config:clear",
             "php artisan route:clear",
             "php artisan view:clear",
-            "composer dump-autoload",
-            "rm -f bootstrap/cache/config.php"
+            "composer dump-autoload"
         ],
         "app:package": [
             "composer app:clear",
             "npm run production",
-            "tar -X './.packageignore' -zcvf ./build/release/dist.tar.gz ./"
+            "chmod -R 775 storage/framework/ || true",
+            "chmod -R 775 storage/logs/ || true",
+            "chmod -R 775 bootstrap/cache/ || true",
+            "tar -X './.packageignore' -zcvf ./storage/build/dist.tar.gz ./"
         ],
         "app:production": [
             "composer app:clear",
             "chmod -R 775 storage/framework/",
             "chmod -R 775 storage/logs/",
-            "chmod -R 775 boostrap/cache/",
+            "chmod -R 775 bootstrap/cache/",
             "echo 'composer install --no-dev --optimize-autoloader'"
         ],
         "docker:clear": [
