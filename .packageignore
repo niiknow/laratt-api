@@ -31,6 +31,6 @@ coverage/
 !.docker/logs/*.gitkeep
 storage/installed
 docker-compose.yml
-.**.png
+._*.png
 
 tests/

@@ -26,4 +26,4 @@ public/js/parts/*
 .env
 storage/installed
 docker-compose.yml
-.**.png
+._*.png
