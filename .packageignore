@@ -13,10 +13,6 @@ yarn-error.log
 coverage/
 bootstrap/cache/*.php
 storage/debugbar/
-storage/framework/cache/
-!storage/framework/cache/.gitignore
-storage/framework/sessions/
-!storage/framework/sessions/.gitignore
 .vscode/
 .env
 .git/
@@ -24,11 +20,9 @@ storage/build/
 .DS_Store
 coverage/
 
-.docker/data/
-!.docker/data/*/*.gitkeep
-!.docker/data/*.gitkeep
-.docker/logs/
-!.docker/logs/*.gitkeep
+.docker/data/certs/*
+.docker/data/mysql/*
+.docker/logs/*
 storage/installed
 docker-compose.yml
 ._*.png

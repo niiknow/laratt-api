@@ -3,6 +3,7 @@
 if [ ! -f .env ]; then
   echo '[i] copy env file'
   cp .env.example .env || true
+  chmod 775 .env || true
 
   if [ -f .env ]; then
     echo '[i] generate encryption key'

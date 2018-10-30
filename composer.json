@@ -65,6 +65,7 @@
         ],
         "app:package": [
             "composer app:clear",
+            "rm -f storage/framework/sessions/*",
             "npm run production",
             "tar -X './.packageignore' -zcvf ./storage/build/dist.tar.gz ./"
         ],
