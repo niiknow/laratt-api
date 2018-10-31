@@ -80,7 +80,7 @@ class TableControllerTest extends TestCase
         $item = \Niiknow\Laratt\Models\TableModel::query()->from('utest_boom')->where('name', $postData['name'])->first();
         $this->assertTrue(isset($item), 'Item exists.');
 
-        $url = $this->url . '/boom/' . $item->uid . '/upsert';
+        $url = $this->url . '/boom/' . $item->uid . '/update';
 
         // update
         $postData['name'] = 'Noogen';

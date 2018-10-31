@@ -27,7 +27,6 @@ class ProfileController extends Controller
         'tfa_type' => 'nullable|in:off,email,sms,call',
         'authy_id' => 'nullable|string|max:190',
         'authy_status' => 'nullable|string|max:190',
-        'google_tfa_secret' => 'nullable|string|max:190',
         'tfa_code' => 'nullable|string|max:190',
         'tfa_exp_at' => 'nullable|date',
 
@@ -296,9 +295,9 @@ class ProfileController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/profiles/{uid}/upsert",
+     *   path="/profiles/{uid}/update",
      *   tags={"profiles"},
-     *   summary="upsert profile",
+     *   summary="update profile",
      *   @OA\Parameter(
      *     name="X-API-Key",
      *     in="header",

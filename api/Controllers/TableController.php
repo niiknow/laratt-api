@@ -362,9 +362,9 @@ class TableController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/tables/{table}/{uid}/upsert",
+     *   path="/tables/{table}/{uid}/update",
      *   tags={"tables"},
-     *   summary="upsert object of specified table",
+     *   summary="update object of specified table",
      *   @OA\Parameter(
      *     name="X-API-Key",
      *     in="header",

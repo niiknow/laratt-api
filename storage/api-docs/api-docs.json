@@ -261,12 +261,12 @@
                 }
             }
         },
-        "/profiles/{uid}/upsert": {
+        "/profiles/{uid}/update": {
             "post": {
                 "tags": [
                     "profiles"
                 ],
-                "summary": "upsert profile",
+                "summary": "update profile",
                 "parameters": [
                     {
                         "name": "X-API-Key",
@@ -746,12 +746,12 @@
                 }
             }
         },
-        "/tables/{table}/{uid}/upsert": {
+        "/tables/{table}/{uid}/update": {
             "post": {
                 "tags": [
                     "tables"
                 ],
-                "summary": "upsert object of specified table",
+                "summary": "update object of specified table",
                 "parameters": [
                     {
                         "name": "X-API-Key",

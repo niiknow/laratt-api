@@ -81,7 +81,7 @@ class ProfileControllerTest extends TestCase
         $item = \Niiknow\Laratt\Models\ProfileModel::query()->from('utest_profile')->where('email', $postData['email'])->first();
         $this->assertTrue(isset($item));
 
-        $url = $this->url . '/' . $item->uid . '/upsert';
+        $url = $this->url . '/' . $item->uid . '/update';
 
         // update
         $postData['last_name'] = 'Niiknow';
