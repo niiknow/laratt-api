@@ -64,8 +64,8 @@ class ProfileController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/profiles/create",
-     *   tags={"profiles"},
+     *   path="/profile/create",
+     *   tags={"profile"},
      *   summary="create profile",
      *   @OA\Parameter(
      *     name="X-API-Key",
@@ -96,8 +96,8 @@ class ProfileController extends Controller
 
     /**
      * @OA\Get(
-     *   path="/profiles/{uid}/retrieve",
-     *   tags={"profiles"},
+     *   path="/profile/{uid}/retrieve",
+     *   tags={"profile"},
      *   summary="get profile",
      *   @OA\Parameter(
      *     name="X-API-Key",
@@ -142,8 +142,8 @@ class ProfileController extends Controller
 
     /**
      * @OA\Delete(
-     *   path="/profiles/{uid}/delete",
-     *   tags={"profiles"},
+     *   path="/profile/{uid}/delete",
+     *   tags={"profile"},
      *   summary="delete a single profile, also accept method: POST
      *   See also /list for bulk delete by query.",
      *   @OA\Parameter(
@@ -189,8 +189,8 @@ class ProfileController extends Controller
 
     /**
      * @OA\Get(
-     *   path="/profiles/list",
-     *   tags={"profiles"},
+     *   path="/profile/list",
+     *   tags={"profile"},
      *   summary="search or delete profile, use DELETE http method to bulk delete",
      *   @OA\Parameter(
      *     name="X-API-Key",
@@ -263,8 +263,8 @@ class ProfileController extends Controller
 
     /**
      * @OA\Get(
-     *   path="/profiles/data",
-     *   tags={"profiles"},
+     *   path="/profile/data",
+     *   tags={"profile"},
      *   summary="jQuery DataTable endpoint",
      *   @OA\Parameter(
      *     name="X-API-Key",
@@ -295,8 +295,8 @@ class ProfileController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/profiles/{uid}/update",
-     *   tags={"profiles"},
+     *   path="/profile/{uid}/update",
+     *   tags={"profile"},
      *   summary="update profile",
      *   @OA\Parameter(
      *     name="X-API-Key",
@@ -337,8 +337,8 @@ class ProfileController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/profiles/import",
-     *   tags={"profiles"},
+     *   path="/profile/import",
+     *   tags={"profile"},
      *   summary="import csv of profiles",
      *   @OA\Parameter(
      *     name="X-API-Key",
@@ -388,8 +388,8 @@ class ProfileController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/profiles/truncate",
-     *   tags={"profiles"},
+     *   path="/profile/truncate",
+     *   tags={"profile"},
      *   summary="delete everything from the profile table. Why not?
      *   Hint: this is why 'uid' is better than system 'id'.",
      *   @OA\Parameter(
@@ -421,8 +421,8 @@ class ProfileController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/profiles/drop",
-     *   tags={"profiles"},
+     *   path="/profile/drop",
+     *   tags={"profile"},
      *   summary="drop the profile table. Why not?",
      *   @OA\Parameter(
      *     name="X-API-Key",

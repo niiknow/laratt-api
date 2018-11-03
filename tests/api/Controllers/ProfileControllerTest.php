@@ -15,7 +15,7 @@ class ProfileControllerTest extends TestCase
     private $yellow = "\e[1;33m";
     private $green  = "\e[0;32m";
     private $white  = "\e[0;37m";
-    private $url    = "/api/v1/profiles";
+    private $url    = "/api/v1/profile";
 
     /**
      * Disclaimer:

@@ -14,10 +14,10 @@
         }
     ],
     "paths": {
-        "/profiles/create": {
+        "/profile/create": {
             "post": {
                 "tags": [
-                    "profiles"
+                    "profile"
                 ],
                 "summary": "create profile",
                 "parameters": [
@@ -49,10 +49,10 @@
                 }
             }
         },
-        "/profiles/{uid}/retrieve": {
+        "/profile/{uid}/retrieve": {
             "get": {
                 "tags": [
-                    "profiles"
+                    "profile"
                 ],
                 "summary": "get profile",
                 "parameters": [
@@ -97,10 +97,10 @@
                 }
             }
         },
-        "/profiles/{uid}/delete": {
+        "/profile/{uid}/delete": {
             "delete": {
                 "tags": [
-                    "profiles"
+                    "profile"
                 ],
                 "summary": "delete a single profile, also accept method: POST\n     *   See also /list for bulk delete by query.",
                 "parameters": [
@@ -145,10 +145,10 @@
                 }
             }
         },
-        "/profiles/list": {
+        "/profile/list": {
             "get": {
                 "tags": [
-                    "profiles"
+                    "profile"
                 ],
                 "summary": "search or delete profile, use DELETE http method to bulk delete",
                 "parameters": [
@@ -226,10 +226,10 @@
                 }
             }
         },
-        "/profiles/data": {
+        "/profile/data": {
             "get": {
                 "tags": [
-                    "profiles"
+                    "profile"
                 ],
                 "summary": "jQuery DataTable endpoint",
                 "parameters": [
@@ -261,10 +261,10 @@
                 }
             }
         },
-        "/profiles/{uid}/update": {
+        "/profile/{uid}/update": {
             "post": {
                 "tags": [
-                    "profiles"
+                    "profile"
                 ],
                 "summary": "update profile",
                 "parameters": [
@@ -306,10 +306,10 @@
                 }
             }
         },
-        "/profiles/import": {
+        "/profile/import": {
             "post": {
                 "tags": [
-                    "profiles"
+                    "profile"
                 ],
                 "summary": "import csv of profiles",
                 "parameters": [
@@ -364,10 +364,10 @@
                 }
             }
         },
-        "/profiles/truncate": {
+        "/profile/truncate": {
             "post": {
                 "tags": [
-                    "profiles"
+                    "profile"
                 ],
                 "summary": "delete everything from the profile table. Why not?\n     *   Hint: this is why 'uid' is better than system 'id'.",
                 "parameters": [
@@ -399,10 +399,10 @@
                 }
             }
         },
-        "/profiles/drop": {
+        "/profile/drop": {
             "post": {
                 "tags": [
-                    "profiles"
+                    "profile"
                 ],
                 "summary": "drop the profile table. Why not?",
                 "parameters": [
