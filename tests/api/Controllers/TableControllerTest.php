@@ -77,7 +77,7 @@ class TableControllerTest extends TestCase
         $response->assertStatus(201);
         $body = $response->json();
 
-        $item = \Niiknow\Laratt\Models\TableModel::query()->from('utest_boom')->where('name', $postData['name'])->first();
+        $item = \Niiknow\Laratt\Models\TableModel::query()->from('utest$boom')->where('name', $postData['name'])->first();
         $this->assertTrue(isset($item), 'Item exists.');
 
         $url = $this->url . '/boom/' . $item->uid . '/update';
@@ -87,7 +87,7 @@ class TableControllerTest extends TestCase
         $postData['uid']  = $item->uid;
         $response         = $this->post($url, $postData, $headers);
 
-        $item = \Niiknow\Laratt\Models\TableModel::query()->from('utest_boom')->where('name', $postData['name'])->first();
+        $item = \Niiknow\Laratt\Models\TableModel::query()->from('utest$boom')->where('name', $postData['name'])->first();
         $this->assertTrue(isset($item), 'Item exists.');
         $this->assertSame('Noogen', $item->name);
 
@@ -96,7 +96,7 @@ class TableControllerTest extends TestCase
         //delete
         $response = $this->post($url, [], $headers);
 
-        $item = \Niiknow\Laratt\Models\TableModel::query()->from('utest_boom')->where('name', $postData['name'])->first();
+        $item = \Niiknow\Laratt\Models\TableModel::query()->from('utest$boom')->where('name', $postData['name'])->first();
         $this->assertTrue(!isset($item), 'Item does not exists.');
 
         echo " {$this->green}[OK]{$this->white}\r\n";

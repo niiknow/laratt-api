@@ -62,7 +62,7 @@ composer app:package
 ## API
 Expect two headers:
 - `X-API-Key` the API_KEY above
-- `X-Tenant` the tenant id - must start with alpha character with remaining character of alphanumeric.  Mininum of 3 characters and max of 20.
+- `X-Tenant` the tenant id - must start with alpha character with remaining character of alphanumeric and underscore.  Mininum of 3 characters and max of 20.
 
 Separating Tenant and Table Name allow for better control and validation.  It also allow for future support of JWT/Token Auth that contain information about the Tenant.
 

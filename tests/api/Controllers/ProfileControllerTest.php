@@ -78,7 +78,7 @@ class ProfileControllerTest extends TestCase
         $response->assertStatus(201);
         $body = $response->json();
 
-        $item = \Niiknow\Laratt\Models\ProfileModel::query()->from('utest_profile')->where('email', $postData['email'])->first();
+        $item = \Niiknow\Laratt\Models\ProfileModel::query()->from('utest$profile')->where('email', $postData['email'])->first();
         $this->assertTrue(isset($item));
 
         $url = $this->url . '/' . $item->uid . '/update';
@@ -88,7 +88,7 @@ class ProfileControllerTest extends TestCase
         $postData['uid']       = $item->uid;
         $response              = $this->post($url, $postData, $headers);
 
-        $item = \Niiknow\Laratt\Models\ProfileModel::query()->from('utest_profile')->where('email', $postData['email'])->first();
+        $item = \Niiknow\Laratt\Models\ProfileModel::query()->from('utest$profile')->where('email', $postData['email'])->first();
         $this->assertTrue(isset($item));
         $this->assertSame('Niiknow', $item->last_name);
 
@@ -97,7 +97,7 @@ class ProfileControllerTest extends TestCase
         //delete
         $response = $this->post($url, [], $headers);
 
-        $item = \Niiknow\Laratt\Models\ProfileModel::query()->from('utest_profile')->where('email', $postData['email'])->first();
+        $item = \Niiknow\Laratt\Models\ProfileModel::query()->from('utest$profile')->where('email', $postData['email'])->first();
         $this->assertTrue(!isset($item));
 
         echo " {$this->green}[OK]{$this->white}\r\n";
@@ -126,7 +126,7 @@ class ProfileControllerTest extends TestCase
         }
 
         // count
-        $items =  \Niiknow\Laratt\Models\ProfileModel::query()->from('ltest_profile')->get();
+        $items =  \Niiknow\Laratt\Models\ProfileModel::query()->from('ltest$profile')->get();
         $this->assertSame($expected, count($items));
 
         // test datatable query
@@ -147,14 +147,14 @@ class ProfileControllerTest extends TestCase
         $this->assertTrue(isset($body), "Query response with data.");
         $this->assertSame(2, $body['current_page'], "Correctly parse page parameter.");
         $this->assertSame(5, count($body['data']), "Has right count.");
-        $expected = \Niiknow\Laratt\Models\ProfileModel::query()->from('ltest_profile')->count() - 8;
+        $expected = \Niiknow\Laratt\Models\ProfileModel::query()->from('ltest$profile')->count() - 8;
 
         $url      = $this->url . '/list?filter[]=id:lte:8';
         $response = $this->withHeaders($headers)->delete($url);
         $response->assertStatus(200);
         // \Log::error(json_encode($response->json()));
 
-        $count = \Niiknow\Laratt\Models\ProfileModel::query()->from('ltest_profile')->count();
+        $count = \Niiknow\Laratt\Models\ProfileModel::query()->from('ltest$profile')->count();
         $this->assertSame($expected, $count, "Has right count.");
 
         echo " {$this->green}[OK]{$this->white}\r\n";
@@ -200,14 +200,14 @@ class ProfileControllerTest extends TestCase
         ]);
         $response->assertStatus(200);
 
-        $count = \Niiknow\Laratt\Models\ProfileModel::query()->from('itest_profile')->count();
+        $count = \Niiknow\Laratt\Models\ProfileModel::query()->from('itest$profile')->count();
         $this->assertSame($expected, $count, "Has right count.");
 
         $url      = $this->url . '/truncate';
         $response = $this->withHeaders($headers)->post($url);
         $response->assertStatus(200);
 
-        $count = \Niiknow\Laratt\Models\ProfileModel::query()->from('itest_profile')->count();
+        $count = \Niiknow\Laratt\Models\ProfileModel::query()->from('itest$profile')->count();
         $this->assertSame(0, $count, "Has right count.");
 
         $url      = $this->url . '/drop';
