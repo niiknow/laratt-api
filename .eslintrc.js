@@ -3,7 +3,8 @@ module.exports = {
   env: {
     browser: true,
   },
-  extends: ["prettier"], // activate vue related rules
+  plugins: ['vue'], // enable vue plugin
+  extends: ["plugin:vue/recommended", "prettier"], // activate vue related rules
   parserOptions: {
     "parser": "babel-eslint",
     "ecmaVersion": 7,
@@ -24,6 +25,11 @@ module.exports = {
     // allow debugger during development
     "no-debugger": process.env.NODE_ENV === 'production' ? 2 : 0,
     "semi": [2, "never"],
-    "quotes": [2, "single"]
+    "quotes": [2, "single"],
+    "vue/require-default-prop": 0,
+    "vue/require-prop-types": 0,
+    "vue/no-v-html": 0,
+    "vue/html-indent": 0,
+    "vue/component-name-in-template-casing": ['error', 'kebab-case']
   }
 };
