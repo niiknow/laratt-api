@@ -1,7 +1,7 @@
 # laratt-api (Laravel Table Tenancy API)
 > A rest-ful API supporting multi-tenant dynamic table manipulations 
 
-This is an API built on top of the [laratt](https://github.com/niiknow/laratt) library.
+This is an API built on top of the [laratt](https://github.com/niiknow/laratt) library. Demo: https://laratt.niiknow.org/api/documentation X-API-Key: demo123
 
 Use-case/useful:
 * Multitenancy is usually related to some kind of a Software as a Service (SaaS) app.
