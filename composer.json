@@ -72,6 +72,8 @@
         ],
         "app:production": [
             "composer app:clear",
+            "chmod -R 775 bootstrap/",
+            "chmod -R 775 storage/",
             "echo 'composer install --no-dev --optimize-autoloader'"
         ],
         "docker:clear": [

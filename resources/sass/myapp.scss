@@ -1,0 +1,13 @@
+// set our own initial color
+$theme-colors: (
+  "primary": #800000,
+  "light": #99AAB5,
+  "secondary": #2C2F33,
+  "dark": #23272A,
+  "muted": #3f4146
+);
+
+@import "~bootstrap/scss/bootstrap";
+
+// Custom styles
+@import "custom";

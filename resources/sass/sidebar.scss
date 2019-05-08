@@ -1,0 +1,39 @@
+.sidebar {
+  padding-left: 2px;
+  margin-bottom: 0;
+  width: 60px;
+  float: left;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: relative;
+  padding-bottom: 50px;
+
+  -moz-transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.sidebar .navbar-nav li {
+  padding-left: 10px;
+}
+
+.sidebar .navbar-text {
+  padding-left: 2px;
+  display: none;
+}
+
+.sidebar-toggler {
+  padding-right: 4px;
+}
+
+@media only screen and (min-width: 768px) {
+  .sidebar {
+    width: 250px;
+  }
+
+  .sidebar .navbar-text {
+    padding-left: 2px;
+    display: inline-block;
+  }
+}

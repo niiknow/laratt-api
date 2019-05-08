@@ -15,6 +15,7 @@ class CreateInitialTables extends Migration
     {
         Schema::dropIfExists('jobs');
         Schema::dropIfExists('failed_jobs');
+        Schema::dropIfExists('demo_contacts');
     }
 
     /**

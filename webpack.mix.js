@@ -8,7 +8,8 @@ mix.setPublicPath(path.normalize(public));
 mix.webpackConfig({
   externals: {
     'jquery': 'jQuery',
-    'vue': 'Vue'
+    'vue': 'Vue',
+    'popper.js': 'Popper'
   },
   devServer: { overlay: true },
   devtool: 'source-map',
@@ -18,13 +19,14 @@ mix.webpackConfig({
       /* root */
       '~': path.resolve(__dirname, `${ source }/js`),
       Components: path.resolve(__dirname, `${ source }/js/components`),
-      Layouts: path.resolve(__dirname, `${ source }/js/layouts`)
+      Layouts: path.resolve(__dirname, `${ source }/js/layouts`),
+      Views: path.resolve(__dirname, `${ source }/js/views`)
     }
   }
 });
 
-mix.js(`${ source }/js/app.js`, `${ public }/js`).extract();
-mix.sass(`${ source }/sass/app.scss`, `${ public }/css`, {
+mix.js(`${ source }/js/myapp.js`, `${ public }/js`).extract();
+mix.sass(`${ source }/sass/myapp.scss`, `${ public }/css`, {
   outputStyle: mix.inProduction() ? 'compact' : 'expanded'
 });
 

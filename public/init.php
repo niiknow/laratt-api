@@ -19,9 +19,12 @@ function changeMods($path)
     }
 }
 
+/**
+ * @param $l
+ */
 function genuid($l = 32)
 {
-    return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyz"), 0, $l);
+    return substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'), 0, $l);
 }
 
 if (!file_exists($envFile)) {
@@ -31,12 +34,12 @@ if (!file_exists($envFile)) {
     @changeMods(realpath($rootPath . '/storage/logs/'));
     @changeMods(realpath($rootPath . '/bootstrap/cache/'));
 
-    require __DIR__.'/../vendor/autoload.php';
+    require __DIR__ . '/../vendor/autoload.php';
 
     // generate APP_ENV and API_KEY
     $file = file_get_contents($envFile);
-    $file = preg_replace("/APP_KEY=.*/", "APP_KEY=base64:".base64_encode(genuid()), $file, 1);
-    $file = preg_replace("/API_KEY=.*/", "API_KEY=".genuid(), $file, 1);
+    $file = preg_replace('/APP_KEY=.*/', 'APP_KEY=base64:' . base64_encode(genuid()), $file, 1);
+    $file = preg_replace('/API_KEY=.*/', 'API_KEY=' . genuid(), $file, 1);
     file_put_contents($envFile, $file);
 }
 

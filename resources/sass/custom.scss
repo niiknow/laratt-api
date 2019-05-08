@@ -1,0 +1,69 @@
+// custom stuff goes here
+html, body, .app-root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: block;
+  margin: 0;
+}
+
+// .app-root > header, app-main
+// this allow app-main children to scroll
+.app-main {
+  flex: 1;
+  overflow-y: scroll;
+}
+
+// give main some spacing and allow for scrolling
+main {
+  overflow-x: hidden;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+// direct children of main and sidebar children some bottom padding
+main > *, .sidebar > * {
+  padding-bottom: 100px;
+}
+
+// quick and dirty utility class
+.hidden {
+  display: none;
+}
+
+// this is to override bootstrap-vue style to support
+// native bootstrap theming, such as bootswatch
+.tab-content {
+  background-blend-mode: unset;
+  background: unset;
+  color-adjust: unset;
+  color-interpolation-filters: unset;
+  color-interpolation: unset;
+  color: unset;
+}
+
+*::-webkit-input-placeholder {
+  opacity: 0.5 !important;
+}
+*::-moz-placeholder {
+  opacity: 0.5 !important;
+}
+*:-ms-input-placeholder {
+  opacity: 0.5 !important;
+}
+*::placeholder {
+  opacity: 0.5 !important;
+}
+
+// hide numeric spin buttons
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+@import "datatable";
+@import "sidebar";
+
