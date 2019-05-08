@@ -10,5 +10,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(XYZSeeder::class);
+        // create 888 contact
+        factory(Api\Models\DemoContact::class, 888)->create();
     }
 }
