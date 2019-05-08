@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'resolver' => '',
-    'audit' => [
+    'resolver'     => '',
+    'audit'        => [
         'disk'    => env('AUDIT_DISK', 's3'),
         'bucket'  => env('AUDIT_BUCKET'),
         'include' => [
@@ -12,7 +12,7 @@ return [
         'exclude' => [
             'table'  => '(log.*|cache)',
             'tenant' => null
-        ],
+        ]
     ],
     'import_limit' => 9999
 ];
