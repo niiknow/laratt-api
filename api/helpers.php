@@ -12,7 +12,7 @@ if (!function_exists('remix')) {
         $vendorjs = mix('js/vendor.js');
         $pfx      = explode('?', $vendorjs);
 
-        return count($pfx) > 1 ? "     $url?$pfx[1]" : $url;
+        return count($pfx) > 1 ? '/' . $url . '?' . $pfx[1] : $url;
     }
 }
 

@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b44e3b1b6651d76764195a1a5de5bb9d",
+    "content-hash": "942465b9d8529116f8122f91b42cd5cd",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.93.5",
+            "version": "3.93.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "e9cfeb39ad6bc7c9ead2a40ce4fc23029ff1e17a"
+                "reference": "75d6b1ec57f3438ac960d74e08366be43d52eca7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e9cfeb39ad6bc7c9ead2a40ce4fc23029ff1e17a",
-                "reference": "e9cfeb39ad6bc7c9ead2a40ce4fc23029ff1e17a",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/75d6b1ec57f3438ac960d74e08366be43d52eca7",
+                "reference": "75d6b1ec57f3438ac960d74e08366be43d52eca7",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-05-07T18:29:58+00:00"
+            "time": "2019-05-08T18:16:33+00:00"
         },
         {
             "name": "darkaonline/l5-swagger",
@@ -1693,16 +1693,16 @@
         },
         {
             "name": "niiknow/laratt",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/niiknow/laratt.git",
-                "reference": "613fd6d07cb070d0163cf52c4506aca61e2cefa2"
+                "reference": "14c5c932099136c7c2b2f80c44e9cac768a1084c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/niiknow/laratt/zipball/613fd6d07cb070d0163cf52c4506aca61e2cefa2",
-                "reference": "613fd6d07cb070d0163cf52c4506aca61e2cefa2",
+                "url": "https://api.github.com/repos/niiknow/laratt/zipball/14c5c932099136c7c2b2f80c44e9cac768a1084c",
+                "reference": "14c5c932099136c7c2b2f80c44e9cac768a1084c",
                 "shasum": ""
             },
             "require": {
@@ -1750,7 +1750,7 @@
                 "laratt",
                 "niiknow"
             ],
-            "time": "2019-04-29T16:13:59+00:00"
+            "time": "2019-05-08T17:37:56+00:00"
         },
         {
             "name": "nikic/php-parser",

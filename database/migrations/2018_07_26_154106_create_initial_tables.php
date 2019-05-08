@@ -15,7 +15,7 @@ class CreateInitialTables extends Migration
     {
         Schema::dropIfExists('jobs');
         Schema::dropIfExists('failed_jobs');
-        Schema::dropIfExists('demo_contacts');
+        Schema::dropIfExists('a0$demo_contacts');
     }
 
     /**
@@ -44,7 +44,7 @@ class CreateInitialTables extends Migration
             $table->timestamp('failed_at')->useCurrent();
         });
 
-        Schema::create('demo_contacts', function (Blueprint $table) {
+        Schema::create('a0$demo_contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->string('email')->unique();

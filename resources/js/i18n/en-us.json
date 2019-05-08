@@ -1,0 +1,23 @@
+{
+  "actions": {
+
+  },
+  "datatables": {
+    "show_per_page": "Show",
+    "entries_per_page": "entries",
+    "infos": "Infos",
+    "search": "Search",
+    "no_results": "Resource has no data",
+    "no_matched_results": "No data found",
+    "paginate": "Showing <b>{fromRow}</b> to <b>{toRow}</b> of <b>{totalRows}</b> entries"
+  },
+  "errors": {
+
+  },
+  "fields": {
+
+  },
+  "messages": {
+    "site_name": "Laratt API Demo"
+  }
+}

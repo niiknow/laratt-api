@@ -23,6 +23,9 @@ class ValidApiKey
         $apiKey = config('admin.api_key');
         if ($apiKey) {
             $key = $request->header('x-api-key');
+            if (!isset($key)) {
+                $key = $request->query('x-api-key');
+            }
             if ($key !== $apiKey) {
                 return response()->json(['error' => 'Not authorized'], 403);
             }

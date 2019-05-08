@@ -14,6 +14,393 @@
         }
     ],
     "paths": {
+        "/democontact/example": {
+            "get": {
+                "tags": [
+                    "democontact"
+                ],
+                "summary": "jQuery DataTable endpoint",
+                "operationId": "Api\\Controllers\\DemoContactController::dumbingDownExample",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "jQuery DataTable json"
+                    }
+                }
+            }
+        },
+        "/democontact/create": {
+            "post": {
+                "tags": [
+                    "democontact"
+                ],
+                "summary": "create demo contact",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "new contact object"
+                    }
+                }
+            }
+        },
+        "/democontact/{uid}/retrieve": {
+            "get": {
+                "tags": [
+                    "democontact"
+                ],
+                "summary": "get contact",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "uid",
+                        "in": "path",
+                        "description": "uid",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "contact not found"
+                    },
+                    "default": {
+                        "description": "contact object"
+                    }
+                }
+            }
+        },
+        "/democontact/{uid}/delete": {
+            "delete": {
+                "tags": [
+                    "democontact"
+                ],
+                "summary": "delete a single contact, also accept method: POST\n     *   See also /query for bulk delete by query.",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "uid",
+                        "in": "path",
+                        "description": "uid",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "contact not found"
+                    },
+                    "default": {
+                        "description": "deleted contact object"
+                    }
+                }
+            }
+        },
+        "/democontact/query": {
+            "get": {
+                "tags": [
+                    "democontact"
+                ],
+                "summary": "search or delete contact, use DELETE http method to bulk delete",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "select",
+                        "in": "query",
+                        "description": "comma separated list of columns that you want to return",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "array of column_name:operator:value to filter result with",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "limit the number of returned",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "array of column_name:asc/desc to sort result",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Eloquent builder paginated json"
+                    }
+                }
+            }
+        },
+        "/democontact/data": {
+            "get": {
+                "tags": [
+                    "democontact"
+                ],
+                "summary": "jQuery DataTable endpoint",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "jQuery DataTable json"
+                    }
+                }
+            }
+        },
+        "/democontact/{uid}/update": {
+            "post": {
+                "tags": [
+                    "democontact"
+                ],
+                "summary": "update contact",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "uid",
+                        "in": "path",
+                        "description": "uid",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "new or updated contact object"
+                    }
+                }
+            }
+        },
+        "/democontact/import": {
+            "post": {
+                "tags": [
+                    "democontact"
+                ],
+                "summary": "import csv of contacts",
+                "operationId": "Api\\Controllers\\DemoContactController::getTableName",
+                "parameters": [
+                    {
+                        "name": "X-API-Key",
+                        "in": "header",
+                        "description": "api key",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-Tenant",
+                        "in": "header",
+                        "description": "tenant id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "file"
+                                ],
+                                "properties": {
+                                    "file": {
+                                        "description": "csv file with header columns",
+                                        "type": "string",
+                                        "format": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "import with error, rowno, and errored row"
+                    },
+                    "default": {
+                        "description": "imported list of uid(s)"
+                    }
+                }
+            }
+        },
         "/profile/create": {
             "post": {
                 "tags": [
@@ -102,7 +489,7 @@
                 "tags": [
                     "profile"
                 ],
-                "summary": "delete a single profile, also accept method: POST\n     *   See also /list for bulk delete by query.",
+                "summary": "delete a single profile, also accept method: POST\n     *   See also /query for bulk delete by query.",
                 "parameters": [
                     {
                         "name": "X-API-Key",
@@ -145,7 +532,7 @@
                 }
             }
         },
-        "/profile/list": {
+        "/profile/query": {
             "get": {
                 "tags": [
                     "profile"
@@ -405,6 +792,7 @@
                     "profile"
                 ],
                 "summary": "drop the profile table. Why not?",
+                "operationId": "Api\\Controllers\\ProfileController::getTableName",
                 "parameters": [
                     {
                         "name": "X-API-Key",
@@ -548,7 +936,7 @@
                 "tags": [
                     "tables"
                 ],
-                "summary": "delete object of specified table, also accept method: POST\n     *   See also /list for bulk delete by query.",
+                "summary": "delete object of specified table, also accept method: POST\n     *   See also /query for bulk delete by query.",
                 "parameters": [
                     {
                         "name": "X-API-Key",
@@ -604,7 +992,7 @@
                 }
             }
         },
-        "/tables/{table}/list": {
+        "/tables/{table}/query": {
             "get": {
                 "tags": [
                     "tables"
@@ -923,6 +1311,7 @@
                     "tables"
                 ],
                 "summary": "drop the table.  Why not?",
+                "operationId": "Api\\Controllers\\TableController::getTableName",
                 "parameters": [
                     {
                         "name": "X-API-Key",
