@@ -1,4 +1,9 @@
 @extends('layouts.master')
+
 @section('content')
-<h1>Move along, nothing to see here.</h1>
+<div id="myApp"></div>
 @endsection
+
+@push('footer_js')
+<script src="{{ mix('js/myapp.js') }}"></script>
+@endpush

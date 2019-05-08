@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     /**
-     * @param Request $request
+     * @param  Request $request
      * @return mixed
      */
     public function healthCheck(Request $request)
@@ -25,8 +25,8 @@ class HomeController extends Controller
         $data = [
             'csrfToken'    => csrf_token(),
             'env'          => config('app.env'),
-            'api_endpoint' => config('app.api'),
-            'appName'      => config('app.name')
+            'appName'      => config('app.name'),
+            'api_endpoint' => config('admin.api')
         ];
 
         return view('home', ['appSettings' => $data]);
