@@ -72,10 +72,12 @@ class TableControllerTest extends TestCase
         $postData = [
             'name' => 'Tom'
         ];
+
         $headers = [
             'Accept'   => 'application/json',
             'x-tenant' => 'utest'
         ];
+
         $url = $this->url . '/boom/create';
 
         // create

@@ -1,8 +1,5 @@
-const path                = require('path');
-const mix                 = require('laravel-mix');
-const WebpackChunkHash    = require('webpack-chunk-hash');
-const { VueLoaderPlugin } = require('vue-loader');
-
+const path   = require('path');
+const mix    = require('laravel-mix');
 const source = 'resources';
 const public = 'public';
 
@@ -13,26 +10,6 @@ mix.webpackConfig({
     'jquery': 'jQuery',
     'vue': 'Vue'
   },
-  output: { chunkFilename: mix.inProduction() ? 'js/parts/[name].[chunkhash].js' : 'js/parts/[name].js' },
-  module: {
-    rules: [
-      {
-        enforce: 'pre',
-        test: /\.(vue|js)$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'eslint-loader',
-        options: {
-          fix: false,
-          cache: false,
-          formatter: require('eslint-friendly-formatter')
-        }
-      }
-    ]
-  },
-  plugins: [
-    new VueLoaderPlugin(),
-    new WebpackChunkHash({algorithm: 'md5'})
-  ],
   devServer: { overlay: true },
   devtool: 'source-map',
   resolve: {
@@ -41,16 +18,16 @@ mix.webpackConfig({
       /* root */
       '~': path.resolve(__dirname, `${ source }/js`),
       Components: path.resolve(__dirname, `${ source }/js/components`),
-      Layouts: path.resolve(__dirname, `${ source }/js/layouts`),
-      Pages: path.resolve(__dirname, `${ source }/js/pages`)
+      Layouts: path.resolve(__dirname, `${ source }/js/layouts`)
     }
   }
 });
 
-mix.js(`${ source }/js/myapp.js`, `${ public }/js`);
-mix.sass(`${ source }/sass/myapp.scss`, `${ public }/css`, {
+mix.js(`${ source }/js/app.js`, `${ public }/js`).extract();
+mix.sass(`${ source }/sass/app.scss`, `${ public }/css`, {
   outputStyle: mix.inProduction() ? 'compact' : 'expanded'
 });
+
 mix.sourceMaps();
 mix.browserSync({
   proxy: 'laratt.test',
@@ -65,13 +42,4 @@ mix.browserSync({
   open: 'external'
 });
 
-mix.extract([
-  'vue'
-]);
-
-mix.version();
-if (mix.inProduction()) {
-  mix.disableNotifications();
-}
-
-
+mix.version().disableNotifications();

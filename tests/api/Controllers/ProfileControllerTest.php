@@ -74,10 +74,12 @@ class ProfileControllerTest extends TestCase
             'first_name' => 'Tom',
             'last_name'  => 'Noogen'
         ];
+
         $headers = [
             'Accept'   => 'application/json',
             'x-tenant' => 'utest'
         ];
+
         $url = $this->url . '/create';
 
         // create
@@ -118,7 +120,9 @@ class ProfileControllerTest extends TestCase
             'Accept'   => 'application/json',
             'x-tenant' => 'itest'
         ];
-        $url      = $this->url . '/import';
+
+        $url = $this->url . '/import';
+
         $expected = 10;
 
         // secret
@@ -173,6 +177,7 @@ class ProfileControllerTest extends TestCase
             'Accept'   => 'application/json',
             'x-tenant' => 'ltest'
         ];
+
         $url      = $this->url . '/create';
         $expected = 20;
 

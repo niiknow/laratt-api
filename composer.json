@@ -34,9 +34,10 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/",
-            "Api\\": "api/"
-        }
+            "Api\\": "api/",
+            "App\\": "app/"
+        },
+        "files": ["api/helpers.php"]
     },
     "autoload-dev": {
         "psr-4": {
@@ -67,7 +68,7 @@
             "rm -f storage/framework/sessions/*",
             "npm run production",
             "composer update",
-            "tar -X './.packageignore' -zcvf ./storage/build/dist.tar.gz ./"
+            "COPYFILE_DISABLE=1 tar -X './.packageignore' -zcvf ./storage/build/dist.tar.gz ./"
         ],
         "app:production": [
             "composer app:clear",
@@ -92,5 +93,12 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
         ]
-    }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
