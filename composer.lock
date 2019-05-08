@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "942465b9d8529116f8122f91b42cd5cd",
+    "content-hash": "066fc69b532aac545caa91455c93413f",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1693,16 +1693,16 @@
         },
         {
             "name": "niiknow/laratt",
-            "version": "1.6.1",
+            "version": "1.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/niiknow/laratt.git",
-                "reference": "14c5c932099136c7c2b2f80c44e9cac768a1084c"
+                "reference": "8b1e0d740975f5db88ec53db2f137587cfd443b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/niiknow/laratt/zipball/14c5c932099136c7c2b2f80c44e9cac768a1084c",
-                "reference": "14c5c932099136c7c2b2f80c44e9cac768a1084c",
+                "url": "https://api.github.com/repos/niiknow/laratt/zipball/8b1e0d740975f5db88ec53db2f137587cfd443b3",
+                "reference": "8b1e0d740975f5db88ec53db2f137587cfd443b3",
                 "shasum": ""
             },
             "require": {
@@ -1750,7 +1750,7 @@
                 "laratt",
                 "niiknow"
             ],
-            "time": "2019-05-08T17:37:56+00:00"
+            "time": "2019-05-08T23:14:58+00:00"
         },
         {
             "name": "nikic/php-parser",
