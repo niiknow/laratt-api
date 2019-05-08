@@ -11,14 +11,8 @@ class ProfileControllerTest extends TestCase
     use DatabaseTransactions;
 
     /**
-     * Disclaimer:
-     * the "right" way to do testing, that gives you the greatest
-     * confidence your tests methods don't get subtly interdependent in
-     * bug-hiding ways, is to re-seed your db before every test method, so
-     * just put seeding code in plain setUp if you can afford the
-     * performance penalty
+     * @var mixed
      */
-
     protected static $dbInitiated = false;
 
     /**
@@ -46,7 +40,15 @@ class ProfileControllerTest extends TestCase
         return new \Api\Controllers\ProfileController();
     }
 
-    public function setUp()
+    /**
+     * Disclaimer:
+     * the "right" way to do testing, that gives you the greatest
+     * confidence your tests methods don't get subtly interdependent in
+     * bug-hiding ways, is to re-seed your db before every test method, so
+     * just put seeding code in plain setUp if you can afford the
+     * performance penalty
+     */
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -58,7 +60,7 @@ class ProfileControllerTest extends TestCase
         Carbon::setTestNow(Carbon::now('UTC'));
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
 
