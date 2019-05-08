@@ -42,5 +42,31 @@ class CreateInitialTables extends Migration
             $table->longText('exception');
             $table->timestamp('failed_at')->useCurrent();
         });
+
+        Schema::create('demo_contacts', function (Blueprint $table) {
+            $table->bigIncrements('id');
+
+            $table->string('email')->unique();
+
+            // profile image and two factor auth phone
+            $table->string('photo_url')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+
+            $table->string('address1')->nullable();
+            $table->string('address2')->nullable();
+            $table->string('postal', 50)->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('country')->nullable();
+            $table->double('lat', 11, 8)->nullable();
+            $table->double('lng', 11, 8)->nullable();
+
+            $table->string('occupation')->nullable();
+            $table->string('employer')->nullable();
+            $table->text('note')->nullable();
+            $table->timestamps();
+        });
     }
 }

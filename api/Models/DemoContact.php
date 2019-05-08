@@ -30,5 +30,5 @@ class DemoContact extends Model
     /**
      * @var string
      */
-    protected $table = 'contact';
+    protected $table = 'demo_contacts';
 }
