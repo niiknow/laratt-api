@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
@@ -17,9 +16,21 @@ class Kernel extends ConsoleKernel
     ];
 
     /**
+     * Register the commands for the application.
+     *
+     * @return void
+     */
+    protected function commands()
+    {
+        $this->load(__DIR__ . '/Commands');
+
+        require base_path('routes/console.php');
+    }
+
+    /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
@@ -29,7 +40,7 @@ class Kernel extends ConsoleKernel
 
         // run job specifically for this app
         $search = storage_path() . '/logs/queue.log';
-        $cmd1   = 'ps -xf | grep \'[q]ueue:work\' | grep \'' . $search .'\'';
+        $cmd1   = 'ps -xf | grep \'[q]ueue:work\' | grep \'' . $search . '\'';
         $rst    = exec($cmd1);
         if (stripos($rst, $search) === false) {
             // \Log::info($search . ' started...');
@@ -44,23 +55,11 @@ class Kernel extends ConsoleKernel
             // this set to max use of 1GB or 1024 megabytes
             $cmd2 = 'queue:work --queue=default --tries=1 --sleep=2 --timeout=300 --memory=1024';
             $schedule->command($cmd2)
-                // since it's a queue processor, only check every 30 minutes or so
-                ->everyThirtyMinutes()
-                ->appendOutputTo($search);
+                     // since it's a queue processor, only check every 30 minutes or so
+                     ->everyThirtyMinutes()
+                     ->appendOutputTo($search);
 
             // echo 'starting!'."\n";
         }
-    }
-
-    /**
-     * Register the commands for the application.
-     *
-     * @return void
-     */
-    protected function commands()
-    {
-        $this->load(__DIR__.'/Commands');
-
-        require base_path('routes/console.php');
     }
 }

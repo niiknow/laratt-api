@@ -1,11 +1,22 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateInitialTables extends Migration
 {
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('jobs');
+        Schema::dropIfExists('failed_jobs');
+    }
+
     /**
      * Run the migrations.
      *
@@ -31,16 +42,5 @@ class CreateInitialTables extends Migration
             $table->longText('exception');
             $table->timestamp('failed_at')->useCurrent();
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('jobs');
-        Schema::dropIfExists('failed_jobs');
     }
 }

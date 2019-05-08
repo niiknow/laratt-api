@@ -1,15 +1,9 @@
 <?php
-
 namespace App\Providers;
 
-use Api\Models\User;
-use App\Observers\UserObserver;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Queue;
-use Illuminate\Support\ServiceProvider;
-
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {

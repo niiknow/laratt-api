@@ -1,21 +1,14 @@
 <?php
-
 namespace Tests\api\Controllers;
 
-use Tests\TestCase;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Artisan as Artisan;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Mockery;
+use Illuminate\Support\Facades\Artisan as Artisan;
+use Tests\TestCase;
 
 class TableControllerTest extends TestCase
 {
     use DatabaseTransactions;
-
-    private $yellow = "\e[1;33m";
-    private $green  = "\e[0;32m";
-    private $white  = "\e[0;37m";
-    private $url    = "/api/v1/tables";
 
     /**
      * Disclaimer:
@@ -28,10 +21,29 @@ class TableControllerTest extends TestCase
 
     protected static $dbInitiated = false;
 
-    protected static function initDB()
+    /**
+     * @var string
+     */
+    private $green = "\e[0;32m";
+
+    /**
+     * @var string
+     */
+    private $url = '/api/v1/tables';
+
+    /**
+     * @var string
+     */
+    private $white = "\e[0;37m";
+
+    /**
+     * @var string
+     */
+    private $yellow = "\e[1;33m";
+
+    public function mockServices()
     {
-        echo "\n\r\e[0;31mRefreshing the database for TableControllerTest...\n\r";
-        Artisan::call('migrate:fresh');
+        return new \Api\Controllers\UserController();
     }
 
     public function setUp()
@@ -53,11 +65,6 @@ class TableControllerTest extends TestCase
         Carbon::setTestNow();
     }
 
-    public function mockServices()
-    {
-        return new \Api\Controllers\UserController();
-    }
-
     public function testCreateUpdateDeleteBoomTable()
     {
         echo "\n\r{$this->yellow}    should create, update, and delete boom table...";
@@ -65,11 +72,11 @@ class TableControllerTest extends TestCase
         $postData = [
             'name' => 'Tom'
         ];
-        $headers  = array(
-            'Accept'        => 'application/json',
-            'x-tenant'      => 'utest'
-        );
-        $url      = $this->url . '/boom/create';
+        $headers = [
+            'Accept'   => 'application/json',
+            'x-tenant' => 'utest'
+        ];
+        $url = $this->url . '/boom/create';
 
         // create
         $response = $this->post($url, $postData, $headers);
@@ -100,5 +107,11 @@ class TableControllerTest extends TestCase
         $this->assertTrue(!isset($item), 'Item does not exists.');
 
         echo " {$this->green}[OK]{$this->white}\r\n";
+    }
+
+    protected static function initDB()
+    {
+        echo "\n\r\e[0;31mRefreshing the database for TableControllerTest...\n\r";
+        Artisan::call('migrate:fresh');
     }
 }
