@@ -47,7 +47,7 @@ class CreateInitialTables extends Migration
         Schema::create('a0$demo_contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
 
             // profile image and two factor auth phone
             $table->string('photo_url')->nullable();

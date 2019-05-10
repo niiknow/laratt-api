@@ -17,6 +17,7 @@ storage/debugbar/
 .env
 .git/
 storage/build/
+storage/installed
 .DS_Store
 coverage/
 

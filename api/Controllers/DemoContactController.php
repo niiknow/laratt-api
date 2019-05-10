@@ -16,6 +16,22 @@ class DemoContactController extends Controller
      * @var array
      */
     protected $vrules = [
+        'email'      => 'required|email|max:190',
+        'photo_url'  => 'nullable|url|max:190',
+        'phone'      => 'nullable|string|max:190',
+        'first_name' => 'nullable|string|max:190',
+        'last_name'  => 'nullable|string|max:190',
+        'address1'   => 'nullable|string|max:190',
+        'address2'   => 'nullable|string|max:190',
+        'postal'     => 'nullable|string|max:50',
+        'city'       => 'nullable|string|max:190',
+        'state'      => 'nullable|string|max:190',
+        'country'    => 'nullable|string|max:190',
+        'occupation' => 'nullable|string|max:190',
+        'employer'   => 'nullable|string|max:190',
+        'note'       => 'nullable|string',
+        'lat'        => 'nullable|numeric',
+        'lng'        => 'nullable|numeric'
     ];
 
     /**

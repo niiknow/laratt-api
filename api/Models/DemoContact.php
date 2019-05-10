@@ -1,10 +1,13 @@
 <?php
 namespace Api\Models;
 
+use Api\Extra\Traits\ImportableTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class DemoContact extends Model
 {
+    use ImportableTrait;
+
     /**
      * @var array
      */
