@@ -12,9 +12,6 @@
 export default {
   components: {
   },
-  props: {
-    id: 'id'
-  },
   mounted() {
   }
 }

@@ -627,9 +627,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
-  props: {
-    id: 'id'
-  },
   mounted: function mounted() {}
 });
 
@@ -869,6 +866,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -1716,7 +1714,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("p", [
           _vm._v("Please select from the menu on the left to continue...")
-        ])
+        ]),
+        _vm._v(" "),
+        _c("p", [_vm._v("Also, the data on this site resets hourly...")])
       ])
     ])
   }
