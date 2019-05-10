@@ -8,6 +8,8 @@
         import-text="Import"
         :fields="fields"
         :toolbar="toolbar"
+        @delete="gridDelete"
+        @edit="gridEdit"
       />
     </b-col>
   </b-row>
@@ -34,6 +36,13 @@ export default {
         }
       },
       fields: {
+        id: { label: 'ID', sortable: true },
+        actions: {
+          isLocal: true,
+          label: 'Actions',
+          defaultContent: '<a href="javascript:void(0);" data-action="edit" class="btn btn-primary btn-sm"><i class="mdi mdi-square-edit-outline"></i> Edit</a>' +
+            '<span data-action="delete" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i> Delete</span>'
+        },
         email: {
           sortable: true, searchable: true, label: 'Email'
         },
@@ -84,6 +93,37 @@ export default {
         }
       }
     }
+  },
+  methods: {
+    async gridDelete (item) {
+      const that   = this
+      const id     = item.id
+      const result = await that.$app.swal({
+        title: `Delete ${id}?`,
+        type: 'warning',
+        showCancelButton: true,
+        cancelButtonText: that.$t('buttons.cancel'),
+        confirmButtonColor: '#dd4b39',
+        confirmButtonText: that.$t('buttons.delete')
+      })
+
+      if (result.value) {
+        try {
+          const { data } = await that.$http.post(that.$app.apiRoute('democontact', 'delete', id))
+          if (that.$refs.table) {
+            that.$refs.table.reload()
+          }
+        } catch (e) {
+          that.$app.error(e)
+        }
+      }
+    },
+    gridEdit(item) {
+      const that = this
+      that.$router.push({
+        path: `/home/contact/${item.id}/edit`
+      })
+    },
   }
 }
 </script>

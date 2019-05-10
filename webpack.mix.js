@@ -26,9 +26,7 @@ mix.webpackConfig({
 });
 
 mix.js(`${ source }/js/myapp.js`, `${ public }/js`).extract();
-mix.sass(`${ source }/sass/myapp.scss`, `${ public }/css`, {
-  outputStyle: mix.inProduction() ? 'compact' : 'expanded'
-});
+mix.sass(`${ source }/sass/myapp.scss`, `${ public }/css`);
 
 mix.sourceMaps();
 mix.browserSync({

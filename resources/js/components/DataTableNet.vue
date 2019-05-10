@@ -148,7 +148,7 @@ export default {
           url: that.$app.apiRoute(that.rName, that.rPath),
           headers: {
             'X-Tenant': 'test',
-            'X-API-Token': 'demo123'
+            'X-Api-Key': 'demo123'
           }
         },
         processing: true,

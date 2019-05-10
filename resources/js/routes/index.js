@@ -1,8 +1,9 @@
 import DefaultContainer from '~/components/MainLayout'
 import Dashboard from '~/views/Dashboard'
 import ErrorPage from '~/views/Error'
-import Contacts from '~/views/Contacts'
 import Logout from '~/views/auth/Logout'
+import Contacts from '~/views/Contacts'
+import ContactEdit from '~/views/ContactEdit'
 
 const $routes = [
   {
@@ -28,6 +29,11 @@ const $routes = [
             path: 'contacts',
             name: 'Contacts',
             component: Contacts
+          },
+          {
+            path: 'contact/:id/edit',
+            name: 'Contact Edit',
+            component: ContactEdit
           }
         ]
       }
