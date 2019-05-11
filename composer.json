@@ -16,7 +16,7 @@
         "maatwebsite/excel": "^3.0",
         "rachidlaasri/laravel-installer": "^4.0",
         "zircote/swagger-php": "^3.0",
-        "niiknow/laratt": "^1.6.4"
+        "niiknow/laratt": "^1.6.5"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

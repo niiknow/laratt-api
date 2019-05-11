@@ -70,8 +70,7 @@ Run and visit `/api/documentation` for Swagger docs.
 
 ## Features
 - [x] See list of features here [laratt](https://github.com/niiknow/laratt#features)
-- [x] Simplify installation with [rachidlaasri/laravel-installer](https://github.com/rashidlaasri/LaravelInstaller).
-- [x] Simplify backup with [spatie/laravel-backup](https://github.com/spatie/laravel-backup)   
+- [x] Simplify installation with [rachidlaasri/laravel-installer](https://github.com/rashidlaasri/LaravelInstaller).  
 - [x] Simple authentication with `X-API-Key` header
 
 ## Q and A
