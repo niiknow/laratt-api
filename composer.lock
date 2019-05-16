@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0dfd733aedc8ea196edae99c784acae4",
+    "content-hash": "60478cef6155cecc76553285f080b842",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.93.7",
+            "version": "3.93.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "41fe205dae433d5cd7a48a4117d37a43a44ed0d2"
+                "reference": "6ecd66087eb928b75ab1f645e57c85f597fd6548"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/41fe205dae433d5cd7a48a4117d37a43a44ed0d2",
-                "reference": "41fe205dae433d5cd7a48a4117d37a43a44ed0d2",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6ecd66087eb928b75ab1f645e57c85f597fd6548",
+                "reference": "6ecd66087eb928b75ab1f645e57c85f597fd6548",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-05-10T18:13:26+00:00"
+            "time": "2019-05-15T18:08:48+00:00"
         },
         {
             "name": "darkaonline/l5-swagger",
@@ -859,16 +859,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.8.16",
+            "version": "v5.8.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "83d57f9f9162ab476c43b9ec00d463ff12c578fd"
+                "reference": "33c04dd2a431adeeb49926a4f2b20590cc033ca2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/83d57f9f9162ab476c43b9ec00d463ff12c578fd",
-                "reference": "83d57f9f9162ab476c43b9ec00d463ff12c578fd",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/33c04dd2a431adeeb49926a4f2b20590cc033ca2",
+                "reference": "33c04dd2a431adeeb49926a4f2b20590cc033ca2",
                 "shasum": ""
             },
             "require": {
@@ -1002,7 +1002,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-05-07T14:37:11+00:00"
+            "time": "2019-05-14T16:02:41+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1693,16 +1693,16 @@
         },
         {
             "name": "niiknow/laratt",
-            "version": "1.6.5",
+            "version": "1.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/niiknow/laratt.git",
-                "reference": "aff7b12c39a74366d52de581bd6a8b18bb5823fd"
+                "reference": "1ca5ffb91790726a6aa209de50eae30cd50452f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/niiknow/laratt/zipball/aff7b12c39a74366d52de581bd6a8b18bb5823fd",
-                "reference": "aff7b12c39a74366d52de581bd6a8b18bb5823fd",
+                "url": "https://api.github.com/repos/niiknow/laratt/zipball/1ca5ffb91790726a6aa209de50eae30cd50452f2",
+                "reference": "1ca5ffb91790726a6aa209de50eae30cd50452f2",
                 "shasum": ""
             },
             "require": {
@@ -1750,7 +1750,7 @@
                 "laratt",
                 "niiknow"
             ],
-            "time": "2019-05-10T22:27:29+00:00"
+            "time": "2019-05-16T17:36:36+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -5642,16 +5642,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.5.10",
+            "version": "7.5.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "d7d9cee051d03ed98df6023aad93f7902731a780"
+                "reference": "64cb33f5b520da490a7b13149d39b43cf3c890c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d7d9cee051d03ed98df6023aad93f7902731a780",
-                "reference": "d7d9cee051d03ed98df6023aad93f7902731a780",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/64cb33f5b520da490a7b13149d39b43cf3c890c6",
+                "reference": "64cb33f5b520da490a7b13149d39b43cf3c890c6",
                 "shasum": ""
             },
             "require": {
@@ -5722,7 +5722,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-05-09T05:06:47+00:00"
+            "time": "2019-05-14T04:53:02+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
