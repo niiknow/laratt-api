@@ -14,7 +14,7 @@ yarn-error.log
 .DS_Store
 coverage/
 bootstrap/cache/*.php
-build/
+storage/build/
 public/js/parts/*
 .env
 

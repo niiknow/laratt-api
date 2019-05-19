@@ -68,7 +68,9 @@
             "rm -f storage/framework/sessions/*",
             "npm run production",
             "composer update",
-            "COPYFILE_DISABLE=1 tar -X './.packageignore' -zcvf ./storage/build/dist.tar.gz ./"
+            "cp -f ./.init.php ./storage/build/init.php",
+            "COPYFILE_DISABLE=1 git archive --worktree-attributes --format=zip HEAD -o ./storage/build/dist.zip",
+            "COPYFILE_DISABLE=1 zip -ur ./storage/build/dist.zip ./vendor"
         ],
         "app:production": [
             "composer app:clear",
