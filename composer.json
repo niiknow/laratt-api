@@ -69,7 +69,7 @@
             "npm run production",
             "composer update",
             "cp -f ./.init.php ./storage/build/init.php",
-            "COPYFILE_DISABLE=1 git archive --worktree-attributes --format=zip HEAD -o ./storage/build/dist.zip",
+            "deployStash=`git stash create`; git archive --worktree-attributes --format=zip -o ./storage/build/dist.zip ${deployStash:-HEAD}",
             "COPYFILE_DISABLE=1 zip -ur ./storage/build/dist.zip ./vendor"
         ],
         "app:production": [
