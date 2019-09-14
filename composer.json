@@ -6,17 +6,17 @@
     "type": "project",
     "require": {
         "php": "^7.2",
-        "darkaonline/l5-swagger": "^5.8",
+        "darkaonline/l5-swagger": "^6.0",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.3.3",
-        "laravel/framework": "5.8.*",
+        "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
         "league/csv": "^9.1",
         "league/flysystem-aws-s3-v3": "^1.0",
         "maatwebsite/excel": "^3.0",
         "rachidlaasri/laravel-installer": "^4.0",
         "zircote/swagger-php": "^3.0",
-        "niiknow/laratt": "^1.6.6"
+        "niiknow/laratt": "^1.6"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -26,7 +26,7 @@
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
-        "phpunit/phpunit": "^7.5"
+        "phpunit/phpunit": "^8.0"
     },
     "autoload": {
         "classmap": [
@@ -91,11 +91,11 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "@php artisan key:generate"
+            "@php artisan key:generate --ansi"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover"
+            "@php artisan package:discover --ansi"
         ]
     },
     "config": {
