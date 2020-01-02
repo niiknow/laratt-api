@@ -42,7 +42,7 @@
         "noty": "^3.2.0-beta",
         "pdfjs-dist": "^2.2.228",
         "resolve-url-loader": "^2.3.2",
-        "sass": "^1.23.7",
+        "sass": "^1.24.0",
         "sass-loader": "^7.3.1",
         "sweetalert2": "^7.33.1",
         "tinycolor2": "^1.4.1",

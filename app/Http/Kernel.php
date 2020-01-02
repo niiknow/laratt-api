@@ -40,6 +40,7 @@ class Kernel extends HttpKernel
         'api' => [
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            'cors',
             'apikey'
         ]
     ];
@@ -59,6 +60,7 @@ class Kernel extends HttpKernel
         'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified'      => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'apikey'        => \Api\Extra\Middlewares\ValidApiKey::class
+        'apikey'        => \Api\Extra\Middlewares\ValidApiKey::class,
+        'cors'          => \Fruitcake\Cors\HandleCors::class
     ];
 }
