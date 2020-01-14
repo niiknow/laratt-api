@@ -21,5 +21,4 @@ Route::get('/{vue?}', 'HomeController@home')
 
 // add common name route for use on server-side
 Route::get('/login', 'HomeController@home')
-    ->where('vue', '[\/\w\.-]*')
     ->name('login');
