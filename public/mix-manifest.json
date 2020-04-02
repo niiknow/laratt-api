@@ -1,9 +1,10 @@
 {
-    "/js/vendor.js": "/js/vendor.js?id=5919ef56ea8a5e4666d0",
-    "/js/vendor.js.map": "/js/vendor.js.map?id=2d08de8df2ab6aa6a485",
-    "/js/manifest.js": "/js/manifest.js?id=ab7bdc26053f7c80d1a2",
-    "/js/manifest.js.map": "/js/manifest.js.map?id=e41d98a4ab58e3c8191c",
-    "/js/myapp.js": "/js/myapp.js?id=55ebe1c7fd38fe9f1cb8",
-    "/css/myapp.css": "/css/myapp.css?id=545315a59bd64d5cfbf9",
-    "/js/myapp.js.map": "/js/myapp.js.map?id=80ae67fec5a3464a90e9"
+    "/js/manifest.js": "/js/manifest.js?id=698e4b98350001bf3574",
+    "/js/manifest.js.map": "/js/manifest.js.map?id=b7c59459aee6f15e1598",
+    "/js/myapp.js": "/js/myapp.js?id=589b8e2152c871e5fc9f",
+    "/css/myapp.css": "/css/myapp.css?id=c9a6f4ac3684ab560841",
+    "/js/myapp.js.map": "/js/myapp.js.map?id=6977141788d3b73d3650",
+    "/css/myapp.css.map": "/css/myapp.css.map?id=0a38e406906f075c56d3",
+    "/js/vendor.js": "/js/vendor.js?id=ed7bc060ed5cfa378e0d",
+    "/js/vendor.js.map": "/js/vendor.js.map?id=1eaf797c29b2be72502b"
 }
