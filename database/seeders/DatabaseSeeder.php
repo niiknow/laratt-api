@@ -1,4 +1,5 @@
 <?php
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
@@ -6,11 +7,12 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
+     *
+     * @return void
      */
     public function run()
     {
-        // $this->call(XYZSeeder::class);
-        // create 888 contact
-        factory(Api\Models\DemoContact::class, 888)->create();
+        // \App\Models\User::factory(10)->create();
+        Api\Models\DemoContact::factory(888)->create();
     }
 }

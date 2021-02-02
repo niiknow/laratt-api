@@ -25,7 +25,7 @@ mix.webpackConfig({
   }
 });
 
-mix.js(`${ source }/js/myapp.js`, `${ public }/js`).extract();
+mix.js(`${ source }/js/myapp.js`, `${ public }/js`).extract().vue();
 mix.sass(`${ source }/sass/myapp.scss`, `${ public }/css`);
 
 mix.sourceMaps();

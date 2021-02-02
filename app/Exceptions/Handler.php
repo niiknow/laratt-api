@@ -1,21 +1,12 @@
 <?php
+
 namespace App\Exceptions;
 
-use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
-    /**
-     * A list of the inputs that are never flashed for validation exceptions.
-     *
-     * @var array
-     */
-    protected $dontFlash = [
-        'password',
-        'password_confirmation'
-    ];
-
     /**
      * A list of the exception types that are not reported.
      *
@@ -26,25 +17,24 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Render an exception into an HTTP response.
+     * A list of the inputs that are never flashed for validation exceptions.
      *
-     * @param  \Illuminate\Http\Request    $request
-     * @param  \Exception                  $exception
-     * @return \Illuminate\Http\Response
+     * @var array
      */
-    public function render($request, Exception $exception)
-    {
-        return parent::render($request, $exception);
-    }
+    protected $dontFlash = [
+        'password',
+        'password_confirmation',
+    ];
 
     /**
-     * Report or log an exception.
+     * Register the exception handling callbacks for the application.
      *
-     * @param  \Exception $exception
      * @return void
      */
-    public function report(Exception $exception)
+    public function register()
     {
-        parent::report($exception);
+        $this->reportable(function (Throwable $e) {
+            //
+        });
     }
 }
