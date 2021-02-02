@@ -1,5 +1,5 @@
 <?php
-namespace Database\Factories;
+namespace Database\Factories\Api\Models;
 
 use Api\Models\DemoContact;
 use Illuminate\Database\Eloquent\Factories\Factory;

@@ -98,7 +98,7 @@ export default {
     async gridDelete (item) {
       const that   = this
       const id     = item.id
-      const result = await that.$app.swal({
+      const result = await that.$app.swal.fire({
         title: `Delete ${id}?`,
         type: 'warning',
         showCancelButton: true,

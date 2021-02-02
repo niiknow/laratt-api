@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
@@ -11,13 +10,11 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * The path to the "home" route for your application.
+     * The api controller namespace for the application.
      *
-     * This is used by Laravel authentication to redirect users after login.
-     *
-     * @var string
+     * @var string|null
      */
-    public const HOME = '/home';
+    protected $api_namespace = 'Api\\Controllers';
 
     /**
      * The controller namespace for the application.
@@ -26,7 +23,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string|null
      */
-    // protected $namespace = 'App\\Http\\Controllers';
+    protected $namespace = 'App\\Http\\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -40,7 +37,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(function () {
             Route::prefix('api')
                 ->middleware('api')
-                ->namespace($this->namespace)
+                ->namespace($this->api_namespace)
                 ->group(base_path('routes/api.php'));
 
             Route::middleware('web')
@@ -56,7 +53,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function configureRateLimiting()
     {
-        RateLimiter::for('api', function (Request $request) {
+        RateLimiter::for ('api', function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
         });
     }

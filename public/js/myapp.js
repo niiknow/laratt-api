@@ -776,7 +776,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 that = _this;
                 id = item.id;
                 _context.next = 4;
-                return that.$app.swal({
+                return that.$app.swal.fire({
                   title: "Delete ".concat(id, "?"),
                   type: 'warning',
                   showCancelButton: true,
@@ -1548,8 +1548,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(lodash_get__WEBPACK_IMPORTED_MODULE_14__);
 /* harmony import */ var lodash_mapValues__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! lodash/mapValues */ "./node_modules/lodash/mapValues.js");
 /* harmony import */ var lodash_mapValues__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(lodash_mapValues__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var pdfjs_dist_build_pdf__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! pdfjs-dist/build/pdf */ "./node_modules/pdfjs-dist/build/pdf.js");
-/* harmony import */ var pdfjs_dist_build_pdf__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(pdfjs_dist_build_pdf__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var pdfjs_dist__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! pdfjs-dist */ "./node_modules/pdfjs-dist/build/pdf.js");
+/* harmony import */ var pdfjs_dist__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(pdfjs_dist__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var lodash_template__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! lodash/template */ "./node_modules/lodash/template.js");
 /* harmony import */ var lodash_template__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(lodash_template__WEBPACK_IMPORTED_MODULE_17__);
 
@@ -1570,7 +1570,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-(pdfjs_dist_build_pdf__WEBPACK_IMPORTED_MODULE_16___default().disableWorker) = true;
+pdfjs_dist__WEBPACK_IMPORTED_MODULE_16__.disableWorker = true;
 window.$bus = window.$bus = new (vue__WEBPACK_IMPORTED_MODULE_0___default())();
 window.appSettings = window.appSettings || {};
 window.Vue = (vue__WEBPACK_IMPORTED_MODULE_0___default());
@@ -1592,7 +1592,7 @@ $app.templating = (lodash_template__WEBPACK_IMPORTED_MODULE_17___default());
 (vue__WEBPACK_IMPORTED_MODULE_0___default().prototype.$app) = $app;
 (vue__WEBPACK_IMPORTED_MODULE_0___default().prototype.$bus) = $bus;
 (vue__WEBPACK_IMPORTED_MODULE_0___default().prototype.$app.swal) = (sweetalert2__WEBPACK_IMPORTED_MODULE_1___default());
-(vue__WEBPACK_IMPORTED_MODULE_0___default().prototype.$pdfjs) = (pdfjs_dist_build_pdf__WEBPACK_IMPORTED_MODULE_16___default());
+(vue__WEBPACK_IMPORTED_MODULE_0___default().prototype.$pdfjs) = pdfjs_dist__WEBPACK_IMPORTED_MODULE_16__;
 
 var noty = function noty(type, text) {
   new (noty__WEBPACK_IMPORTED_MODULE_2___default())({

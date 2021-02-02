@@ -14,7 +14,7 @@ import map from 'lodash/map'
 import find from 'lodash/find'
 import get from 'lodash/get'
 import mapValues from 'lodash/mapValues'
-import pdfjs from 'pdfjs-dist/build/pdf'
+import * as pdfjs from 'pdfjs-dist'
 import template from 'lodash/template'
 
 pdfjs.disableWorker = true

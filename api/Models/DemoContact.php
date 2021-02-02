@@ -2,11 +2,12 @@
 namespace Api\Models;
 
 use Api\Extra\Traits\ImportableTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class DemoContact extends Model
 {
-    use ImportableTrait;
+    use HasFactory, ImportableTrait;
 
     /**
      * @var array
