@@ -21,7 +21,7 @@
     },
     "require-dev": {
         "facade/ignition": "^2.5",
-        "fakerphp/faker": "^1.9.1",
+        "fakerphp/faker": "^1.13",
         "filp/whoops": "^2.0",
         "friendsofphp/php-cs-fixer": "^2.12",
         "laravel/sail": "^1.0.1",

@@ -1,19 +1,14 @@
 <?php
 namespace Tests\api\Controllers;
 
-use Carbon\Carbon;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Artisan as Artisan;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ProfileControllerTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
-    /**
-     * @var mixed
-     */
-    protected static $dbInitiated = false;
+    protected $seed = true;
 
     /**
      * @var string
@@ -40,33 +35,6 @@ class ProfileControllerTest extends TestCase
         return new \Api\Controllers\ProfileController();
     }
 
-    /**
-     * Disclaimer:
-     * the "right" way to do testing, that gives you the greatest
-     * confidence your tests methods don't get subtly interdependent in
-     * bug-hiding ways, is to re-seed your db before every test method, so
-     * just put seeding code in plain setUp if you can afford the
-     * performance penalty
-     */
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        if (!static::$dbInitiated) {
-            static::$dbInitiated = true;
-            static::initDB();
-        }
-
-        Carbon::setTestNow(Carbon::now('UTC'));
-    }
-
-    public function tearDown(): void
-    {
-        parent::tearDown();
-
-        Carbon::setTestNow();
-    }
-
     public function testCreateUpdateDeleteProfile()
     {
         echo "\n\r{$this->yellow}    should create, update, and delete profile...";
@@ -85,7 +53,7 @@ class ProfileControllerTest extends TestCase
         $url = $this->url . '/create';
 
         // create
-        $response = $this->post($url, $postData, $headers);
+        $response = $this->withHeaders($headers)->post($url, $postData);
         $response->assertStatus(201);
         $body = $response->json();
 
@@ -97,7 +65,7 @@ class ProfileControllerTest extends TestCase
         // update
         $postData['last_name'] = 'Niiknow';
         $postData['uid']       = $item->uid;
-        $response              = $this->post($url, $postData, $headers);
+        $response              = $this->withHeaders($headers)->post($url, $postData);
 
         $item = \Niiknow\Laratt\Models\ProfileModel::query()->from('utest$profile')->where('email', $postData['email'])->first();
         $this->assertTrue(isset($item));
@@ -106,7 +74,7 @@ class ProfileControllerTest extends TestCase
         $url = $this->url . '/' . $item->uid . '/delete';
 
         //delete
-        $response = $this->post($url, [], $headers);
+        $response = $this->withHeaders($headers)->post($url, []);
 
         $item = \Niiknow\Laratt\Models\ProfileModel::query()->from('utest$profile')->where('email', $postData['email'])->first();
         $this->assertTrue(!isset($item));
@@ -144,7 +112,7 @@ class ProfileControllerTest extends TestCase
                 'meta.domain' => $faker->domainWord
             ];
 
-            $data .= '"' . implode($fakedata, '","') . "\"\n";
+            $data .= '"' . implode('","', $fakedata) . "\"\n";
         }
 
         // count
@@ -152,7 +120,7 @@ class ProfileControllerTest extends TestCase
 
         // test datatable query
         $response = $this->withHeaders($headers)->post($url, [
-            'file' => new \Illuminate\Http\UploadedFile($filePath, 'test.csv', null, null, null, true)
+            'file' => new \Illuminate\Http\UploadedFile($filePath, 'test.csv', null, null, true)
         ]);
         $response->assertStatus(200);
 
@@ -190,7 +158,7 @@ class ProfileControllerTest extends TestCase
                 'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm' // test list query
             ];
             // \Log::error(json_encode($response->json()));
-            $response = $this->post($url, $fakedata, $headers);
+            $response = $this->withHeaders($headers)->post($url, $fakedata);
             // Fake any disk here
         }
 
@@ -208,7 +176,7 @@ class ProfileControllerTest extends TestCase
         $this->assertSame($expected, $body['recordsTotal'], 'Correctly return datatable.');
 
         // Create file
-        $url      = $this->url . '/list?limit=5&page=2';
+        $url      = $this->url . '/query?limit=5&page=2';
         $response = $this->withHeaders($headers)->get($url);
         $response->assertStatus(200);
         $body = $response->json();
@@ -218,7 +186,7 @@ class ProfileControllerTest extends TestCase
         $this->assertSame(5, count($body['data']), 'Has right count.');
         $expected = \Niiknow\Laratt\Models\ProfileModel::query()->from('ltest$profile')->count() - 8;
 
-        $url      = $this->url . '/list?filter[]=id:lte:8';
+        $url      = $this->url . '/query?filter[]=id:lte:8';
         $response = $this->withHeaders($headers)->delete($url);
         $response->assertStatus(200);
         // \Log::info($data);
@@ -227,11 +195,5 @@ class ProfileControllerTest extends TestCase
         $this->assertSame($expected, $count, 'Has right count.');
 
         echo " {$this->green}[OK]{$this->white}\r\n";
-    }
-
-    protected static function initDB()
-    {
-        echo "\n\r\e[0;31mRefreshing the database for ProfileControllerTest...\n\r";
-        Artisan::call('migrate:fresh');
     }
 }

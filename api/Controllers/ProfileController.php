@@ -3,6 +3,7 @@ namespace Api\Controllers;
 
 use Api\Controllers\Controller;
 use Niiknow\Laratt\Models\ProfileModel;
+use Niiknow\Laratt\TenancyResolver;
 use Niiknow\Laratt\Traits\ApiTableTrait;
 
 class ProfileController extends Controller

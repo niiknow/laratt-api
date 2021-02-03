@@ -9,11 +9,6 @@ class TableController extends Controller
     use ApiTableTrait;
 
     /**
-     * @var mixed
-     */
-    public $tableName;
-
-    /**
      * @var array
      */
     protected $vrules = [
@@ -24,7 +19,7 @@ class TableController extends Controller
         'public.*'   => 'nullable'
     ];
 
-    /**
+    /*
      * @OA\Post(
      *   path="/tables/{table}/create",
      *   tags={"tables"},
@@ -70,7 +65,7 @@ class TableController extends Controller
      * )
      */
 
-    /**
+    /*
      * @OA\Get(
      *   path="/tables/{table}/{uid}/retrieve",
      *   tags={"tables"},
@@ -130,7 +125,7 @@ class TableController extends Controller
      * )
      */
 
-    /**
+    /*
      * @OA\Delete(
      *   path="/tables/{table}/{uid}/delete",
      *   tags={"tables"},
@@ -191,7 +186,7 @@ class TableController extends Controller
      * )
      */
 
-    /**
+    /*
      * @OA\Get(
      *   path="/tables/{table}/query",
      *   tags={"tables"},
@@ -279,7 +274,7 @@ class TableController extends Controller
      * )
      */
 
-    /**
+    /*
      * @OA\Get(
      *   path="/tables/{table}/data",
      *   tags={"tables"},
@@ -325,7 +320,7 @@ class TableController extends Controller
      * )
      */
 
-    /**
+    /*
      * @OA\Post(
      *   path="/tables/{table}/{uid}/update",
      *   tags={"tables"},
@@ -381,7 +376,7 @@ class TableController extends Controller
      * )
      */
 
-    /**
+    /*
      * @OA\Post(
      *   path="/tables/{table}/import",
      *   tags={"tables"},
@@ -442,7 +437,7 @@ class TableController extends Controller
      * )
      */
 
-    /**
+    /*
      * @OA\Post(
      *   path="/tables/{table}/truncate",
      *   tags={"tables"},
@@ -485,7 +480,7 @@ class TableController extends Controller
      * )
      */
 
-    /**
+    /*
      * @OA\Post(
      *   path="/tables/{table}/drop",
      *   tags={"tables"},
@@ -526,8 +521,4 @@ class TableController extends Controller
      *   )
      * )
      */
-    public function getTableName()
-    {
-        return $this->tableName;
-    }
 }
