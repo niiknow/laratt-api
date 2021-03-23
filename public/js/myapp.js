@@ -101,7 +101,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var datatables_net_bs4__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! datatables.net-bs4 */ "./node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js");
 /* harmony import */ var datatables_net_bs4__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(datatables_net_bs4__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var datatables_net_bs4_css_dataTables_bootstrap4_min_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! datatables.net-bs4/css/dataTables.bootstrap4.min.css */ "./node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css");
-/* harmony import */ var vue_datatables_net__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-datatables-net */ "./node_modules/vue-datatables-net/lib/index.js");
+/* harmony import */ var vue_datatables_net__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-datatables-net */ "./node_modules/vue-datatables-net/dist/index.js");
 /* harmony import */ var vue_datatables_net__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_datatables_net__WEBPACK_IMPORTED_MODULE_3__);
 
 
@@ -1521,37 +1521,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var noty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! noty */ "./node_modules/noty/lib/noty.js");
-/* harmony import */ var noty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(noty__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ~/i18n */ "./resources/js/i18n/index.js");
-/* harmony import */ var lodash_keyBy__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash/keyBy */ "./node_modules/lodash/keyBy.js");
-/* harmony import */ var lodash_keyBy__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_keyBy__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var lodash_isString__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash/isString */ "./node_modules/lodash/isString.js");
-/* harmony import */ var lodash_isString__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash_isString__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var lodash_isNumber__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash/isNumber */ "./node_modules/lodash/isNumber.js");
-/* harmony import */ var lodash_isNumber__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash_isNumber__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var lodash_isBoolean__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lodash/isBoolean */ "./node_modules/lodash/isBoolean.js");
-/* harmony import */ var lodash_isBoolean__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(lodash_isBoolean__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var lodash_isArray__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lodash/isArray */ "./node_modules/lodash/isArray.js");
-/* harmony import */ var lodash_isArray__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(lodash_isArray__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var lodash_isDate__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lodash/isDate */ "./node_modules/lodash/isDate.js");
-/* harmony import */ var lodash_isDate__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(lodash_isDate__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var lodash_clone__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lodash/clone */ "./node_modules/lodash/clone.js");
-/* harmony import */ var lodash_clone__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(lodash_clone__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var lodash_filter__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lodash/filter */ "./node_modules/lodash/filter.js");
-/* harmony import */ var lodash_filter__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(lodash_filter__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var lodash_map__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! lodash/map */ "./node_modules/lodash/map.js");
-/* harmony import */ var lodash_map__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(lodash_map__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var lodash_find__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! lodash/find */ "./node_modules/lodash/find.js");
-/* harmony import */ var lodash_find__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(lodash_find__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! lodash/get */ "./node_modules/lodash/get.js");
-/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(lodash_get__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var lodash_mapValues__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! lodash/mapValues */ "./node_modules/lodash/mapValues.js");
-/* harmony import */ var lodash_mapValues__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(lodash_mapValues__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var pdfjs_dist__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! pdfjs-dist */ "./node_modules/pdfjs-dist/build/pdf.js");
-/* harmony import */ var pdfjs_dist__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(pdfjs_dist__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var lodash_template__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! lodash/template */ "./node_modules/lodash/template.js");
-/* harmony import */ var lodash_template__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(lodash_template__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ~/i18n */ "./resources/js/i18n/index.js");
+/* harmony import */ var lodash_keyBy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash/keyBy */ "./node_modules/lodash/keyBy.js");
+/* harmony import */ var lodash_keyBy__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_keyBy__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var lodash_isString__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash/isString */ "./node_modules/lodash/isString.js");
+/* harmony import */ var lodash_isString__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_isString__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var lodash_isNumber__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash/isNumber */ "./node_modules/lodash/isNumber.js");
+/* harmony import */ var lodash_isNumber__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash_isNumber__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var lodash_isBoolean__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash/isBoolean */ "./node_modules/lodash/isBoolean.js");
+/* harmony import */ var lodash_isBoolean__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash_isBoolean__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var lodash_isArray__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lodash/isArray */ "./node_modules/lodash/isArray.js");
+/* harmony import */ var lodash_isArray__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(lodash_isArray__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var lodash_isDate__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lodash/isDate */ "./node_modules/lodash/isDate.js");
+/* harmony import */ var lodash_isDate__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(lodash_isDate__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var lodash_clone__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lodash/clone */ "./node_modules/lodash/clone.js");
+/* harmony import */ var lodash_clone__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(lodash_clone__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var lodash_filter__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lodash/filter */ "./node_modules/lodash/filter.js");
+/* harmony import */ var lodash_filter__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(lodash_filter__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var lodash_map__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lodash/map */ "./node_modules/lodash/map.js");
+/* harmony import */ var lodash_map__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(lodash_map__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var lodash_find__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! lodash/find */ "./node_modules/lodash/find.js");
+/* harmony import */ var lodash_find__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(lodash_find__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! lodash/get */ "./node_modules/lodash/get.js");
+/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(lodash_get__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var lodash_mapValues__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! lodash/mapValues */ "./node_modules/lodash/mapValues.js");
+/* harmony import */ var lodash_mapValues__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(lodash_mapValues__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var pdfjs_dist__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! pdfjs-dist */ "./node_modules/pdfjs-dist/build/pdf.js");
+/* harmony import */ var pdfjs_dist__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(pdfjs_dist__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var lodash_template__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! lodash/template */ "./node_modules/lodash/template.js");
+/* harmony import */ var lodash_template__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(lodash_template__WEBPACK_IMPORTED_MODULE_16__);
 
 
 
@@ -1569,85 +1567,46 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-pdfjs_dist__WEBPACK_IMPORTED_MODULE_16__.disableWorker = true;
+pdfjs_dist__WEBPACK_IMPORTED_MODULE_15__.disableWorker = true;
 window.$bus = window.$bus = new (vue__WEBPACK_IMPORTED_MODULE_0___default())();
 window.appSettings = window.appSettings || {};
 window.Vue = (vue__WEBPACK_IMPORTED_MODULE_0___default());
 var $app = window.appSettings;
 $app.primaryKey = window.appSettings.primaryKey || 'id';
-$app.keyBy = (lodash_keyBy__WEBPACK_IMPORTED_MODULE_4___default());
-$app.isString = (lodash_isString__WEBPACK_IMPORTED_MODULE_5___default());
-$app.isNumber = (lodash_isNumber__WEBPACK_IMPORTED_MODULE_6___default());
-$app.isBoolean = (lodash_isBoolean__WEBPACK_IMPORTED_MODULE_7___default());
-$app.isArray = (lodash_isArray__WEBPACK_IMPORTED_MODULE_8___default());
-$app.isDate = (lodash_isDate__WEBPACK_IMPORTED_MODULE_9___default());
-$app.clone = (lodash_clone__WEBPACK_IMPORTED_MODULE_10___default());
-$app.filter = (lodash_filter__WEBPACK_IMPORTED_MODULE_11___default());
-$app.map = (lodash_map__WEBPACK_IMPORTED_MODULE_12___default());
-$app.get = (lodash_get__WEBPACK_IMPORTED_MODULE_14___default());
-$app.find = (lodash_find__WEBPACK_IMPORTED_MODULE_13___default());
-$app.mapValues = (lodash_mapValues__WEBPACK_IMPORTED_MODULE_15___default());
-$app.templating = (lodash_template__WEBPACK_IMPORTED_MODULE_17___default());
+$app.keyBy = (lodash_keyBy__WEBPACK_IMPORTED_MODULE_3___default());
+$app.isString = (lodash_isString__WEBPACK_IMPORTED_MODULE_4___default());
+$app.isNumber = (lodash_isNumber__WEBPACK_IMPORTED_MODULE_5___default());
+$app.isBoolean = (lodash_isBoolean__WEBPACK_IMPORTED_MODULE_6___default());
+$app.isArray = (lodash_isArray__WEBPACK_IMPORTED_MODULE_7___default());
+$app.isDate = (lodash_isDate__WEBPACK_IMPORTED_MODULE_8___default());
+$app.clone = (lodash_clone__WEBPACK_IMPORTED_MODULE_9___default());
+$app.filter = (lodash_filter__WEBPACK_IMPORTED_MODULE_10___default());
+$app.map = (lodash_map__WEBPACK_IMPORTED_MODULE_11___default());
+$app.get = (lodash_get__WEBPACK_IMPORTED_MODULE_13___default());
+$app.find = (lodash_find__WEBPACK_IMPORTED_MODULE_12___default());
+$app.mapValues = (lodash_mapValues__WEBPACK_IMPORTED_MODULE_14___default());
+$app.templating = (lodash_template__WEBPACK_IMPORTED_MODULE_16___default());
 (vue__WEBPACK_IMPORTED_MODULE_0___default().prototype.$app) = $app;
 (vue__WEBPACK_IMPORTED_MODULE_0___default().prototype.$bus) = $bus;
 (vue__WEBPACK_IMPORTED_MODULE_0___default().prototype.$app.swal) = (sweetalert2__WEBPACK_IMPORTED_MODULE_1___default());
-(vue__WEBPACK_IMPORTED_MODULE_0___default().prototype.$pdfjs) = pdfjs_dist__WEBPACK_IMPORTED_MODULE_16__;
-
-var noty = function noty(type, text) {
-  new (noty__WEBPACK_IMPORTED_MODULE_2___default())({
-    layout: 'topRight',
-    theme: 'bootstrap-v4',
-    timeout: 3000,
-    text: text,
-    type: type
-  }).show();
-};
-
-$app.noty = {
-  alert: function alert(text) {
-    if (text) {
-      noty('alert', text);
-    }
-  },
-  success: function success(text) {
-    if (text) {
-      noty('success', text);
-    }
-  },
-  error: function error(text) {
-    if (text) {
-      noty('error', text);
-    }
-  },
-  warning: function warning(text) {
-    if (text) {
-      noty('warning', text);
-    }
-  },
-  info: function info(text) {
-    if (text) {
-      noty('info', text);
-    }
-  }
-};
+(vue__WEBPACK_IMPORTED_MODULE_0___default().prototype.$pdfjs) = pdfjs_dist__WEBPACK_IMPORTED_MODULE_15__;
 
 $app.error = function (error) {
   if (error instanceof String) {
-    noty('error', error);
+    // noty('error', error)
     return;
   }
 
   if (error.response) {
     // Not allowed error
     if (error.response.status === 403) {
-      noty('error', _i18n__WEBPACK_IMPORTED_MODULE_3__.default.t('exceptions.unauthorized'));
+      // noty('error', i18n.t('exceptions.unauthorized'))
       return;
     } // Domain error
 
 
     if (error.response.data.errors || error.response.data.error) {
-      noty('error', error.response.data.message || JSON.stringify(error.response.data.error));
+      // noty('error', error.response.data.message || JSON.stringify(error.response.data.error))
       return;
     }
   }
@@ -1804,9 +1763,8 @@ var state = {
       if (!isString(payload)) {
         type = payload.type;
         msg = payload.message;
-      }
+      } // Vue.prototype.$app.noty[type](msg)
 
-      Vue.prototype.$app.noty[type](msg);
     },
     setLoading: function setLoading(state, payload) {
       state.loading = payload;
@@ -3411,7 +3369,7 @@ render._withStripped = true
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse("{\"actions\":{},\"datatables\":{\"show_per_page\":\"Show\",\"entries_per_page\":\"entries\",\"infos\":\"Infos\",\"search\":\"Search\",\"no_results\":\"Resource has no data\",\"no_matched_results\":\"No data found\",\"paginate\":\"Showing <b>{fromRow}</b> to <b>{toRow}</b> of <b>{totalRows}</b> entries\"},\"errors\":{},\"fields\":{},\"messages\":{\"site_name\":\"Laratt API Demo\"}}");
+module.exports = JSON.parse('{"actions":{},"datatables":{"show_per_page":"Show","entries_per_page":"entries","infos":"Infos","search":"Search","no_results":"Resource has no data","no_matched_results":"No data found","paginate":"Showing <b>{fromRow}</b> to <b>{toRow}</b> of <b>{totalRows}</b> entries"},"errors":{},"fields":{},"messages":{"site_name":"Laratt API Demo"}}');
 
 /***/ }),
 
@@ -3448,7 +3406,7 @@ module.exports = jQuery;
 
 /***/ }),
 
-/***/ "?00a6":
+/***/ "?4a14":
 /*!************************!*\
   !*** canvas (ignored) ***!
   \************************/
@@ -3458,7 +3416,7 @@ module.exports = jQuery;
 
 /***/ }),
 
-/***/ "?65c5":
+/***/ "?fe90":
 /*!********************!*\
   !*** fs (ignored) ***!
   \********************/
@@ -3468,7 +3426,7 @@ module.exports = jQuery;
 
 /***/ }),
 
-/***/ "?d356":
+/***/ "?d446":
 /*!**********************!*\
   !*** http (ignored) ***!
   \**********************/
@@ -3478,7 +3436,7 @@ module.exports = jQuery;
 
 /***/ }),
 
-/***/ "?8ff5":
+/***/ "?4c38":
 /*!***********************!*\
   !*** https (ignored) ***!
   \***********************/
@@ -3488,7 +3446,7 @@ module.exports = jQuery;
 
 /***/ }),
 
-/***/ "?1e3f":
+/***/ "?9f5f":
 /*!*********************!*\
   !*** url (ignored) ***!
   \*********************/
@@ -3498,7 +3456,7 @@ module.exports = jQuery;
 
 /***/ }),
 
-/***/ "?eda4":
+/***/ "?afbb":
 /*!**********************!*\
   !*** zlib (ignored) ***!
   \**********************/
@@ -3509,5 +3467,12 @@ module.exports = jQuery;
 /***/ })
 
 },
-0,[["./resources/js/myapp.js","/js/manifest","/js/vendor"],["./resources/sass/myapp.scss","/js/manifest","/js/vendor"]]]);
+/******/ function(__webpack_require__) { // webpackRuntimeModules
+/******/ "use strict";
+/******/ 
+/******/ var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId); }
+/******/ __webpack_require__.O(0, ["css/myapp","/js/vendor"], function() { return __webpack_exec__("./resources/js/myapp.js"), __webpack_exec__("./resources/sass/myapp.scss"); });
+/******/ var __webpack_exports__ = __webpack_require__.O();
+/******/ }
+]);
 //# sourceMappingURL=myapp.js.map

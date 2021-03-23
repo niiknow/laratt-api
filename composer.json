@@ -9,12 +9,12 @@
         "darkaonline/l5-swagger": "^8.0.4",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^8.12",
-        "laravel/tinker": "^2.5",
-        "league/csv": "^9.1",
-        "league/flysystem-aws-s3-v3": "^1.0.29",
-        "maatwebsite/excel": "^3.1.26",
+        "guzzlehttp/guzzle": "^7.3",
+        "laravel/framework": "^8.34",
+        "laravel/tinker": "^2.6",
+        "league/csv": "^9.6",
+        "league/flysystem-aws-s3-v3": "^1.0",
+        "maatwebsite/excel": "^3.1",
         "niiknow/laratt": "^1.9.2",
         "rachidlaasri/laravel-installer": "^4.1.0",
         "zircote/swagger-php": "^3.1.0"
@@ -22,12 +22,12 @@
     "require-dev": {
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.13",
-        "filp/whoops": "^2.0",
-        "friendsofphp/php-cs-fixer": "^2.12",
-        "laravel/sail": "^1.0.1",
-        "mockery/mockery": "^1.4.2",
-        "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3"
+        "filp/whoops": "^2.11",
+        "friendsofphp/php-cs-fixer": "^2.18",
+        "laravel/sail": "^1.4",
+        "mockery/mockery": "^1.4",
+        "nunomaduro/collision": "^5.3",
+        "phpunit/phpunit": "^9.5"
     },
     "config": {
         "optimize-autoloader": true,

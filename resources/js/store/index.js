@@ -19,7 +19,7 @@ export default new Store({
         msg = payload.message
       }
 
-      Vue.prototype.$app.noty[type](msg)
+      // Vue.prototype.$app.noty[type](msg)
     },
     setLoading(state, payload) {
       state.loading = payload

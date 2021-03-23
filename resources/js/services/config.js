@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import swal from 'sweetalert2'
-import Noty from 'noty'
 import i18n from '~/i18n'
 import keyBy from 'lodash/keyBy'
 import isString from 'lodash/isString'
@@ -44,60 +43,22 @@ Vue.prototype.$bus      = $bus
 Vue.prototype.$app.swal = swal
 Vue.prototype.$pdfjs    = pdfjs
 
-const noty = (type, text) => {
-  new Noty({
-    layout: 'topRight',
-    theme: 'bootstrap-v4',
-    timeout: 3000,
-    text,
-    type
-  }).show()
-}
-
-$app.noty = {
-  alert: (text) => {
-    if (text) {
-      noty('alert', text)
-    }
-  },
-  success: (text) => {
-    if (text) {
-      noty('success', text)
-    }
-  },
-  error: (text) => {
-    if (text) {
-      noty('error', text)
-    }
-  },
-  warning: (text) => {
-    if (text) {
-      noty('warning', text)
-    }
-  },
-  info: (text) => {
-    if (text) {
-      noty('info', text)
-    }
-  }
-}
-
 $app.error = (error) => {
   if (error instanceof String) {
-    noty('error', error)
+    // noty('error', error)
     return
   }
 
   if (error.response) {
     // Not allowed error
     if (error.response.status === 403) {
-      noty('error', i18n.t('exceptions.unauthorized'))
+      // noty('error', i18n.t('exceptions.unauthorized'))
       return
     }
 
     // Domain error
     if (error.response.data.errors || error.response.data.error) {
-      noty('error', error.response.data.message || JSON.stringify(error.response.data.error))
+      // noty('error', error.response.data.message || JSON.stringify(error.response.data.error))
       return
     }
   }
